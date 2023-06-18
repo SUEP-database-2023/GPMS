@@ -19,9 +19,11 @@ depends_on = None
 def upgrade() -> None:
     op.create_table(
         "admins",
-        sa.Column("admin_id", sa.Integer, primary_key=True, index=True),
-        sa.Column("admin_name", sa.String(10), nullable=False),
-        sa.Column("admin_pwd", sa.String(15), nullable=False),
+        sa.Column(
+            "admin_id", sa.Integer, primary_key=True, index=True, comment="管理员编号"
+        ),
+        sa.Column("admin_name", sa.String(10), nullable=False, comment="管理员姓名"),
+        sa.Column("admin_pwd", sa.String(15), nullable=False, comment="管理员账号密码"),
     )
 
 

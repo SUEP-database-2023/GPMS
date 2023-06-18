@@ -19,11 +19,13 @@ depends_on = None
 def upgrade() -> None:
     op.create_table(
         "teachers",
-        sa.Column("teacher_id", sa.Integer, primary_key=True, index=True),
-        sa.Column("teacher_name", sa.String(10), nullable=False),
-        sa.Column("teacher_pwd", sa.String(15), nullable=False),
-        sa.Column("teacher_spec", sa.String(10), nullable=False),
-        sa.Column("teacher_prof", sa.String(10), nullable=False),
+        sa.Column(
+            "teacher_id", sa.Integer, primary_key=True, index=True, comment="教师编号"
+        ),
+        sa.Column("teacher_name", sa.String(10), nullable=False, comment="教师姓名"),
+        sa.Column("teacher_pwd", sa.String(15), nullable=False, comment="教师账号密码"),
+        sa.Column("teacher_spec", sa.String(10), nullable=False, comment="教师专业"),
+        sa.Column("teacher_prof", sa.String(10), nullable=False, comment="教师职称"),
         sa.CheckConstraint(
             "teacher_spec IN ('信息与计算科学', '应用物理')", name="ck_teacher_spec_options"
         ),
