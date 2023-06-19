@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import { Button, Layout, Menu, Typography } from "antd";
+import { Button, Layout, Menu, Typography, Divider } from "antd";
 import Logo from "../../assets/logo.png";
 import "../../index.css";
 import {
@@ -28,12 +28,11 @@ function MyLayOut({ menuItems }) {
   };
   return (
     <>
-      <Layout className="py-6 h-screen">
+      <Layout className=" h-screen">
         <Sider
           collapsed={collapsed}
           breakpoint="lg"
           collapsedWidth="0"
-          className=" border-r-2 border-black"
           theme="light"
         >
           <div className="flex flex-col justify-center items-center my-20">
@@ -55,8 +54,11 @@ function MyLayOut({ menuItems }) {
             }))}
           />
         </Sider>
+
         <Layout>
-          <Header className="bg-white flex items-center">
+          <Header
+            className={`bg-${isDarkMode ? "black" : "white"} flex items-center`}
+          >
             <div className="flex items-center flex-grow">
               <Button
                 type="text"
@@ -74,6 +76,7 @@ function MyLayOut({ menuItems }) {
               </div>
             </div>
           </Header>
+
           <Content>
             <Routes>{generateRoutes()}</Routes>
           </Content>
