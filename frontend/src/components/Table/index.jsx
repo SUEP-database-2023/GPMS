@@ -26,7 +26,7 @@ const data = [
     tags: ["cool", "teacher"],
   },
 ];
-const form = () => (
+const table = () => (
   <Table dataSource={data}>
     <ColumnGroup title="Name">
       <Column title="First Name" dataIndex="firstName" key="firstName" />
@@ -60,4 +60,4 @@ const form = () => (
     />
   </Table>
 );
-export default form;
+export default table;

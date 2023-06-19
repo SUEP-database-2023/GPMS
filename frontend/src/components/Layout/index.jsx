@@ -8,10 +8,6 @@ import "../../index.css";
 const { Sider, Content } = Layout;
 
 function MyLayOut({ menuItems }) {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-
   const userName = useSelector((state) => state.user.userName);
 
   const generateRoutes = () => {
@@ -21,23 +17,14 @@ function MyLayOut({ menuItems }) {
   };
   return (
     <>
-      <Layout
-        style={{
-          padding: "24px 0",
-          background: colorBgContainer,
-        }}
-      >
+      <Layout className="py-6 h-screen">
         <Sider
-          style={{
-            background: colorBgContainer,
-          }}
+          breakpoint="lg"
+          collapsedWidth="0"
+          className=" border-r-2 border-black"
         >
           <div className="flex flex-col justify-center items-center my-20">
-            <img
-              src={Logo}
-              alt="Logo"
-              style={{ width: "50%", border: "none" }}
-            />
+            <img src={Logo} alt="Logo" className="w-1/2 border-none" />
             <h1 className="font-normal text-base leading-7 text-red-500">
               {userName}
             </h1>

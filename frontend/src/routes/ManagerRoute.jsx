@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import ParameterSettings from "./ParameterSettings";
-import SubjectReview from "./SubjectReview";
-import CourseSelection from "./CourseSelection";
-import ExtraFeatures from "./ExtraFeatures";
-import SelectionResult from "./SelectionResult";
-import SystemSettings from "./SystemSettings";
-import MyLayOut from "../../components/LayOut";
-import "../../index.css";
+import ParameterSettings from "../pages/ManagerPage/ParameterSettings";
+import SubjectReview from "../pages/ManagerPage/SubjectReview";
+import CourseSelection from "../pages/ManagerPage/CourseSelection";
+import ExtraFeatures from "../pages/ManagerPage/ExtraFeatures";
+import SelectionResult from "../pages/ManagerPage/SelectionResult";
+import SystemSettings from "../pages/ManagerPage/SystemSettings";
+import MyLayOut from "../components/LayOut";
+import "../index.css";
 
 const menuItems = [
   {
