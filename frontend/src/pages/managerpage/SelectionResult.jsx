@@ -1,9 +1,12 @@
 import React from "react";
+import { Typography } from "antd";
+
+const { Title } = Typography;
 
 const SelectionResult = () => {
   return (
     <div>
-      <h1>选题结果</h1>
+      <Title level={2}>选题结果</Title>
     </div>
   );
 };

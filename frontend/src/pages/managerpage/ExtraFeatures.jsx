@@ -1,9 +1,12 @@
 import React from "react";
+import { Typography } from "antd";
+
+const { Title } = Typography;
 
 const ExtraFeatures = () => {
   return (
     <div>
-      <h1>额外功能</h1>
+      <Title level={2}>额外功能</Title>
     </div>
   );
 };

@@ -1,9 +1,11 @@
 import React from "react";
+import { Typography } from "antd";
 
+const { Title } = Typography;
 const ParameterSettings = () => {
   return (
     <div>
-      <h1>参数设置</h1>
+      <Title level={2}>参数设置</Title>
     </div>
   );
 };

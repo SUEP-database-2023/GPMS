@@ -1,9 +1,11 @@
 import React from "react";
+import { Typography } from "antd";
 
+const { Title } = Typography;
 const SubjectReview = () => {
   return (
     <div>
-      <h1>课题审核</h1>
+      <Title level={2}>课题审核</Title>
     </div>
   );
 };
