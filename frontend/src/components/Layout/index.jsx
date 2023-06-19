@@ -22,6 +22,7 @@ function MyLayOut({ menuItems }) {
           breakpoint="lg"
           collapsedWidth="0"
           className=" border-r-2 border-black"
+          theme="light"
         >
           <div className="flex flex-col justify-center items-center my-20">
             <img src={Logo} alt="Logo" className="w-1/2 border-none" />
