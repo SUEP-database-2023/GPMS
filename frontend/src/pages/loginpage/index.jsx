@@ -1,10 +1,13 @@
 import React from "react";
+import MyLoginForm from "../../components/Form/MyLoginForm";
+import MyLoginLayOut from "../../components/Layout/MyLoginLayOut";
+import "../../index.css";
 
 const loginpage = () => {
   return (
-    <div>
-      <h1>Login Page</h1>
-    </div>
+    <>
+      <MyLoginLayOut MyLoginFrom={MyLoginForm} />
+    </>
   );
 };
 

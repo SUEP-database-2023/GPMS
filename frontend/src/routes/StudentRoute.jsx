@@ -4,14 +4,12 @@ import ProjectSubmit from "../pages/StudentPage/ProjectSubmit";
 import CourseSelection from "../pages/StudentPage/CourseSelection";
 import SelectionResults from "../pages/StudentPage/SelectionResults";
 import SystemSettings from "../pages/StudentPage/SystemSettings";
-import MyLayOut from "../components/LayOut";
+import MyLayOut from "../components/Layout/MyLayOut";
 import {
   ProfileOutlined,
-  DesktopOutlined,
   FolderOutlined,
   ControlOutlined,
   MailOutlined,
-  FolderAddOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
 import "../index.css";

@@ -5,7 +5,7 @@ import CourseSelection from "../pages/ManagerPage/CourseSelection";
 import ExtraFeatures from "../pages/ManagerPage/ExtraFeatures";
 import SelectionResult from "../pages/ManagerPage/SelectionResult";
 import SystemSettings from "../pages/ManagerPage/SystemSettings";
-import MyLayOut from "../components/LayOut";
+import MyLayOut from "../components/Layout/MyLayOut";
 import {
   DesktopOutlined,
   FolderOutlined,

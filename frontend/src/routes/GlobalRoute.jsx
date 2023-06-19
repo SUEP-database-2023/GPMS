@@ -5,7 +5,7 @@ import StudentRoute from "./StudentRoute";
 import ManagerRoute from "./ManagerRoute";
 import TeacherRoute from "./TeacherRoute";
 import { ConfigProvider, theme } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 function GlobalRoute() {
   const { defaultAlgorithm, darkAlgorithm } = theme;

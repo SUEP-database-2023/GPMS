@@ -4,7 +4,7 @@ import ProjectSubmit from "../pages/TeacherPage/ProjectSubmit";
 import CourseSelection from "../pages/TeacherPage/CourseSelection";
 import SelectionResults from "../pages/TeacherPage/SelectionResults";
 import SystemSettings from "../pages/TeacherPage/SystemSettings";
-import MyLayOut from "../components/LayOut";
+import MyLayOut from "../components/Layout/MyLayOut";
 import {
   ProfileOutlined,
   DesktopOutlined,

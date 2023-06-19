@@ -57,7 +57,8 @@ function MyLayOut({ menuItems }) {
 
         <Layout>
           <Header
-            className={`bg-${isDarkMode ? "black" : "white"} flex items-center`}
+            style={{ backgroundColor: isDarkMode ? "black" : "white" }}
+            className=" flex items-center`"
           >
             <div className="flex items-center flex-grow">
               <Button
