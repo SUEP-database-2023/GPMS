@@ -2,10 +2,21 @@ import React from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Typography, Radio } from "antd";
 import "../../index.css";
+import { useNavigate } from "react-router-dom";
+
 const { Title } = Typography;
 const App = () => {
+  const navigate = useNavigate();
+
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
+    if (values.UserType === "student") {
+      navigate("/studentpage");
+    } else if (values.UserType === "teacher") {
+      navigate("/teacherpage");
+    } else if (values.UserType === "manager") {
+      navigate("/managerpage");
+    }
   };
 
   return (
@@ -26,11 +37,13 @@ const App = () => {
           onFinish={onFinish}
         >
           <div className="mb-4">
-            <Radio.Group defaultValue="stduent" buttonStyle="solid">
-              <Radio.Button value="stduent">学生端</Radio.Button>
-              <Radio.Button value="teacher">教师端</Radio.Button>
-              <Radio.Button value="manager">管理员端</Radio.Button>
-            </Radio.Group>
+            <Form.Item name="UserType" initialValue="student">
+              <Radio.Group buttonStyle="solid">
+                <Radio.Button value="student">学生端</Radio.Button>
+                <Radio.Button value="teacher">教师端</Radio.Button>
+                <Radio.Button value="manager">管理员端</Radio.Button>
+              </Radio.Group>
+            </Form.Item>
           </div>
           <Form.Item
             name="username"
