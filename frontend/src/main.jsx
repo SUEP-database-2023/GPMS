@@ -8,10 +8,12 @@ import Studentpage from "./pages/studentpage/index";
 import TeacherRoute from "./pages/teacherpage/index";
 import Logo from "./assets/logo.png";
 import "./index.css";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <Router>
         <Routes>
           <Route path="/" element={<Loginpage />} />
@@ -19,7 +21,7 @@ function App() {
           <Route path="/studentpage" element={<Studentpage />} />
         </Routes>
       </Router>
-    </>
+    </Provider>
   );
 }
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);

@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom/client";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
-import { HomeOutlined, UserOutlined, BookOutlined } from "@ant-design/icons";
-// import Teacherpage from "./pages/teacherpage";
+import { Layout, Menu, theme } from "antd";
 import Logo from "../../assets/logo.png";
 import "../../index.css";
 
 const { Sider, Content } = Layout;
 
-function MyLatOut({ menuItems }) {
+function MyLayOut({ menuItems }) {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const userName = useSelector((state) => state.user.userName);
+
   const generateRoutes = () => {
     return menuItems.map((item) => (
-      <Route path={item.url} element={item.element} />
+      <Route key={item.id} path={item.url} element={item.element} />
     ));
   };
   return (
@@ -39,7 +39,7 @@ function MyLatOut({ menuItems }) {
               style={{ width: "50%", border: "none" }}
             />
             <h1 className="font-normal text-base leading-7 text-red-500">
-              Your Text Here
+              {userName}
             </h1>
           </div>
           <Menu
@@ -47,7 +47,6 @@ function MyLatOut({ menuItems }) {
             defaultSelectedKeys={["1"]}
             items={menuItems.map((item) => ({
               key: item.key,
-              // icon: item.icon,
               label: <Link to={item.url}>{item.label}</Link>,
             }))}
           />
@@ -59,4 +58,4 @@ function MyLatOut({ menuItems }) {
     </>
   );
 }
-export default MyLatOut;
+export default MyLayOut;
