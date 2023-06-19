@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "../../components/index";
 
-const studentpage = () => {
+const studentRoute = () => {
   return (
     <div>
       <h1>student Page</h1>
@@ -10,4 +10,4 @@ const studentpage = () => {
   );
 };
 
-export default studentpage;
+export default studentRoute;

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import Loginpage from "./pages/loginpage";
 import Studentpage from "./pages/studentpage";
-import Teacherpage from "./pages/teacherpage";
+import Teacherpage from "./pages/managerpage";
 
 const { Sider, Content } = Layout;
 

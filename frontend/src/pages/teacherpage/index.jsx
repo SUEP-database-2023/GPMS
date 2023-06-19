@@ -1,29 +1,11 @@
-import React, { useEffect, useState } from "react";
-import ParameterSettings from "./ParameterSettings";
-import SubjectReview from "./SubjectReview";
-import MyLayOut from "../../components/LayOut";
-import "../../index.css";
+import React from "react";
 
-const menuItems = [
-  {
-    key: "1",
-    label: "参数设置",
-    url: "ParameterSettings",
-    element: <ParameterSettings />,
-  },
-  {
-    key: "2",
-    label: "课题审核",
-    url: "SubjectReview",
-    element: <SubjectReview />,
-  },
-];
-
-function TeacherRoute() {
+const TeacherRoute = () => {
   return (
-    <>
-      <MyLayOut menuItems={menuItems} />
-    </>
+    <div>
+      <h1>课题审核</h1>
+    </div>
   );
-}
+};
+
 export default TeacherRoute;
