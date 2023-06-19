@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import { Button, Layout, Menu, Typography, Divider } from "antd";
+import { Button, Layout, Menu, Typography } from "antd";
 import Logo from "../../assets/logo.png";
 import "../../index.css";
 import {
