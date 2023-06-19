@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ParameterSettings from "../pages/ManagerPage/ParameterSettings";
 import SubjectReview from "../pages/ManagerPage/SubjectReview";
 import CourseSelection from "../pages/ManagerPage/CourseSelection";

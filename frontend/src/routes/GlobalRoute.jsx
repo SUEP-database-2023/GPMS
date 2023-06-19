@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Loginpage from "../pages/LoginPage/index";
-import StudentRoute from "../pages/StudentPage/index";
+import StudentRoute from "./StudentRoute";
 import ManagerRoute from "./ManagerRoute";
-import TeacherRoute from "../pages/TeacherPage/index";
+import TeacherRoute from "./TeacherRoute";
 import { ConfigProvider, theme } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
