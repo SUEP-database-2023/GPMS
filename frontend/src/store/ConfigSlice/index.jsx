@@ -1,7 +1,9 @@
+import { TrophyOutlined } from "@ant-design/icons";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isDarkMode: false,
+  // isDarkMode: true,
 };
 
 const configSlice = createSlice({
