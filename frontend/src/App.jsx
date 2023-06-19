@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Layout, Menu } from "antd";
+import Loginpage from "./pages/loginpage";
+import Studentpage from "./pages/studentpage";
+import Teacherpage from "./pages/teacherpage";
 
-function App() {
-  const [count, setCount] = useState(0)
+const { Sider, Content } = Layout;
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+const MyLayout = () => (
+  <Router>
+    <Layout>
+      <Sider>
+        <Menu mode="inline" defaultSelectedKeys={["1"]}>
+          <Menu.Item key="1">
+            <Link to="/component1">Component 1</Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Link to="/component2">Component 2</Link>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <Link to="/component3">Component 3</Link>
+          </Menu.Item>
+        </Menu>
+      </Sider>
+      <Content>
+        <Route path="/login" component={Loginpage} />
+        <Route path="/teacherpage" component={Studentpage} />
+        <Route path="/studentpage" component={Teacherpage} />
+      </Content>
+    </Layout>
+  </Router>
+);
 
-export default App
+export default MyLayout;
