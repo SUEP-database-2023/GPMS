@@ -1,8 +1,8 @@
-"""creat selection table
+"""create selection table
 
-Revision ID: suepgpms0006
-Revises: suepgpms0005
-Create Date: 2023-06-23 14:58:36.051938
+Revision ID: c10b20182c61
+Revises: 1eb632ce6098
+Create Date: 2023-06-25 13:28:38.714330
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = "suepgpms0006"
-down_revision = "suepgpms0005"
+revision = 'c10b20182c61'
+down_revision = '1eb632ce6098'
 branch_labels = None
 depends_on = None
 

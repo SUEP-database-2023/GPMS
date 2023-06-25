@@ -1,8 +1,8 @@
-"""creat topic table
+"""create topic table
 
-Revision ID: suepgpms0005
-Revises: suepgpms0004
-Create Date: 2023-06-23 14:23:42.826109
+Revision ID: 1eb632ce6098
+Revises: 0e833e05ff12
+Create Date: 2023-06-25 13:18:25.763709
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = "suepgpms0005"
-down_revision = "suepgpms0004"
+revision = '1eb632ce6098'
+down_revision = '0e833e05ff12'
 branch_labels = None
 depends_on = None
 
@@ -34,8 +34,8 @@ def upgrade() -> None:
             "topic_whether_background IN ('是', '否')",
             name="ck_topic_whether_background_options",
         ),
-        sa.Column("topic_havebg_id", sa.Integer, nullable=False, comment="有项目背景的项目编号"),
-        sa.Column("topic_else", sa.String(100), nullable=True, comment="其他补充"),
+        sa.Column("topic_havebg_id", sa.Integer, nullable=True, comment="有项目背景的项目编号"),
+        sa.Column("topic_havebg_else", sa.String(100), nullable=True, comment="有项目背景的其他补充"),
         sa.Column("topic_category", sa.String(10), nullable=False, comment="课题性质（类别）"),
         sa.CheckConstraint(
             "topic_category IN ('基础类型', '工程实践/应用类型','其他')",
@@ -48,7 +48,7 @@ def upgrade() -> None:
         sa.CheckConstraint(
             "topic_whether_pass IN ('是', '否')", name="ck_topic_whether_pass_options"
         ),
-        sa.Column("topic_major", sa.String(10), nullable=False, comment="课题使用专业"),
+        sa.Column("topic_major", sa.String(10), nullable=False, comment="课题适用专业"),
         sa.CheckConstraint(
             "topic_major IN ('信息与计算科学', '应用物理')",
             name="ck_topic_major_options",
