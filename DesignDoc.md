@@ -123,13 +123,13 @@ TODO
 
 ### API 设计
 
-1. `get`,`url`=`status`,学生用，用来获得所有选课信息
-2. `get`,`url`=`TODO/{class_id}`,学生用，用来获得所点击的课题的信息
-3. `get`,`url`=`TODO/{student_id}`,学生用，用来获得所选的信息
-4. `get`,`url`=`TODO`,管理员用，用来获得所有选课信息
-5. `get`,`url`=`TODO/{teacher_id}`,教师用，用来获得被选的信息
-6. `put`,`url`=`TODO/{teacher_id}`,教师用，用来增加选课信息
-7. `put`,`url`=`TODO`,管理员用，用来增加学生&教师信息
-8. `post`,`url`=`TODO`,管理员用，用于更新选题截至时间
-9. `post`,`url`=`TODO`,管理员用，用于审核选题课题
-10. `post`,`url`=`TODO/{student_id}`,学生用，用于更改所选课程
+1. `get`,`url`=`student/status`,学生用，用来获得所有选课信息
+2. `get`,`url`=`student/topic/{student_id}`,学生用，用来获得所点击的课题的信息
+3. `get`,`url`=`student/selection/{student_id}`,学生用，用来获得所选的信息
+4. `get`,`url`=`topic`,管理员用，用来获得所有选课信息
+5. `get`,`url`=`teacher/selected/{teacher_id}`,教师用，用来获得被选的信息
+6. `put`,`url`=`teacher/increase_topic/{teacher_id}`,教师用，用来增加选课信息
+7. `put`,`url`=`admin/info/`,管理员用，用来增加学生&教师信息
+8. `post`,`url`=`admin/end_time/`,管理员用，用于更新选题截至时间
+9. `post`,`url`=`admin/audit_topic/`,管理员用，用于审核选题课题
+10. `post`,`url`=`student/topic/{student_id}`,学生用，用于更改所选课程
