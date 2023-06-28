@@ -30,7 +30,7 @@ def upgrade() -> None:
         sa.Column(
             "topic_whether_background", sa.Boolean,default=False, nullable=False, comment="是否有项目背景"
         ),
-        sa.Column("topic_havebg_id", sa.Integer, nullable=True, comment="有项目背景的项目编号"),
+        sa.Column("topic_havebg_id", sa.String(20), nullable=True, comment="有项目背景的项目编号"),
         sa.Column("topic_havebg_else", sa.String(100), nullable=True, comment="有项目背景的其他补充"),
         sa.Column("topic_category", sa.String(10), nullable=False, comment="课题性质（类别）"),
         sa.CheckConstraint(
