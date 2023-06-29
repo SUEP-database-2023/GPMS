@@ -21,27 +21,23 @@ def upgrade() -> None:
     op.create_table(
         "students",
         sa.Column(
+            "id",
+            sa.Integer,
+            autoincrement=True,
+            index=True,
+            comment="序列号",
+        ),
+        sa.Column(
             "student_id",
             sa.Integer,
-            primary_key=True,
             index=True,
             comment="学生学号",
         ),
         sa.Column("student_name", sa.String(10), nullable=False, comment="学生姓名"),
         sa.Column("student_major", sa.String(10), nullable=False, comment="学生专业"),
-        sa.CheckConstraint(
-            "student_major IN ('信息与计算科学', '应用物理')", name="ck_student_major_options"
-        ),
         sa.Column("student_grade", sa.String(4), nullable=False, comment="年级"),
         sa.Column("student_class", sa.String(10), nullable=False, comment="班级"),
         sa.Column("student_phone", sa.String(11), nullable=False, comment="电话号码"),
-        sa.Column(
-            "is_first_login",
-            sa.Boolean,
-            nullable=False,
-            default=True,
-            comment="是否第一次登录",
-        ),
         sa.Column("student_random", sa.Integer, nullable=False, comment="随机数"),
     )
 
