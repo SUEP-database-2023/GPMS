@@ -20,41 +20,31 @@ def upgrade() -> None:
     op.create_table(
         "topic",
         sa.Column(
+            "id",
+            sa.Integer,
+            autoincrement=True,
+            index=True,
+            comment="序列号",
+        ),
+        sa.Column(
             "topic_id",
             sa.Integer,
-            primary_key=True,
             index=True,
             comment="课题编号",
         ),
         sa.Column("topic_name", sa.String(15), nullable=False, comment="课题名称"),
         sa.Column(
-            "topic_whether_background", sa.String(1), nullable=False, comment="是否有项目背景"
+            "topic_whether_background", sa.Boolean,default=False, nullable=False, comment="是否有项目背景"
         ),
-        sa.CheckConstraint(
-            "topic_whether_background IN ('是', '否')",
-            name="ck_topic_whether_background_options",
-        ),
-        sa.Column("topic_havebg_id", sa.Integer, nullable=True, comment="有项目背景的项目编号"),
+        sa.Column("topic_havebg_id", sa.String(20), nullable=True, comment="有项目背景的项目编号"),
         sa.Column("topic_havebg_else", sa.String(100), nullable=True, comment="有项目背景的其他补充"),
         sa.Column("topic_category", sa.String(10), nullable=False, comment="课题性质（类别）"),
-        sa.CheckConstraint(
-            "topic_category IN ('基础类型', '工程实践/应用类型','其他')",
-            name="ck_topic_category_options",
-        ),
         sa.Column("topic_synopsis", sa.String(5000), nullable=False, comment="课题简介"),
         sa.Column("topic_remark", sa.String(200), nullable=True, comment="备注"),
         sa.Column("topic_teacher", sa.String(10), nullable=False, comment="指导教师"),
-        sa.Column("topic_whether_pass", sa.String(1), nullable=False, comment="是否审核通过"),
-        sa.CheckConstraint(
-            "topic_whether_pass IN ('是', '否')", name="ck_topic_whether_pass_options"
-        ),
+        sa.Column("topic_whether_pass", sa.Boolean, default=False,nullable=False, comment="是否审核通过"),
         sa.Column("topic_major", sa.String(10), nullable=False, comment="课题适用专业"),
-        sa.CheckConstraint(
-            "topic_major IN ('信息与计算科学', '应用物理')",
-            name="ck_topic_major_options",
-        ),
         sa.Column("topic_time", sa.DateTime, nullable=False, comment="课题提交时间"),
-        sa.Column("topic_annex", sa.String(100), nullable=False, comment="课题提交附件以及路径"),
     )
 
 

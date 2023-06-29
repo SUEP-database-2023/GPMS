@@ -20,9 +20,8 @@ def upgrade() -> None:
     op.create_table(
         "status",
         sa.Column(
-            "status_id",
+            "id",
             sa.Integer,
-            primary_key=True,
             autoincrement=True,
             index=True,
             comment="序列号",
@@ -38,9 +37,6 @@ def upgrade() -> None:
         sa.Column("admin_end_time2", sa.DateTime, nullable=False, comment="管理员第二次匹配截止时间"),
         sa.Column("post_time", sa.DateTime, nullable=False, comment="当前提交时间"),
         sa.Column("status_major", sa.String(10), nullable=False, comment="设置适用专业"),
-        sa.CheckConstraint(
-            "status_major IN ('信息与计算科学', '应用物理')", name="ck_status_major_options"
-        ),
     )
 
 
