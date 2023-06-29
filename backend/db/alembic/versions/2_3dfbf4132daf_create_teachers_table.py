@@ -28,7 +28,7 @@ def upgrade() -> None:
         ),
         sa.Column(
             "teacher_id",
-            sa.Integer,
+            sa.String(10),
             index=True,
             comment="教师工号",
         ),
