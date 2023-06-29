@@ -26,6 +26,7 @@ def upgrade() -> None:
             autoincrement=True,
             index=True,
             comment="序列号",
+            primary_key=True,
         ),
         sa.Column(
             "student_id",

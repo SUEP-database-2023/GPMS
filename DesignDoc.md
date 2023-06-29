@@ -127,6 +127,8 @@ TODO
 **Administrator**
 
 - `get`,`url`=`admin/topic`,管理员用，用来获得所有选课信息
+  |课题编号(topic_id)|课题名称(topic_name)|指导老师(topic_teacher)|审核状态(topic_whether_pass)|
+  |-|-|-|-|
 - `post`,`url`=`admin/end_time/`,管理员用，用于更新选题截至时间
 - `post`,`url`=`admin/audit_topic/`,管理员用，用于审核选题课题
 - `put`,`url`=`admin/student_info/`,管理员用，用来更新学生

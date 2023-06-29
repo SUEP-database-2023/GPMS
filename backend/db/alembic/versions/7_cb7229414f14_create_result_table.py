@@ -25,6 +25,7 @@ def upgrade() -> None:
             autoincrement=True,
             index=True,
             comment="序列号",
+            primary_key=True,
         ),
         sa.Column("student_id", sa.String(10), index=True, comment="学生编号"),
         sa.Column("topic_id", sa.String(9), nullable=False, comment="最终选择的课题编号"),
