@@ -140,14 +140,36 @@ TODO
 **Teacher**
 
 - `get`,`url`=`teacher/selected/{teacher_id}`,教师用，用来获得被选的信息
+  |输出数据|列名|
+  |-|-|
+  |课题编号|topic_id|
+  |课题名称|topic_name|
+  |学生学号|student_id|
+  |学生姓名|student_id|
 - `post`,`url`=`teacher/topic_info/{teacher_id}`,教师用，用来增加课题信息
 - `put`,`url`=`teacher/topic_info/{teacher_id}`,老师用，用于更新课题信息
 
 **Student**
 
 - `get`,`url`=`api/student/topic`,学生用，用来获得所有选课信息
+  |输出数据|列名|
+  |-|-|
+  |课题编号|topic_id|
+  |课题名称|topic_name|
+
 - `get`,`url`=`api/student/topic/{topic_id}`,学生用，用来获得所点击的课题的信息
+  |输出数据|列名|
+  |-|-|
+  |课题简介|topic_synopsis|
+  |备注|topic_remark|
+
 - `get`,`url`=`student/selection/{student_id}/{select_status}`,学生用，用来获得第几轮选课的志愿信息
+  |输出数据|列名|
+  |-|-|
+  |第一志愿|topic1_id|
+  |第二志愿|topic2_id|
+  |第三志愿|topic3_id|
+  |第四志愿|topic4_id|
 - `get`,`utl`=`api/studnet/result/{student_id}`用于获得选课结果表
 - `post`,`url`=`student/topic/{student_id}`,学生用，用于选课
 - `put`,`url`=`student/topic/{student_id}`,学生用，用于选课
