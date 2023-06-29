@@ -19,13 +19,16 @@ depends_on = None
 def upgrade() -> None:
     op.create_table(
         "users",
-        sa.Column("user_id", sa.Integer, primary_key=True, index=True, comment="用户id"),
-        sa.Column("user_pwd", sa.String(25), nullable=False, comment="用户密码"),
-        sa.Column("user_root", sa.String(1), nullable=False, comment="用户权限"),
-        sa.CheckConstraint(
-            "user_root IN ('a', 't', 's')",
-            name="ck_user_root_options",
+        sa.Column(
+            "id",
+            sa.Integer,
+            autoincrement=True,
+            index=True,
+            comment="序列号",
         ),
+        sa.Column("user_id", sa.Integer, index=True, comment="用户id"),
+        sa.Column("user_pwd", sa.String(25), nullable=False, comment="用户密码"),
+        sa.Column("user_root", sa.Integer, nullable=False, comment="用户权限"),
     )
 
 

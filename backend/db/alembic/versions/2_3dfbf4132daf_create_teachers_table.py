@@ -20,17 +20,20 @@ def upgrade() -> None:
     op.create_table(
         "teachers",
         sa.Column(
+            "id",
+            sa.Integer,
+            autoincrement=True,
+            index=True,
+            comment="序列号",
+        ),
+        sa.Column(
             "teacher_id",
             sa.Integer,
-            primary_key=True,
             index=True,
             comment="教师工号",
         ),
         sa.Column("teacher_name", sa.String(10), nullable=False, comment="教师姓名"),
         sa.Column("teacher_major", sa.String(10), nullable=False, comment="教师专业"),
-        sa.CheckConstraint(
-            "teacher_major IN ('信息与计算科学', '应用物理')", name="ck_teacher_major_options"
-        ),
         sa.Column("teacher_level", sa.String(10), nullable=False, comment="教师职称"),
         sa.Column(
             "teacher_origin",
