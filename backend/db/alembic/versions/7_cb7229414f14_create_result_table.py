@@ -23,14 +23,12 @@ def upgrade() -> None:
             "student_id", sa.Integer, primary_key=True, index=True, comment="学生编号"
         ),
         sa.Column("topic_id", sa.Integer, nullable=False, comment="最终选择的课题编号"),
-        sa.Column("status_1", sa.String(1), nullable=False, comment="第几轮选题选中"),
+        sa.Column("status_1", sa.String(1), nullable=True, comment="第几轮选题选中"),
         sa.CheckConstraint("status_1 IN ('1', '2')", name="ck_status_1_options"),
-        sa.Column("status_2", sa.String(1), nullable=False, comment="选中第几志愿"),
+        sa.Column("status_2", sa.String(1), nullable=True, comment="选中第几志愿"),
         sa.CheckConstraint(
             "status_2 IN ('1', '2', '3', '4')", name="ck_status_2_options"
         ),
-        sa.Column("teacher_topic_mission", sa.String(100), nullable=False, comment="教师上传课题任务"),
-        sa.Column("student_topic_discuss", sa.String(100), nullable=False, comment="学生上传专题讨论"),
     )
 
 

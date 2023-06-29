@@ -29,7 +29,7 @@ def upgrade() -> None:
         sa.Column("select_time", sa.DateTime, nullable=False, comment="选题时间"),
         sa.Column("select_status", sa.String(1), nullable=False, comment="第几轮选题"),
         sa.CheckConstraint(
-            "select_status IN ('1', '2')", name="ck_select_status_options"
+            "select_status IN ('1','2')", name="ck_select_status_options"
         ),
     )
 
