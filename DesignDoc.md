@@ -149,9 +149,27 @@ TODO
 - `get`,`url`=`api/student/topic/{topic_id}`,学生用，用来获得所点击的课题的信息
 - `get`,`url`=`student/selection/{student_id}/{select_status}`,学生用，用来获得第几轮选课的志愿信息
 - `get`,`utl`=`api/studnet/result/{student_id}`用于获得选课结果表
+
+|说明|输出数据|
+|---|---|
+|学生编号|student_id|
+|课题编号|topic_id|
+
 - `post`,`url`=`student/topic/{student_id}`,学生用，用于选课
 - `put`,`url`=`student/topic/{student_id}`,学生用，用于选课
 
 **Public**
 
 - `get`,`url`=`api/public/all_time`,所有人用来获取所有时间配置
+
+|说明|输出数据|
+|---|---|
+|教师提交课题截止时间|teacher_post_time|
+|管理员审核题目截止时间|admin_audit_time|
+|学生浏览题目截止时间|student_begin_time1|
+|学生第一次选题截止时间|student_end_time1|
+|管理员第一次匹配截止时间|admin_end_time1|
+|学生第二次选题截止时间|student_end_time2|
+|管理员第二次匹配截止时间|admin_end_time2|
+|当前提交时间|post_time|
+|适用的专业|status_major|
