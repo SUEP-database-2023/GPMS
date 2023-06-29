@@ -29,8 +29,6 @@ def upgrade() -> None:
         sa.CheckConstraint(
             "status_2 IN ('1', '2', '3', '4')", name="ck_status_2_options"
         ),
-        sa.Column("teacher_topic_mission", sa.String(100), nullable=False, comment="教师上传课题任务"),
-        sa.Column("student_topic_discuss", sa.String(100), nullable=False, comment="学生上传专题讨论"),
     )
 
 
