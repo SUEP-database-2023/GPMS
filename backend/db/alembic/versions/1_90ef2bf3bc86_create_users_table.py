@@ -25,12 +25,12 @@ def upgrade() -> None:
             autoincrement=True,
             index=True,
             comment="序列号",
+            primary_key=True,
         ),
-        sa.Column("user_id", sa.Integer, index=True, comment="用户id"),
+        sa.Column("user_id", sa.String(10), index=True, comment="用户id"),
         sa.Column("user_pwd", sa.String(25), nullable=False, comment="用户密码"),
         sa.Column("user_root", sa.Integer, nullable=False, comment="用户权限"),
     )
-
 
 
 def downgrade() -> None:

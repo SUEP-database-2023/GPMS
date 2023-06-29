@@ -26,10 +26,11 @@ def upgrade() -> None:
             autoincrement=True,
             index=True,
             comment="序列号",
+            primary_key=True,
         ),
         sa.Column(
             "student_id",
-            sa.Integer,
+            sa.String(10),
             index=True,
             comment="学生学号",
         ),
