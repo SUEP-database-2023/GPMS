@@ -35,7 +35,8 @@ users表
 
 | 列属性 | 备注 |
 | --- | --- |
-|user_id(int)|学生学号，老师/超级用户(todo整型)|
+|id|自增ID|
+|user_num(int)|学生学号，老师/超级用户(todo整型),工号|
 |user_pwd(str)|todo设置默认值|
 |user_role(int or str)|check值：a代表超级用户，t代表教师，s代表学生|
 
@@ -43,7 +44,8 @@ teachers表
 
 | 列属性 | 备注 |
 | --- | --- |
-| teacher_id(int)|设置user_id外键约束(todo)|
+|id|自增ID|
+| user_id(int)|设置user_id外键约束(todo)|
 | teacher_name(str)| |
 | teacher_major(str)|check值:信息与计算科学，应用物理|
 | teacher_level(str)|教师职称|
@@ -53,7 +55,8 @@ students表
 
 | 列属性 | 备注 |
 | --- | --- |
-| student_id(int)|设置user_id外键约束(todo)|
+|id|自增ID|
+| user_id(int)|设置user_id外键约束(todo)|
 | student_name(str)||
 | student_major(str)|check值:信息与计算科学，应用物理|
 | student_grade(int)|年级|
@@ -65,7 +68,7 @@ status表(储存各种时间相关的数据)管理员设置
 
 | 列属性 | 备注 |
 | --- | --- |
-|status_id|序列号(自增)|
+|id|自增ID|
 |teacher_post_time(datatime)|教师提交题目截止时间/管理员审核题目开始时间，t权限(todo)|
 | admin_audit_time(datatime)|管理员审核题目截止时间/学生浏览题目开始时间，a权限，s阅读权限(todo)|
 |student_begint_time1(datatime)|学生第一次选题开始时间/学生浏览题目结束时间，s权限(todo)|
@@ -99,7 +102,8 @@ status表(储存各种时间相关的数据)管理员设置
 
 | 列属性 | 备注 |
 | --- | --- |
-| student_id(int)|学生编号|
+|id|自增ID|
+| user_id(int)|学生编号|
 | topic1_id(int)|第一志愿id|
 | topic2_id(int)|第二志愿id|
 | topic3_id(int)|第三志愿id|
@@ -111,7 +115,8 @@ status表(储存各种时间相关的数据)管理员设置
 
 | 列属性 | 备注 |
 | --- | --- |
-| student_id(int)|学生编号|
+|id|自增ID|
+| user_id(int)|学生编号|
 | topic_id(int)|最终选择的课题编号|
 | status_1(str)|第几轮选题选中  '1', '2'|
 | status_2(str)|选中第几志愿  '1', '2', '3', '4'|

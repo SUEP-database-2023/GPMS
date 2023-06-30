@@ -1,6 +1,6 @@
 from typing import Generator
 from db.config import SessionLocal
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
@@ -8,6 +8,8 @@ from jose import jwt
 from core import security
 from crud import crud_user
 from schemas import token as schemas_token
+from schemas.user import UserRole
+
 
 reusable_oauth2 = OAuth2PasswordBearer(
     tokenUrl="/api/login/access_token"
@@ -26,19 +28,17 @@ def get_current_user(
     db: Session = Depends(get_db), token: str = Depends(reusable_oauth2)
 ):
     try:
-        payload = jwt.decode(  # 通过decode方法来解析token
+        payload = jwt.decode(
             token, security.SECRET_KEY, algorithms=[security.ALGORITHM]
         )
-        token_data = schemas_token.TokenPayload(**payload)  # 通过TokenPayload模型来验证token
+        token_data = schemas_token.TokenPayload(**payload)
     except (jwt.JWTError, ValidationError):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Could not validate credentials",
         )
 
-    user = crud_user.get_by_user_id(
-        db, user_id=token_data.user_id
-    )  # 通过token_data中的user_id来获取用户信息
+    user = crud_user.get_by_user_id(db, user_id=token_data.user_id)
 
     if not user:
         raise HTTPException(
@@ -46,3 +46,13 @@ def get_current_user(
         )
 
     return user
+
+
+def check_permission(uese_role, current_user):
+    if uese_role == current_user:
+        return True
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="no permission",
+        )

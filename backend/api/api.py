@@ -5,6 +5,7 @@ from api.students import router as students_router
 from api.teachers import router as teachers_router
 from api.public import router as public_router
 
+
 api_router = APIRouter()
 api_router.include_router(admin_router, prefix="/admin", tags=["admin"])
 api_router.include_router(students_router, prefix="/students", tags=["students"])

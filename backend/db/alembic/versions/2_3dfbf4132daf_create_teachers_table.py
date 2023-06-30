@@ -28,7 +28,7 @@ def upgrade() -> None:
             primary_key=True,
         ),
         sa.Column(
-            "teacher_id",
+            "user_id",
             sa.String(10),
             index=True,
             comment="教师工号",

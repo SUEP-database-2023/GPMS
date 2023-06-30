@@ -27,7 +27,7 @@ def upgrade() -> None:
             comment="序列号",
             primary_key=True,
         ),
-        sa.Column("student_id", sa.String(10), index=True, comment="学生编号"),
+        sa.Column("user_id", sa.String(10), index=True, comment="学生编号"),
         sa.Column("topic_id", sa.String(9), nullable=False, comment="最终选择的课题编号"),
         sa.Column("status_1", sa.Integer, nullable=True, comment="第几轮选题选中"),
         sa.Column("status_2", sa.Integer, nullable=True, comment="选中第几志愿"),
