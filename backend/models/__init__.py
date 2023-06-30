@@ -1,7 +1,7 @@
-from models.result import Result
-from models.selection import Selection
-from models.status import Status
-from models.student import Student
-from models.teacher import Teacher
-from models.topic import Topic
-from models.user import User
+from models.result import Result  # noqa: F401
+from models.selection import Selection  # noqa: F401
+from models.status import Status  # noqa: F401
+from models.student import Student  # noqa: F401
+from models.teacher import Teacher  # noqa: F401
+from models.topic import Topic  # noqa: F401
+from models.user import User  # noqa: F401

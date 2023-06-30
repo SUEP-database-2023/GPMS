@@ -4,7 +4,8 @@ from jose import jwt
 from passlib.context import CryptContext
 
 SECRET_KEY = (
-    "196ca263383b2fd21dfae2eda445f30b25d14806a861ababf10a408beb5e2117"  # 用于创建令牌的密钥
+    "196ca263383b2fd21dfae2eda445f30b25d14806a861ababf10a408beb5e2117"
+    # 用于创建令牌的密钥
 )
 ALGORITHM = "HS256"  # 用HS256算法进行加密
 ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 15  # 令牌过期时间，单位为分钟

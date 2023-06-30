@@ -1,9 +1,8 @@
-from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
 from models import User as ModelsUser
-from core.security import get_password_hash, verify_password
-from typing import Any, Optional
+from core.security import verify_password
+from typing import Any
 
 
 class CRUDUser:
