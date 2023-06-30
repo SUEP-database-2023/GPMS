@@ -24,7 +24,7 @@ def upgrade() -> None:
             sa.Integer,
             autoincrement=True,
             index=True,
-            comment="序列号",
+            comment="主键id",
             primary_key=True,
         ),
         sa.Column(
@@ -67,7 +67,7 @@ def upgrade() -> None:
             "admin_end_time2", sa.DateTime, nullable=False, comment="管理员第二次匹配截止时间"
         ),
         sa.Column("post_time", sa.DateTime, nullable=False, comment="当前提交时间"),
-        sa.Column("status_major", sa.String(10), nullable=False, comment="设置适用专业"),
+        sa.Column("major", sa.String(10), nullable=False, comment="设置适用专业"),
     )
 
 

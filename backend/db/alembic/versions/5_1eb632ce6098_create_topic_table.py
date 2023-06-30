@@ -24,42 +24,43 @@ def upgrade() -> None:
             sa.Integer,
             autoincrement=True,
             index=True,
-            comment="序列号",
+            comment="主键id",
             primary_key=True,
         ),
+        
         sa.Column(
-            "topic_id",
+            "number",
             sa.String(9),
             index=True,
             comment="课题编号",
         ),
-        sa.Column("topic_name", sa.String(30), nullable=False, comment="课题名称"),
+        sa.Column("name", sa.String(30), nullable=False, comment="课题名称"),
         sa.Column(
-            "topic_whether_background",
+            "whether_background",
             sa.Boolean,
             default=False,
             nullable=False,
             comment="是否有项目背景",
         ),
         sa.Column(
-            "topic_havebg_id", sa.String(20), nullable=True, comment="有项目背景的项目编号"
+            "have_bg_id", sa.String(20), nullable=True, comment="有项目背景的项目编号"
         ),
         sa.Column(
-            "topic_havebg_else", sa.String(100), nullable=True, comment="有项目背景的其他补充"
+            "have_bg_else", sa.String(100), nullable=True, comment="有项目背景的其他补充"
         ),
-        sa.Column("topic_category", sa.String(10), nullable=False, comment="课题性质（类别）"),
-        sa.Column("topic_synopsis", sa.String(5000), nullable=False, comment="课题简介"),
-        sa.Column("topic_remark", sa.String(200), nullable=True, comment="备注"),
-        sa.Column("topic_teacher", sa.String(10), nullable=False, comment="指导教师"),
+        sa.Column("category", sa.String(10), nullable=False, comment="课题性质（类别）"),
+        sa.Column("synopsis", sa.String(5000), nullable=False, comment="课题简介"),
+        sa.Column("remark", sa.String(200), nullable=True, comment="备注"),
+        sa.Column("teacher", sa.String(10), nullable=False, comment="指导教师"),
         sa.Column(
-            "topic_whether_pass",
+            "whether_pass",
             sa.Boolean,
             default=False,
             nullable=False,
             comment="是否审核通过",
         ),
-        sa.Column("topic_major", sa.String(10), nullable=False, comment="课题适用专业"),
-        sa.Column("topic_time", sa.DateTime, nullable=False, comment="课题提交时间"),
+        sa.Column("major", sa.String(10), nullable=False, comment="课题适用专业"),
+        sa.Column("post_time", sa.DateTime, nullable=False, comment="课题提交时间"),
     )
 
 

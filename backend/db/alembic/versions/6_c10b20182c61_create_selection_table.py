@@ -24,16 +24,17 @@ def upgrade() -> None:
             sa.Integer,
             autoincrement=True,
             index=True,
-            comment="序列号",
+            comment="主键id",
             primary_key=True,
         ),
-        sa.Column("user_id", sa.String(10), index=True, comment="学生编号"),
-        sa.Column("topic1_id", sa.String(9), nullable=False, comment="第一志愿id"),
-        sa.Column("topic2_id", sa.String(9), nullable=False, comment="第二志愿id"),
-        sa.Column("topic3_id", sa.String(9), nullable=False, comment="第三志愿id"),
-        sa.Column("topic4_id", sa.String(9), nullable=False, comment="第四志愿id"),
-        sa.Column("select_time", sa.DateTime, nullable=False, comment="选题时间"),
-        sa.Column("select_status", sa.Integer, nullable=False, comment="第几轮选题"),
+        
+        sa.Column("number", sa.String(8), index=True, comment="学生学号"),
+        sa.Column("choice1", sa.String(9), nullable=False, comment="第一志愿id"),
+        sa.Column("choice2", sa.String(9), nullable=False, comment="第二志愿id"),
+        sa.Column("choice3", sa.String(9), nullable=False, comment="第三志愿id"),
+        sa.Column("choice4", sa.String(9), nullable=False, comment="第四志愿id"),
+        sa.Column("time", sa.DateTime, nullable=False, comment="选题时间"),
+        sa.Column("round", sa.Integer, nullable=False, comment="第几轮选题"),
     )
 
 

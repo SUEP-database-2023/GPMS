@@ -24,12 +24,12 @@ def upgrade() -> None:
             sa.Integer,
             autoincrement=True,
             index=True,
-            comment="序列号",
+            comment="主键id",
             primary_key=True,
         ),
-        sa.Column("user_num", sa.String(10), index=True, comment="用户id"),
-        sa.Column("user_pwd", sa.String(200), nullable=False, comment="用户密码"),
-        sa.Column("user_role", sa.Integer, nullable=False, comment="用户权限"),
+        sa.Column("number", sa.String(10), index=True, comment="用户id"),
+        sa.Column("password", sa.String(20), nullable=False, comment="用户密码"),
+        sa.Column("role", sa.Integer, nullable=False, comment="用户权限"),
     )
 
 
