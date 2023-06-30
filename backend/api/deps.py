@@ -1,6 +1,6 @@
 from typing import Generator
 from db.config import SessionLocal
-from fastapi import Depends, HTTPException, status, Request
+from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
@@ -8,7 +8,6 @@ from jose import jwt
 from core import security
 from crud import crud_user
 from schemas import token as schemas_token
-from schemas.user import UserRole
 
 
 reusable_oauth2 = OAuth2PasswordBearer(
