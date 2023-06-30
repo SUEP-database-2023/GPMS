@@ -28,8 +28,8 @@ def upgrade() -> None:
             primary_key=True,
         ),
         sa.Column("user_id", sa.String(10), index=True, comment="用户id"),
-        sa.Column("user_pwd", sa.String(25), nullable=False, comment="用户密码"),
-        sa.Column("user_root", sa.Integer, nullable=False, comment="用户权限"),
+        sa.Column("user_pwd", sa.String(200), nullable=False, comment="用户密码"),
+        sa.Column("user_role", sa.Integer, nullable=False, comment="用户权限"),
     )
 
 

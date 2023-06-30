@@ -37,7 +37,7 @@ users表
 | --- | --- |
 |user_id(int)|学生学号，老师/超级用户(todo整型)|
 |user_pwd(str)|todo设置默认值|
-|user_root(int or str)|check值：a代表超级用户，t代表教师，s代表学生|
+|user_role(int or str)|check值：a代表超级用户，t代表教师，s代表学生|
 
 teachers表
 
