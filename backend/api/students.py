@@ -70,3 +70,21 @@ def student_get_result(
             db=db,
             user_id=current_user.id,
         )
+
+
+@router.put("/topic/{status}/{choice}/{topic_id}")
+def student_update_selection(
+    status: int,
+    choice: int,
+    topic_id: int,
+    current_user=Depends(deps.get_current_user),
+    db=Depends(deps.get_db),
+):
+    if deps.check_permission(current_user.role, UserRole.STUDENT):
+        crud_student.update_selection(
+            db=db,
+            status=status,
+            choice=choice,
+            topic_id=topic_id,
+            user_id=current_user.id,
+        )

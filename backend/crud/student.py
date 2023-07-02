@@ -109,5 +109,41 @@ class CRUDStudent(CRUDBase):
         )
         return result
 
+    def update_selection(self, db, status, user_id, topic_id, choice):
+        topic = db.query(Topic).filter(Topic.id == topic_id).first()
+        Student = db.query(Student).filter(Student.user_id == user_id).first()
+        if topic.grade != Student.grade:
+            raise HTTPException(status_code=400, detail="grade not match")
+        elif topic.major != Student.major:
+            raise HTTPException(status_code=400, detail="major not match")
+
+        result = (
+            db.query(Selection)
+            .filter(Selection.user_id == user_id)
+            .filter(Selection.round == status)
+            .first()
+        )
+        if not result:
+            raise HTTPException(status_code=404, detail="Selection not found")
+
+        result = self.change_choice(db, choice, result, topic_id)
+        db.commit()
+        return result
+
+    def change_choice(self, db, choice, result, topic_id):
+        if choice == 1:
+            result.choice1_id = topic_id
+            result.choice1_number = self.get_topic_name(db, topic_id)
+        elif choice == 2:
+            result.choice2_id = topic_id
+            result.choice2_number = self.get_topic_name(db, topic_id)
+        elif choice == 3:
+            result.choice3_id = topic_id
+            result.choice3_number = self.get_topic_name(db, topic_id)
+        elif choice == 4:
+            result.choice4_id = topic_id
+            result.choice4_number = self.get_topic_name(db, topic_id)
+        return result
+
 
 crud_student = CRUDStudent(Student)
