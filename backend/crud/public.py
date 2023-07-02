@@ -1,16 +1,18 @@
+from crud.base import CRUDBase
 from sqlalchemy.orm import Session
-
+from fastapi import HTTPException
 from models import Status
-from schemas import PublicTime
 
 
-def get_status(db: Session, status_id: int) -> Status:
-    return db.query(Status).get(status_id)
+class CRUDPublic(CRUDBase):
+    def get_status(
+        self,
+        db: Session,
+    ):
+        status = db.query(Status).all()
+        if not status:
+            raise HTTPException(status_code=404, detail="Status not found")
+        return status
 
 
-def update_status(db: Session, status: Status, public_time: PublicTime) -> Status:
-    for field, value in public_time.dict(exclude_unset=True).items():
-        setattr(status, field, value)
-    db.commit()
-    db.refresh(status)
-    return status
+crud_public = CRUDPublic(Status)

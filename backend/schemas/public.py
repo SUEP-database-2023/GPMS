@@ -11,4 +11,6 @@ class PublicTime(BaseModel):
     student_end_time2: datetime
     admin_end_time2: datetime
     post_time: datetime
-    status_major: str
+    major: str
+    class Config:
+        orm_mode = True

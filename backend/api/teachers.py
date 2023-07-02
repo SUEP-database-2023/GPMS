@@ -14,6 +14,6 @@ def teachers_test(
     db: Session = Depends(deps.get_db),
     current_user=Depends(deps.get_current_user),
 ):
-    if deps.check_permission(current_user.user_role, UserRole.TEACHER):
+    if deps.check_permission(current_user.role, UserRole.TEACHER):
         data = crud_teacher.get_teacher_selected(db=db, user_id=user_id)
         return data
