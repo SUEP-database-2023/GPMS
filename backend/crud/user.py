@@ -19,7 +19,7 @@ class CRUDUser:
         user = self.get_by_number(db, number=number)  # 通过数据库查询用户信息
         if not user:
             return None
-        if not verify_password(password, user.user_pwd):  # 验证密码
+        if not verify_password(password, user.password):  # 验证密码
             return None
         return user
 
