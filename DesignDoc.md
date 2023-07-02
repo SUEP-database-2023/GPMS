@@ -94,7 +94,8 @@ topic
 |category(str)|课题性质（类别）|
 |synopsis(str)|课题简介|
 |remark(str)|备注|
-|teacher(str)|指导教师名称|
+|user_id(int)|教师ID|
+|teacher_name(str)|指导教师名称|
 |whether_pass(bool)|是否审核通过,default=false|
 |major(str)|课题适用专业|
 |topic_time(datatime)|课题提交时间|
@@ -104,11 +105,16 @@ selection表
 | 列属性 | 备注 |
 | --- | --- |
 |id|自增主键id|
-|number(str)|学生编号|
-|choice1(str)|第一志愿id|
-|choice2(str)|第二志愿id|
-|choice3(str)|第三志愿id|
-|choice4(str)|第四志愿id|
+|user_id(int)|学生ID|
+|student_number(str)|学生学号|
+|choice1_number(str)|第一志愿课题编号|
+|choice1_id(int)|第一志愿id|
+|choice2_number(str)|第二志愿课题编号|
+|choice2_id(int)|第二志愿id|
+|choice3_number(str)|第三志愿课题编号|
+|choice3_id(int)|第三志愿id|
+|choice4_number(str)|第四志愿课题编号|
+|choice4_id(int)|第四志愿id|
 |time(DateTime)|选题时间|
 |round(str)|第几轮选题|
 
@@ -117,8 +123,10 @@ selection表
 | 列属性 | 备注 |
 | --- | --- |
 |id|自增主键id|
-|student(str)|学生学号|
-|topic(str)|课题编号|
+|user_id(int)|学生ID|
+|student_number(str)|学生学号|
+|topic_id(int)|课题ID|
+|topic_number(str)|课题编号|
 |round(str)|选中轮次|
 |choice(str)|选中志愿|
 

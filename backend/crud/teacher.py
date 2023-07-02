@@ -8,14 +8,13 @@ class CRUDTeacher(CRUDBase):
     def get_teacher_selected(self, db: Session, user_id: Any):
         return (
             db.query(
-                Topic.topic_id,
-                Topic.topic_name,
-                Student.id,
+                Topic.id,
+                Topic.name,
                 Student.user_id,
-                Student.student_name,
+                Student.name,
             )
-            .join(self.model, self.model.teacher_name == Topic.topic_teacher)
-            .join(Result, Result.topic_id == Topic.topic_id)
+            .join(self.model, self.model.name == Topic.teacher)
+            .join(Result, Result.topic == Topic.id)
             .join(Student, Student.user_id == Result.user_id)
             .filter(self.model.user_id == user_id)
             .all()

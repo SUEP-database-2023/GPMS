@@ -13,7 +13,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 15  # 令牌过期时间，单位�
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")  # 用于加密密码
 
 
-def create_access_token(user_id, user_role, expires_delta=None):
+def create_access_token(id, user_role, expires_delta=None):
     if expires_delta:  # 如果传入了过期时间，就用传入的过期时间
         expire = datetime.utcnow() + expires_delta
     else:
@@ -21,7 +21,7 @@ def create_access_token(user_id, user_role, expires_delta=None):
 
     to_encode = {
         "exp": expire,
-        "user_id": str(user_id),
+        "id": str(id),
         "user_role": str(user_role),
     }  # 生成令牌的内容
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)  # 生成令牌

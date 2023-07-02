@@ -27,7 +27,6 @@ def upgrade() -> None:
             comment="主键id",
             primary_key=True,
         ),
-        
         sa.Column(
             "number",
             sa.String(9),
@@ -42,16 +41,13 @@ def upgrade() -> None:
             nullable=False,
             comment="是否有项目背景",
         ),
-        sa.Column(
-            "have_bg_id", sa.String(20), nullable=True, comment="有项目背景的项目编号"
-        ),
-        sa.Column(
-            "have_bg_else", sa.String(100), nullable=True, comment="有项目背景的其他补充"
-        ),
+        sa.Column("have_bg_id", sa.String(20), nullable=True, comment="有项目背景的项目编号"),
+        sa.Column("have_bg_else", sa.String(100), nullable=True, comment="有项目背景的其他补充"),
         sa.Column("category", sa.String(10), nullable=False, comment="课题性质（类别）"),
         sa.Column("synopsis", sa.String(5000), nullable=False, comment="课题简介"),
         sa.Column("remark", sa.String(200), nullable=True, comment="备注"),
-        sa.Column("teacher", sa.String(10), nullable=False, comment="指导教师"),
+        sa.Column("user_id", sa.Integer, nullable=False, comment="教师user_id"),
+        sa.Column("teacher_name", sa.String(10), nullable=False, comment="指导教师"),
         sa.Column(
             "whether_pass",
             sa.Boolean,

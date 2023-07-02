@@ -27,14 +27,18 @@ def upgrade() -> None:
             comment="主键id",
             primary_key=True,
         ),
-        
-        sa.Column("number", sa.String(8), index=True, comment="学生学号"),
-        sa.Column("choice1", sa.String(9), nullable=False, comment="第一志愿id"),
-        sa.Column("choice2", sa.String(9), nullable=False, comment="第二志愿id"),
-        sa.Column("choice3", sa.String(9), nullable=False, comment="第三志愿id"),
-        sa.Column("choice4", sa.String(9), nullable=False, comment="第四志愿id"),
-        sa.Column("time", sa.DateTime, nullable=False, comment="选题时间"),
-        sa.Column("round", sa.Integer, nullable=False, comment="第几轮选题"),
+        sa.Column("user_id", sa.Integer, index=True, comment="学生user_id"),
+        sa.Column("student_number", sa.String(8), nullable=True, comment="学生学号"),
+        sa.Column("choice1_number", sa.String(9), nullable=True, comment="第一志愿课题编号"),
+        sa.Column("choice1_id", sa.Integer, nullable=True, comment="第一志愿课程id"),
+        sa.Column("choice2_number", sa.String(9), nullable=True, comment="第二志愿课题编号"),
+        sa.Column("choice2_id", sa.Integer, nullable=True, comment="第二志愿课程id"),
+        sa.Column("choice3_number", sa.String(9), nullable=True, comment="第三志愿课题编号"),
+        sa.Column("choice3_id", sa.Integer, nullable=True, comment="第三志愿课程id"),
+        sa.Column("choice4_number", sa.String(9), nullable=True, comment="第四志愿课题编号"),
+        sa.Column("choice4_id", sa.Integer, nullable=True, comment="第四志愿课程id"),
+        sa.Column("time", sa.DateTime, nullable=True, comment="选题时间"),
+        sa.Column("round", sa.Integer, nullable=True, comment="第几轮选题"),
     )
 
 

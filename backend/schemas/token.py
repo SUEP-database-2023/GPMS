@@ -8,5 +8,5 @@ class Token(BaseModel):
 
 
 class TokenPayload(BaseModel):
-    user_id: Optional[str] = None
+    id: Optional[str] = None
     user_role: Optional[str] = None

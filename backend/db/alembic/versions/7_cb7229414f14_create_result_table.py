@@ -27,8 +27,10 @@ def upgrade() -> None:
             comment="主键id",
             primary_key=True,
         ),
-        sa.Column("student", sa.String(8), index=True, comment="学生学号"),
-        sa.Column("topic", sa.String(9), nullable=True, comment="课题编号"),
+        sa.Column("user_id", sa.Integer, index=True, comment="学生user_id"),
+        sa.Column("student_number", sa.String(8), nullable=True, comment="学生学号"),
+        sa.Column("topic_id", sa.Integer, nullable=True, comment="课题id"),
+        sa.Column("topic_number", sa.String(9), nullable=True, comment="课题编号"),
         sa.Column("round", sa.Integer, nullable=True, comment="选中轮次"),
         sa.Column("choice", sa.Integer, nullable=True, comment="选中志愿"),
     )
