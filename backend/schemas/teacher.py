@@ -9,13 +9,14 @@ class TeacherBase(UserBase):
     major: str
 
 
-class TeacherInDB(TeacherBase):
+class TeacherCreate(TeacherBase):
     level: str
     origin: int
 
 
-class TeacherCreate(TeacherInDB):
-    pass
+class TeacherInDB(TeacherCreate):
+    level: str
+    origin: int
 
 
 class TeacherSelected(TopicBase, StudentBase):
