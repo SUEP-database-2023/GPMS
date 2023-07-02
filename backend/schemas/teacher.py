@@ -20,4 +20,5 @@ class TeacherInDB(TeacherCreate):
 
 
 class TeacherSelected(TopicBase, StudentBase):
-    pass
+    student_id: int
+    topic_id: int
