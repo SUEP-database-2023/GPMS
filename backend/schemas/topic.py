@@ -15,3 +15,16 @@ class TopicCreate(TopicBase):
     remark: str
     post_time: datetime
     grade: str
+
+
+class TopicChange(TopicCreate):
+    pass
+
+
+class StudentGetTopic(TopicBase):
+    id: int
+
+
+class StudentGetTopicDetail(TopicBase):
+    synopsis: str
+    remark: str
