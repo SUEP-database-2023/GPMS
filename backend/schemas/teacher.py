@@ -1,11 +1,23 @@
 from pydantic import BaseModel
+from schemas.user import UserBase
+from schemas.topic import TopicBase
+from schemas.student import StudentBase
 
 
-class Teacher_selected(BaseModel):
-    topic_id: str
-    topic_name: str
-    user_id: int  # student表的自增ID
-    student_name: str
+class TeacherBase(UserBase):
+    teacher_name: str
+    major: str
 
-    class Config:
-        orm_mode = True
+
+class TeacherCreate(TeacherBase):
+    level: str
+    origin: int
+
+
+class TeacherInDB(TeacherCreate):
+    level: str
+    origin: int
+
+
+class TeacherSelected(TopicBase, StudentBase):
+    pass

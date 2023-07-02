@@ -4,19 +4,16 @@ from enum import IntEnum
 
 
 class UserBase(BaseModel):
-    user_id: str
+    number: str  # 学号/工号
 
 
 class UserCreate(UserBase):
     password: str
+    role: int
 
 
-class UserInDB(UserBase):
-    hashed_password: str
-    user_role: int
-
-    class Config:
-        orm_mode = True
+class UserInDB(UserCreate):
+    id: int
 
 
 # 定义用户角色

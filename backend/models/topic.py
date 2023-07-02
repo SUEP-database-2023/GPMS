@@ -21,3 +21,4 @@ class Topic(Base):
     whether_pass = Column(Boolean, default=False, nullable=False, comment="是否审核通过")
     major = Column(String(10), nullable=False, comment="课题适用专业")
     post_time = Column(DateTime, nullable=False, comment="课题提交时间")
+    grade = Column(String(10), nullable=True, comment="课题适用年级")

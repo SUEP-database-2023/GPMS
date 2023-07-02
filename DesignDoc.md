@@ -141,8 +141,12 @@ TODO
 - `get`,`url`=`admin/topic`,管理员用，用来获得所有选课信息
   |课题编号(topic_id)|课题名称(topic_name)|指导老师(topic_teacher)|审核状态(topic_whether_pass)|
   |-|-|-|-|
-- `post`,`url`=`admin/end_time/`,管理员用，用于更新选题截至时间
-- `post`,`url`=`admin/audit_topic/`,管理员用，用于审核选题课题
+- `post`,`url`=`admin/add/teacher`,管理员用，用于新增单个教师
+- `post`,`url`=`admin/add/teachers`,管理员用，用于新增多个教师
+- `post`,`url`=`admin/add/student`,管理员用，用于新增单个学生
+- `post`,`url`=`admin/add/students`,管理员用，用于新增多个学生
+- `put`,`url`=`admin/end_time/`,管理员用，用于更新选题截至时间
+- `put`,`url`=`admin/audit_topic/`,管理员用，用于审核选题课题
 - `put`,`url`=`admin/student_info/`,管理员用，用来更新学生
 - `put`,`url`=`admin/teacher_info/`,管理员用，用于更新老师的信息
 - `put`,`url`=`admin/audit_topic`,管理员用，用于更新：审核老师提交课题是否通过
