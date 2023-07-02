@@ -28,7 +28,7 @@ def upgrade() -> None:
             primary_key=True,
         ),
         sa.Column("number", sa.String(10), index=True, comment="用户id"),
-        sa.Column("password", sa.String(20), nullable=False, comment="用户密码"),
+        sa.Column("password", sa.String(200), nullable=False, comment="用户密码"),
         sa.Column("role", sa.Integer, nullable=False, comment="用户权限"),
     )
 
