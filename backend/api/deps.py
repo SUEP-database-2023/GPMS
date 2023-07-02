@@ -37,7 +37,7 @@ def get_current_user(
             detail="Could not validate credentials",
         )
 
-    user = crud_user.get_by_number(db, number=token_data.number)
+    user = crud_user.get_by_id(db, id=token_data.id)
 
     if not user:
         raise HTTPException(
