@@ -72,7 +72,7 @@ class CRUDAdmin(CRUDBase):
             db.delete(user)
             db.commit()
             raise HTTPException(
-                status_code=500, detail="Failed to create teacher"
+                status_code=500, detail="Failed to create student"
             ) from e
 
     def create_teachers(self, db: Session, teacher_params: list):

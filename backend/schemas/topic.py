@@ -4,7 +4,6 @@ from datetime import datetime
 
 class TopicBase(BaseModel):
     name: str
-    number: str
 
 
 class TopicCreate(TopicBase):
@@ -14,5 +13,5 @@ class TopicCreate(TopicBase):
     category: str
     synopsis: str
     remark: str
-    major: str
     post_time: datetime
+    grade: str
