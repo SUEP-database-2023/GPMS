@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from api import deps
 from schemas.user import UserRole
 from schemas.teacher import TeacherCreate
+from schemas.student import StudentCreate
 from crud import crud_admin
 
 router = APIRouter()
@@ -21,3 +22,13 @@ def admin_add_teacher(
 ):
     if deps.check_permission(current_user.role, UserRole.ADMIN):
         crud_admin.create_teacher(db=db, teacher_params=teacher_params)
+
+
+@router.post("/admin/add/student")
+def admin_add_student(
+    student_params: StudentCreate,
+    current_user=Depends(deps.get_current_user),
+    db=Depends(deps.get_db),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        crud_admin.create_student(db=db, student_params=student_params)
