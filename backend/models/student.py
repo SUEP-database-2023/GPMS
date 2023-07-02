@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
 from db.config import Base
-from .user import User
+
 
 class Student(Base):
     __tablename__ = "students"
@@ -15,5 +14,3 @@ class Student(Base):
     team = Column(String(10), nullable=False, comment="班级")
     phone = Column(String(11), nullable=False, comment="电话号码")
     random = Column(Integer, nullable=False, comment="随机数")
-
-    user = relationship("User", back_populates="student")
