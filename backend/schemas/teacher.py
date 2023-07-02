@@ -10,8 +10,12 @@ class TeacherBase(UserBase):
 
 
 class TeacherInDB(TeacherBase):
-    level: int
-    origin: str
+    level: str
+    origin: int
+
+
+class TeacherCreate(TeacherInDB):
+    pass
 
 
 class TeacherSelected(TopicBase, StudentBase):

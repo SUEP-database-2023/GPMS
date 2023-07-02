@@ -4,7 +4,6 @@ from enum import IntEnum
 
 
 class UserBase(BaseModel):
-    user_id: str  # 用户ID
     number: str  # 学号/工号
 
 
@@ -13,9 +12,8 @@ class UserCreate(UserBase):
     role: int
 
 
-class UserInDB(UserBase):
-    password: str
-    role: int
+class UserInDB(UserCreate):
+    id: int
 
 
 # 定义用户角色
