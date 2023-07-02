@@ -24,6 +24,16 @@ def admin_add_teacher(
         crud_admin.create_teacher(db=db, teacher_params=teacher_params)
 
 
+@router.post("/admin/add/teachers")
+def admin_add_teachers(
+    teachers_params: list[TeacherCreate],
+    current_user=Depends(deps.get_current_user),
+    db=Depends(deps.get_db),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        crud_admin.create_teachers(db=db, teacher_params=teachers_params)
+
+
 @router.post("/admin/add/student")
 def admin_add_student(
     student_params: StudentCreate,
@@ -32,3 +42,13 @@ def admin_add_student(
 ):
     if deps.check_permission(current_user.role, UserRole.ADMIN):
         crud_admin.create_student(db=db, student_params=student_params)
+
+
+@router.post("/admin/add/students")
+def admin_add_students(
+    student_params: list[StudentCreate],
+    current_user=Depends(deps.get_current_user),
+    db=Depends(deps.get_db),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        crud_admin.create_students(db=db, student_params=student_params)

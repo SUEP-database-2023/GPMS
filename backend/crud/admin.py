@@ -58,5 +58,13 @@ class CRUDAdmin(CRUDBase):
         db.commit()
         db.refresh(student)
 
+    def create_teachers(self, db: Session, teacher_params: list):
+        for teacher_param in teacher_params:
+            self.create_teacher(db, teacher_param)
+
+    def create_students(self, db: Session, student_params: list):
+        for student_param in student_params:
+            self.create_student(db, student_param)
+
 
 crud_admin = CRUDAdmin(User)
