@@ -13,10 +13,10 @@ class CRUDTeacher(CRUDBase):
                 Student.user_id,
                 Student.name,
             )
-            .join(self.model, self.model.name == Topic.teacher)
-            .join(Result, Result.topic == Topic.id)
+            .join(self.model, self.model.name == Topic.teacher_name)
+            .join(Result, Result.topic_id == Topic.id)
             .join(Student, Student.user_id == Result.user_id)
-            .filter(self.model.user_id == user_id)
+            .filter(self.model.id == user_id)
             .all()
         )
 
