@@ -25,6 +25,6 @@ def login_access_token(
         raise HTTPException(status_code=400, detail="Incorrect email or password")
     access_token = security.create_access_token(  # 用user_id和user_role来创建token
         user.id,
-        user.user_role,
+        user.role,
     )
     return {"access_token": access_token, "token_type": "bearer"}

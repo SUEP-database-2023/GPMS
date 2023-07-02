@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
-from sqlalchemy.orm import relationship
 from db.config import Base
-from .user import User
+
 
 class Teacher(Base):
     __tablename__ = "teachers"
@@ -13,5 +12,3 @@ class Teacher(Base):
     major = Column(String(10), nullable=False, comment="教师专业")
     level = Column(String(10), nullable=False, comment="教师职称")
     origin = Column(Boolean, default=False, nullable=False, comment="教师是否来自校外")
-
-    user = relationship("User", back_populates="teacher")
