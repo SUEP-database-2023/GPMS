@@ -46,3 +46,11 @@ def admin_add_students(
 ):
     if deps.check_permission(current_user.role, UserRole.ADMIN):
         crud_admin.create_students(db=db, student_params=student_params)
+
+
+@router.get("/start_matching")
+def admin_start_matching(
+    current_user=Depends(deps.get_current_user), db=Depends(deps.get_db)
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        crud_admin.start_matching(db=db, grade="2024", round=1)

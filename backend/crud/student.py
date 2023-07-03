@@ -27,18 +27,16 @@ class CRUDStudent(CRUDBase):
                 return choice_number.number
 
         selection = Selection(
+            **selection_data,
             user_id=user_id,
             student_number=student_number.number,
             choice1_number=get_choice_number(selection_data["choice1_id"]),
-            choice1_id=selection_data["choice1_id"],
             choice2_number=get_choice_number(selection_data["choice2_id"]),
-            choice2_id=selection_data["choice2_id"],
             choice3_number=get_choice_number(selection_data["choice3_id"]),
-            choice3_id=selection_data["choice3_id"],
             choice4_number=get_choice_number(selection_data["choice4_id"]),
-            choice4_id=selection_data["choice4_id"],
-            time=selection_data["time"],
             round=status,
+            grade=student_number.grade,
+            random=student_number.random,
         )
         existing_selection = (
             db.query(Selection).filter(Selection.user_id == user_id).first()
@@ -111,10 +109,10 @@ class CRUDStudent(CRUDBase):
 
     def update_selection(self, db, status, user_id, topic_id, choice):
         topic = db.query(Topic).filter(Topic.id == topic_id).first()
-        Student = db.query(Student).filter(Student.user_id == user_id).first()
-        if topic.grade != Student.grade:
+        student = db.query(Student).filter(Student.user_id == user_id).first()
+        if topic.grade != student.grade:
             raise HTTPException(status_code=400, detail="grade not match")
-        elif topic.major != Student.major:
+        elif topic.major != student.major:
             raise HTTPException(status_code=400, detail="major not match")
 
         result = (

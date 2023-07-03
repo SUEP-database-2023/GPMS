@@ -2,11 +2,13 @@ from crud.base import CRUDBase
 from sqlalchemy.orm import Session
 from schemas.teacher import TeacherCreate
 from schemas.student import StudentCreate
-from models import User, Teacher, Student
+from models import User, Teacher, Student, Selection, Result
 from fastapi.encoders import jsonable_encoder
 from core.security import get_password_hash
 from fastapi import HTTPException
 from sqlalchemy.exc import SQLAlchemyError
+import random
+from sqlalchemy import func, not_
 
 
 class CRUDAdmin(CRUDBase):
@@ -67,6 +69,9 @@ class CRUDAdmin(CRUDBase):
             db.add(student)
             db.commit()
             db.refresh(student)
+            self.assign_random_number(
+                db, grade=student_data["grade"]
+            )  # 每当添加学生时都会重新分配随机数，有待改进
         except SQLAlchemyError as e:
             db.rollback()
             db.delete(user)
@@ -82,6 +87,82 @@ class CRUDAdmin(CRUDBase):
     def create_students(self, db: Session, student_params: list):
         for student_param in student_params:
             self.create_student(db, student_param)
+
+    def assign_random_number(self, db: Session, grade: str):
+        student_random_list = db.query(Student).filter(Student.grade == grade).all()
+        length = len(student_random_list)
+        random_num = random.sample(range(1, length + 1), length)
+        sum = 0
+        for i in range(length):
+            sum += student_random_list[i].random
+            student_random_list[i].random = random_num[i]
+        if sum != self.calculate_sum(length):
+            db.commit()
+        else:
+            db.rollback()
+
+    def calculate_sum(self, length: int):
+        return sum(range(1, length + 1))
+
+    def start_matching(self, db: Session, grade: str, round: int):
+        self.allocate_topics(db, grade, round)
+
+    def allocate_topics(self, db: Session, grade: str, round: int):
+        # TODO 选课: user_id不在result表中且 topic_id 不在选课中
+        choices = range(1, 5)  # 选择的范围：1到4
+        has_chosen_id = []  # 已经选择的课题
+        has_chosen_student_id = []  # 已经选择的学生
+        for choice in choices:
+            # 查询选择了相同课题的学生记录
+            query = (
+                db.query(
+                    getattr(Selection, f"choice{choice}_id"),
+                )
+                .filter(Selection.grade == grade)
+                .group_by(getattr(Selection, f"choice{choice}_id"))
+                .filter(
+                    not_(getattr(Selection, f"choice{choice}_id").in_(has_chosen_id))
+                )
+                .filter(not_(Selection.user_id.in_(has_chosen_student_id)))
+                .all()
+            )
+            for id in query:
+                print(id[0])
+                has_chosen_id.append(id[0])
+                if choice == 1 or choice == 3:
+                    instert_result = (
+                        db.query(Selection)
+                        .filter(getattr(Selection, f"choice{choice}_id") == id[0])
+                        .filter(Selection.grade == grade)
+                        .order_by(Selection.random.asc())
+                        .first()
+                    )
+                elif choice == 2 or choice == 4:
+                    instert_result = (
+                        db.query(Selection)
+                        .filter(getattr(Selection, f"choice{choice}_id") == id[0])
+                        .filter(Selection.grade == grade)
+                        .order_by(Selection.random.desc())
+                        .first()
+                    )
+                if instert_result:
+                    has_chosen_student_id.append(instert_result.user_id)
+                    self.insert_result(db, instert_result, id[0], round, choice)
+
+    def insert_result(
+        self, db: Session, selection: Selection, topic_id: int, round: int, choice: int
+    ):
+        result = Result(
+            user_id=selection.user_id,
+            student_number=selection.student_number,
+            topic_id=topic_id,
+            topic_number=getattr(selection, f"choice{choice}_number"),
+            round=round,
+            choice=choice,
+            grade=selection.grade,
+        )
+        db.add(result)
+        db.commit()
 
 
 crud_admin = CRUDAdmin(User)
