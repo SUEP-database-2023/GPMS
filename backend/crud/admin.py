@@ -1,7 +1,7 @@
 from crud.base import CRUDBase
 from sqlalchemy.orm import Session
-from schemas.teacher import TeacherCreate,TeacherUpdate
-from schemas.student import StudentCreate
+from schemas.teacher import TeacherCreate,TeacherInDB
+from schemas.student import StudentCreate,StudentInDB
 from models import User, Teacher, Student, Selection, Result, Topic
 from fastapi.encoders import jsonable_encoder
 from core.security import get_password_hash
@@ -285,5 +285,60 @@ class CRUDAdmin(CRUDBase):
             # 处理数据库操作异常
             db.rollback()
             raise HTTPException(status_code=500, detail="Failed to update status") from e
+        
+
+    def update_student_info(
+        self, db: Session, student_params: StudentInDB, student_id: Any
+    ):
+        
+        try:
+            # 查询对应的主题记录
+            student = db.query(Student).filter(Student.id == student_id).first()
+
+            if not student:
+                # 如果找不到对应的主题记录，抛出 HTTPException
+                raise HTTPException(status_code=404, detail="student not found")
+            
+            # 更新主题记录的属性
+            for field, value in student_params.dict().items():
+                setattr(student, field, value)
+
+            # 提交事务
+            db.commit()
+
+            # 返回更新后的主题记录
+            return student
+
+        except SQLAlchemyError as e:
+            # 处理数据库操作异常
+            db.rollback()
+            raise HTTPException(status_code=500, detail="Failed to update student") from e
+        
+    def update_teacher_info(
+        self, db: Session, teacher_params: TeacherInDB, teacher_id: Any
+    ):
+        
+        try:
+            # 查询对应的主题记录
+            teacher = db.query(Teacher).filter(Teacher.id == teacher_id).first()
+
+            if not teacher:
+                # 如果找不到对应的主题记录，抛出 HTTPException
+                raise HTTPException(status_code=404, detail="teacher not found")
+            
+            # 更新主题记录的属性
+            for field, value in teacher_params.dict().items():
+                setattr(teacher, field, value)
+
+            # 提交事务
+            db.commit()
+
+            # 返回更新后的主题记录
+            return teacher
+
+        except SQLAlchemyError as e:
+            # 处理数据库操作异常
+            db.rollback()
+            raise HTTPException(status_code=500, detail="Failed to update teacher") from e
         
 crud_admin = CRUDAdmin(User)

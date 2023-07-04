@@ -8,9 +8,6 @@ class TeacherBase(UserBase):
     teacher_name: str
     major: str
 
-class TeacherUpdate(TeacherBase):
-    level: str
-    origin: int
 
 class TeacherCreate(TeacherBase):
     level: str

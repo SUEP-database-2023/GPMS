@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from api import deps
 from schemas.user import UserRole
-from schemas.teacher import TeacherCreate, TeacherUpdate
-from schemas.student import StudentCreate
+from schemas.teacher import TeacherCreate,TeacherInDB
+from schemas.student import StudentCreate,StudentInDB
 from schemas.public import PublicTime
 from schemas.topic import TopicRequest, TopicAudit
 from crud import crud_admin
@@ -117,3 +117,35 @@ def update_end_time(
             status_id=status_id,
         )
     return status
+
+# 更新学生信息
+@router.put("/update/student/{student_id}")
+def update_student_info(
+    student_id:int,
+    student_params:StudentInDB,
+    db: Session = Depends(deps.get_db),
+    current_user=Depends(deps.get_current_user),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        student = crud_admin.update_student_info(
+            db=db,
+            student_params=student_params,
+            student_id=student_id,
+        )
+    return student
+
+# 更新老师信息
+@router.put("/update/teacher/{teacher_id}")
+def update_teacher_info(
+    teacher_id:int,
+    teacher_params:TeacherInDB,
+    db: Session = Depends(deps.get_db),
+    current_user=Depends(deps.get_current_user),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        teacher = crud_admin.update_teacher_info(
+            db=db,
+            teacher_params=teacher_params,
+            teacher_id=teacher_id,
+        )
+    return teacher

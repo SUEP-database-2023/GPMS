@@ -145,18 +145,16 @@ TODO
 - `get`,`url`=`admin/topic`,管理员用，用来获得所有选课信息
   |课题编号(topic_id)|课题名称(topic_name)|指导老师(topic_teacher)|审核状态(topic_whether_pass)|
   |-|-|-|-|
-
 - `put`,`url`=`admin/update/audit_topic`,管理员用，用于更新：审核老师提交课题是否通过
-
+- `put`,`url`=`admin/update/end_time`,管理员用，用于更新选题截至时间
 
 - `put`,`url`=`admin/update/student`,管理员用，用来更新学生
 - `put`,`url`=`admin/update/teacher`,管理员用，用于更新老师的信息
 
-
-- `put`,`url`=`admin/update/end_time`,管理员用，用于更新选题截至时间
 - `put`,`url`=`todo`,增加一个强制选题的API
 
 - `delete`,`url`=`admin/topic/{topic_id}`,管理员用于删除课题
+
 **Teacher**
 
 - `get`,`url`=`teacher/selected/{teacher_id}`,教师用，用来获得被选的信息
