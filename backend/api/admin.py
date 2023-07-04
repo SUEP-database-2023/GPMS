@@ -57,3 +57,16 @@ def admin_start_matching(
 ):
     if deps.check_permission(current_user.role, UserRole.ADMIN):
         crud_admin.start_matching(round=round, db=db, grade=grade)
+
+
+@router.put("/force_assign_topics/{student_number}/{topic_number}")
+def force_assign_topics(
+    student_number: str,
+    topic_number: str,
+    current_user=Depends(deps.get_current_user),
+    db=Depends(deps.get_db),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        crud_admin.force_assign_topics(
+            db=db, student_number=student_number, topic_number=topic_number
+        )

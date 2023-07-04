@@ -2,7 +2,7 @@ from crud.base import CRUDBase
 from sqlalchemy.orm import Session
 from schemas.teacher import TeacherCreate
 from schemas.student import StudentCreate
-from models import User, Teacher, Student, Selection, Result
+from models import User, Teacher, Student, Selection, Result, Topic
 from fastapi.encoders import jsonable_encoder
 from core.security import get_password_hash
 from fastapi import HTTPException
@@ -110,16 +110,21 @@ class CRUDAdmin(CRUDBase):
         for choice in choices:
             # 查询选择了相同课题的学生记录
             has_chosen_student_id = (
-                select(Result.user_id).where(Result.grade == grade).subquery()
+                select(Result.user_id)
+                .where(and_(Result.grade == grade, Result.round == round))
+                .subquery()
             )
             has_chosen_id = (
-                select(Result.topic_id).where(Result.grade == grade).subquery()
+                select(Result.topic_id)
+                .where(and_(Result.grade == grade, Result.round == round))
+                .subquery()
             )
             query = (
                 db.query(
                     getattr(Selection, f"choice{choice}_id"),
                 )
                 .filter(Selection.grade == grade)
+                .filter(Selection.round == round)
                 .group_by(getattr(Selection, f"choice{choice}_id"))
                 .filter(
                     not_(
@@ -166,6 +171,36 @@ class CRUDAdmin(CRUDBase):
         )
         db.add(result)
         db.commit()
+
+    def force_assign_topics(self, db: Session, student_number: str, topic_number: str):
+        user_id = db.query(Student).filter(Student.number == student_number).first()
+        topic_id = db.query(Topic).filter(Topic.number == topic_number).first().id
+        user_id_in_result = (
+            db.query(Result).filter(Result.user_id == user_id.user_id).first()
+        )
+        topic_id_in_result = (
+            db.query(Result).filter(Result.topic_id == topic_id).first()
+        )
+        if user_id_in_result or topic_id_in_result:
+            raise HTTPException(
+                status_code=400, detail="The student or topic has been chosen"
+            )
+        elif not (user_id and topic_id):
+            raise HTTPException(
+                status_code=400, detail="The student or topic not exist"
+            )
+        else:
+            result = Result(
+                user_id=user_id.id,
+                student_number=student_number,
+                topic_id=topic_id,
+                topic_number=topic_number,
+                round=0,
+                choice=0,
+                grade=user_id.grade,
+            )
+            db.add(result)
+            db.commit()
 
 
 crud_admin = CRUDAdmin(User)
