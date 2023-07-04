@@ -8,7 +8,7 @@ from core.security import get_password_hash
 from fastapi import HTTPException
 from sqlalchemy.exc import SQLAlchemyError
 import random
-from sqlalchemy import func, not_
+from sqlalchemy import not_, select, and_
 
 
 class CRUDAdmin(CRUDBase):
@@ -105,15 +105,16 @@ class CRUDAdmin(CRUDBase):
         return sum(range(1, length + 1))
 
     def start_matching(self, db: Session, grade: str, round: int):
-        self.allocate_topics(db, grade, round)
-
-    def allocate_topics(self, db: Session, grade: str, round: int):
-        # TODO 选课: user_id不在result表中且 topic_id 不在选课中
         choices = range(1, 5)  # 选择的范围：1到4
-        has_chosen_id = []  # 已经选择的课题
-        has_chosen_student_id = []  # 已经选择的学生
+
         for choice in choices:
             # 查询选择了相同课题的学生记录
+            has_chosen_student_id = (
+                select(Result.user_id).where(Result.grade == grade).subquery()
+            )
+            has_chosen_id = (
+                select(Result.topic_id).where(Result.grade == grade).subquery()
+            )
             query = (
                 db.query(
                     getattr(Selection, f"choice{choice}_id"),
@@ -121,14 +122,17 @@ class CRUDAdmin(CRUDBase):
                 .filter(Selection.grade == grade)
                 .group_by(getattr(Selection, f"choice{choice}_id"))
                 .filter(
-                    not_(getattr(Selection, f"choice{choice}_id").in_(has_chosen_id))
+                    not_(
+                        getattr(Selection, f"choice{choice}_id").in_(
+                            select(has_chosen_id)
+                        )
+                    )
                 )
-                .filter(not_(Selection.user_id.in_(has_chosen_student_id)))
+                .filter(not_(getattr(Selection, f"choice{choice}_id") == -1))
+                .filter(not_(Selection.user_id.in_(select(has_chosen_student_id))))
                 .all()
             )
             for id in query:
-                print(id[0])
-                has_chosen_id.append(id[0])
                 if choice == 1 or choice == 3:
                     instert_result = (
                         db.query(Selection)
@@ -146,7 +150,6 @@ class CRUDAdmin(CRUDBase):
                         .first()
                     )
                 if instert_result:
-                    has_chosen_student_id.append(instert_result.user_id)
                     self.insert_result(db, instert_result, id[0], round, choice)
 
     def insert_result(
