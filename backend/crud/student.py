@@ -16,6 +16,7 @@ class CRUDStudent(CRUDBase):
         student_number = db.query(Student).filter(Student.user_id == user_id).first()
 
         def get_choice_number(topic_id):
+            result = db.query(Result).filter(Result.topic_id == topic_id).first()
             choice_number = db.query(Topic).filter(Topic.id == topic_id).first()
             if not choice_number:
                 raise HTTPException(status_code=400, detail="no topic found")
@@ -23,25 +24,33 @@ class CRUDStudent(CRUDBase):
                 raise HTTPException(status_code=400, detail="grade not match")
             elif student_number.major != choice_number.major:
                 raise HTTPException(status_code=400, detail="major not match")
+            elif result:
+                raise HTTPException(status_code=400, detail="topic already chosen")
+
             else:
                 return choice_number.number
 
         selection = Selection(
+            **selection_data,
             user_id=user_id,
             student_number=student_number.number,
-            choice1_number=get_choice_number(selection_data["choice1_id"]),
-            choice1_id=selection_data["choice1_id"],
-            choice2_number=get_choice_number(selection_data["choice2_id"]),
-            choice2_id=selection_data["choice2_id"],
-            choice3_number=get_choice_number(selection_data["choice3_id"]),
-            choice3_id=selection_data["choice3_id"],
-            choice4_number=get_choice_number(selection_data["choice4_id"]),
-            choice4_id=selection_data["choice4_id"],
-            time=selection_data["time"],
             round=status,
+            grade=student_number.grade,
+            random=student_number.random,
         )
+        choice_numbers = ["choice1_id", "choice2_id", "choice3_id", "choice4_id"]
+        for choice in choice_numbers:
+            choice_id = selection_data[choice]
+            if choice_id != -1:
+                choice_number = get_choice_number(choice_id)
+                choice_number_attr = choice.replace("_id", "_number")
+                setattr(selection, choice_number_attr, choice_number)
+
         existing_selection = (
-            db.query(Selection).filter(Selection.user_id == user_id).first()
+            db.query(Selection)
+            .filter(Selection.user_id == user_id)
+            .filter(Selection.round == status)
+            .first()
         )
 
         if existing_selection:
@@ -111,10 +120,10 @@ class CRUDStudent(CRUDBase):
 
     def update_selection(self, db, status, user_id, topic_id, choice):
         topic = db.query(Topic).filter(Topic.id == topic_id).first()
-        Student = db.query(Student).filter(Student.user_id == user_id).first()
-        if topic.grade != Student.grade:
+        student = db.query(Student).filter(Student.user_id == user_id).first()
+        if topic.grade != student.grade:
             raise HTTPException(status_code=400, detail="grade not match")
-        elif topic.major != Student.major:
+        elif topic.major != student.major:
             raise HTTPException(status_code=400, detail="major not match")
 
         result = (

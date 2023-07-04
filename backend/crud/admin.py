@@ -2,11 +2,13 @@ from crud.base import CRUDBase
 from sqlalchemy.orm import Session
 from schemas.teacher import TeacherCreate,TeacherUpdate
 from schemas.student import StudentCreate
-from models import User, Teacher, Student
+from models import User, Teacher, Student, Selection, Result, Topic
 from fastapi.encoders import jsonable_encoder
 from core.security import get_password_hash
 from fastapi import HTTPException
 from sqlalchemy.exc import SQLAlchemyError
+import random
+from sqlalchemy import not_, select, and_
 from schemas.topic import TopicRequest,TopicAudit
 from schemas.public import PublicTime
 from models.topic import Topic
@@ -71,6 +73,9 @@ class CRUDAdmin(CRUDBase):
             db.add(student)
             db.commit()
             db.refresh(student)
+            self.assign_random_number(
+                db, grade=student_data["grade"]
+            )  # 每当添加学生时都会重新分配随机数，有待改进
         except SQLAlchemyError as e:
             db.rollback()
             db.delete(user)
@@ -86,6 +91,120 @@ class CRUDAdmin(CRUDBase):
     def create_students(self, db: Session, student_params: list):
         for student_param in student_params:
             self.create_student(db, student_param)
+
+    def assign_random_number(self, db: Session, grade: str):
+        student_random_list = db.query(Student).filter(Student.grade == grade).all()
+        length = len(student_random_list)
+        random_num = random.sample(range(1, length + 1), length)
+        sum = 0
+        for i in range(length):
+            sum += student_random_list[i].random
+            student_random_list[i].random = random_num[i]
+        if sum != self.calculate_sum(length):
+            db.commit()
+        else:
+            db.rollback()
+
+    def calculate_sum(self, length: int):
+        return sum(range(1, length + 1))
+
+    def start_matching(self, db: Session, grade: str, round: int):
+        choices = range(1, 5)  # 选择的范围：1到4
+
+        for choice in choices:
+            # 查询选择了相同课题的学生记录
+            has_chosen_student_id = (
+                select(Result.user_id)
+                .where(and_(Result.grade == grade, Result.round == round))
+                .subquery()
+            )
+            has_chosen_id = (
+                select(Result.topic_id)
+                .where(and_(Result.grade == grade, Result.round == round))
+                .subquery()
+            )
+            query = (
+                db.query(
+                    getattr(Selection, f"choice{choice}_id"),
+                )
+                .filter(Selection.grade == grade)
+                .filter(Selection.round == round)
+                .group_by(getattr(Selection, f"choice{choice}_id"))
+                .filter(
+                    not_(
+                        getattr(Selection, f"choice{choice}_id").in_(
+                            select(has_chosen_id)
+                        )
+                    )
+                )
+                .filter(not_(getattr(Selection, f"choice{choice}_id") == -1))
+                .filter(not_(Selection.user_id.in_(select(has_chosen_student_id))))
+                .all()
+            )
+            for id in query:
+                if choice == 1 or choice == 3:
+                    instert_result = (
+                        db.query(Selection)
+                        .filter(getattr(Selection, f"choice{choice}_id") == id[0])
+                        .filter(Selection.grade == grade)
+                        .order_by(Selection.random.asc())
+                        .first()
+                    )
+                elif choice == 2 or choice == 4:
+                    instert_result = (
+                        db.query(Selection)
+                        .filter(getattr(Selection, f"choice{choice}_id") == id[0])
+                        .filter(Selection.grade == grade)
+                        .order_by(Selection.random.desc())
+                        .first()
+                    )
+                if instert_result:
+                    self.insert_result(db, instert_result, id[0], round, choice)
+
+    def insert_result(
+        self, db: Session, selection: Selection, topic_id: int, round: int, choice: int
+    ):
+        result = Result(
+            user_id=selection.user_id,
+            student_number=selection.student_number,
+            topic_id=topic_id,
+            topic_number=getattr(selection, f"choice{choice}_number"),
+            round=round,
+            choice=choice,
+            grade=selection.grade,
+        )
+        db.add(result)
+        db.commit()
+
+    def force_assign_topics(self, db: Session, student_number: str, topic_number: str):
+        user_id = db.query(Student).filter(Student.number == student_number).first()
+        topic_id = db.query(Topic).filter(Topic.number == topic_number).first().id
+        user_id_in_result = (
+            db.query(Result).filter(Result.user_id == user_id.user_id).first()
+        )
+        topic_id_in_result = (
+            db.query(Result).filter(Result.topic_id == topic_id).first()
+        )
+        if user_id_in_result or topic_id_in_result:
+            raise HTTPException(
+                status_code=400, detail="The student or topic has been chosen"
+            )
+        elif not (user_id and topic_id):
+            raise HTTPException(
+                status_code=400, detail="The student or topic not exist"
+            )
+        else:
+            result = Result(
+                user_id=user_id.id,
+                student_number=student_number,
+                topic_id=topic_id,
+                topic_number=topic_number,
+                round=0,
+                choice=0,
+                grade=user_id.grade,
+            )
+            db.add(result)
+            db.commit()
 
     def get_all_topics(self, db: Session):
         topics = db.query(Topic).all()

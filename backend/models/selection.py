@@ -18,3 +18,5 @@ class Selection(Base):
     choice4_id = Column(Integer, nullable=False, comment="第四志愿课程id")
     time = Column(DateTime, nullable=False, comment="选题时间")
     round = Column(Integer, nullable=False, comment="第几轮选题")
+    grade = Column(String(10), nullable=False, comment="年级")
+    random = Column(Integer, nullable=False, comment="随机数")
