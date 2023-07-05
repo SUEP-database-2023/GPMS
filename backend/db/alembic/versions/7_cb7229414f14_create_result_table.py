@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cb7229414f14'
-down_revision = 'c10b20182c61'
+revision = "cb7229414f14"
+down_revision = "c10b20182c61"
 branch_labels = None
 depends_on = None
 
@@ -24,18 +24,17 @@ def upgrade() -> None:
             sa.Integer,
             autoincrement=True,
             index=True,
-            comment="序列号",
+            comment="主键id",
+            primary_key=True,
         ),
-        sa.Column(
-            "student_id", sa.Integer, index=True, comment="学生编号"
-        ),
-        sa.Column("topic_id", sa.Integer, nullable=False, comment="最终选择的课题编号"),
-        sa.Column("status_1", sa.Integer, nullable=True, comment="第几轮选题选中"),
-        sa.Column("status_2", sa.Integer, nullable=True, comment="选中第几志愿"),
-        
+        sa.Column("user_id", sa.Integer, index=True, comment="学生user_id"),
+        sa.Column("student_number", sa.String(8), nullable=True, comment="学生学号"),
+        sa.Column("topic_id", sa.Integer, nullable=True, comment="课题id"),
+        sa.Column("topic_number", sa.String(9), nullable=True, comment="课题编号"),
+        sa.Column("round", sa.Integer, nullable=True, comment="选中轮次"),
+        sa.Column("choice", sa.Integer, nullable=True, comment="选中志愿"),
     )
 
 
 def downgrade() -> None:
-
     op.drop_table("result")
