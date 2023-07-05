@@ -1,6 +1,7 @@
 from datetime import datetime
 from pydantic import BaseModel
 
+
 class PublicTime(BaseModel):
     teacher_post_time: datetime
     admin_audit_time: datetime
@@ -10,3 +11,7 @@ class PublicTime(BaseModel):
     student_end_time2: datetime
     admin_end_time2: datetime
     major: str
+
+
+class Password(BaseModel):
+    password: str

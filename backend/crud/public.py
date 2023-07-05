@@ -1,8 +1,9 @@
 from crud.base import CRUDBase
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from models import Status
+from models import Status, User
 from schemas.public import PublicTime
+from core.security import get_password_hash
 
 
 class CRUDPublic(CRUDBase):
@@ -27,6 +28,11 @@ class CRUDPublic(CRUDBase):
         if not status:
             raise HTTPException(status_code=404, detail="Status not found")
         return status
+
+    def update_pwd(self, db: Session, password: str, user_id: int):
+        pwd = db.query(User).filter(User.id == user_id).first()
+        pwd.password = get_password_hash(password)
+        db.commit()
 
 
 crud_public = CRUDPublic(Status)
