@@ -1,32 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Loginpage from "../pages/LoginPage/index";
-import StudentRoute from "./StudentRoute";
-import ManagerRoute from "./ManagerRoute";
-import TeacherRoute from "./TeacherRoute";
-import { ConfigProvider, theme } from "antd";
-import { useSelector } from "react-redux";
-
+import TestRoute from "./TestRoute";
+import AdminRoute from "./AdminRoute";
 function GlobalRoute() {
-  const { defaultAlgorithm, darkAlgorithm } = theme;
-  const isDarkMode = useSelector((state) => state.config.isDarkMode);
   return (
-    <>
-      <ConfigProvider
-        theme={{
-          algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
-        }}
-      >
-        <Router>
-          <Routes>
-            <Route path="/" element={<Loginpage />} />
-            <Route path="/teacherpage/*" element={<TeacherRoute />} />
-            <Route path="/studentpage/*" element={<StudentRoute />} />
-            <Route path="/managerpage/*" element={<ManagerRoute />} />
-          </Routes>
-        </Router>
-      </ConfigProvider>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/test" element={<TestRoute />} />
+        <Route path="/admin" element={<AdminRoute />} />
+      </Routes>
+    </Router>
   );
 }
 
