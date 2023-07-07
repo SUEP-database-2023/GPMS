@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../../assets/logo.png";
-import Menu from "../../Menu";
+import Menu from "../Menu";
 
 const Sidebar = ({ items }) => {
   return (

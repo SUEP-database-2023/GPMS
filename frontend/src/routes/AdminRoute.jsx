@@ -29,7 +29,7 @@ const items = [
   },
 ];
 const AdminRoute = () => {
-  return <Mylayout items={items} page={<AdminPage />} />;
+  return <Mylayout items={items} page={<AdminPage />} title={"管理员端"} />;
 };
 
 export default AdminRoute;

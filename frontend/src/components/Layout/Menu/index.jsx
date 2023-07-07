@@ -14,12 +14,10 @@ const Menu = ({ items }) => {
           <li
             key={index}
             className={`${
-              selectedItem === index ? "bg-white" : ""
-            } pr-0 rounded-l-full transform transition-transform duration-300 ${
               selectedItem === index
-                ? "sm:translate-x-1 md:translate-x-5 lg:translate-x-10"
+                ? "bg-white sm:translate-x-1 md:translate-x-5 lg:translate-x-10"
                 : ""
-            }`}
+            } pr-0 rounded-l-full transform transition-transform duration-300 `}
             onClick={() => handleItemClick(index)}
           >
             {/* TODO:图标 + 链接 */}
