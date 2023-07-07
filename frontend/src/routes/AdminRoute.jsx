@@ -1,7 +1,6 @@
 import React from "react";
-import Sidebar from "../components/Layout/Sidebar";
 import AdminPage from "../pages/Adminpage";
-import Body from "../components/Layout/Body";
+import Mylayout from "../components/Layout/Mylayout";
 const items = [
   {
     title: "参数设置",
@@ -30,12 +29,7 @@ const items = [
   },
 ];
 const AdminRoute = () => {
-  return (
-    <div className="flex h-screen w-screen ">
-      <Sidebar items={items} />
-      <Body children={<AdminPage />} />
-    </div>
-  );
+  return <Mylayout items={items} page={<AdminPage />} />;
 };
 
 export default AdminRoute;
