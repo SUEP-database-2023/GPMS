@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const Menu = ({ items }) => {
+  const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState(0);
 
-  const handleItemClick = (index) => {
+  const handleItemClick = (index, item) => {
     setSelectedItem(index);
+    navigate(item.path);
   };
 
   return (
@@ -16,7 +18,7 @@ const Menu = ({ items }) => {
             className={`${
               selectedItem === index ? "bg-white translate-x-[15%]" : ""
             } pr-0 rounded-l-full transform transition-transform duration-300  `}
-            onClick={() => handleItemClick(index)}
+            onClick={() => handleItemClick(index, item)}
           >
             {/* TODO:图标 + 链接 */}
             <a className="text-base sm:text-lg md:text-xl lg:text-2xl text-center pr-0 my-1">
