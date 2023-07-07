@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { AdminRoute, TeacherRoute, StudentRoute, TestRoute } from "./index";
+import { AdminRoute, TeacherRoute, StudentRoute } from "./index";
+import { LoginPage } from "../pages/LoginPage";
 import { Provider } from "react-redux";
 import store from "../store/ConfigureStore";
 function GlobalRoute() {
@@ -8,7 +9,7 @@ function GlobalRoute() {
     <Provider store={store}>
       <Router>
         <Routes>
-          <Route path="/test" element={<TestRoute />} />
+          <Route path="/" element={<LoginPage />} />
           <Route path="/admin/*" element={<AdminRoute />} />
           <Route path="/teacher/*" element={<TeacherRoute />} />
           <Route path="/student/*" element={<StudentRoute />} />
