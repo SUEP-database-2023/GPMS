@@ -9,15 +9,13 @@ const Menu = ({ items }) => {
 
   return (
     <div>
-      <ul className="menu sm:menu-sm md:menu-md lg:menu-lg rounded-box ">
+      <ul className="menu sm:menu-sm md:menu-md lg:menu-lg rounded-box overflow-hidden">
         {items.map((item, index) => (
           <li
             key={index}
             className={`${
-              selectedItem === index
-                ? "bg-white sm:translate-x-1 md:translate-x-5 lg:translate-x-10"
-                : ""
-            } pr-0 rounded-l-full transform transition-transform duration-300 `}
+              selectedItem === index ? "bg-white translate-x-[15%]" : ""
+            } pr-0 rounded-l-full transform transition-transform duration-300  `}
             onClick={() => handleItemClick(index)}
           >
             {/* TODO:图标 + 链接 */}

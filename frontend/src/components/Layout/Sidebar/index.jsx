@@ -4,7 +4,7 @@ import Menu from "../Menu";
 
 const Sidebar = ({ items }) => {
   return (
-    <div className="bg-gradient-to-b from-blue-600 to-blue-900 w-[20%] flex flex-col items-center ">
+    <div className="bg-gradient-to-b from-blue-600 to-blue-900 w-[20%] flex flex-col items-center">
       <div className="w-48 h-48 flex items-center justify-center ">
         {/* TODO:图片大小 */}
         <img src={logo} className="object-contain w-[50%] h-full " alt="Logo" />
