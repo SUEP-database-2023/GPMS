@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../components/Layout/Sidebar";
 import AdminPage from "../pages/Adminpage";
+import Body from "../components/Layout/Body";
 const items = [
   {
     title: "参数设置",
@@ -30,8 +31,9 @@ const items = [
 ];
 const AdminRoute = () => {
   return (
-    <div>
-      <Sidebar main={<AdminPage />} items={items} />
+    <div className="flex h-screen w-screen ">
+      <Sidebar items={items} />
+      <Body children={<AdminPage />} />
     </div>
   );
 };
