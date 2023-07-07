@@ -17,7 +17,7 @@ const Menu = ({ items }) => {
             key={index}
             className={`${
               selectedItem === index ? "bg-white translate-x-[15%]" : ""
-            } pr-0 rounded-l-full transform transition-transform duration-300  `}
+            } pr-0 rounded-l-full transform transition-transform duration-300  disabled:active`}
             onClick={() => handleItemClick(index, item)}
           >
             {/* TODO:图标 + 链接 */}

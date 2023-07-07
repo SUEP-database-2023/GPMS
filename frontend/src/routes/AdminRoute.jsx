@@ -1,7 +1,7 @@
 import React from "react";
 import { AdminPage } from "../pages/AdminPage";
 import Mylayout from "../components/Layout/Mylayout";
-import { BrowserRouter as Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import {
   ParmeterSettingPage,
   TopicReviewPage,
@@ -9,6 +9,7 @@ import {
   TopicResultPage,
   PasswordUpdatePage,
 } from "../pages/AdminPage";
+
 const items = [
   {
     title: "参数设置",
@@ -41,16 +42,28 @@ const items = [
     element: <PasswordUpdatePage />,
   },
 ];
-const generateRoutes = () => {
-  return items.map((item) => (
-    <Route key={item.id} path={item.url} element={item.element} />
-  ));
-};
+
+// const generateRoutes = ({ items }) => {
+//   return items.map((item) => (
+//     <Route
+//       key={item.id}
+//       path={item.path}
+//       element={
+//         <Mylayout items={items} page={item.element} title={"管理员端"} />
+//       }
+//     />
+//   ));
+// };
+
 const AdminRoute = () => {
   return (
     <>
-      <Routes>{generateRoutes()}</Routes>
-      <Mylayout items={items} page={<AdminPage />} title={"管理员端"} />;
+      {/* <Routes>{generateRoutes({ items })}</Routes> */}
+      <Mylayout
+        items={items}
+        page={<ParmeterSettingPage />}
+        title={"管理员端"}
+      />
     </>
   );
 };
