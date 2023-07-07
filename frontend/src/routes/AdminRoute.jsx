@@ -1,6 +1,4 @@
 import React from "react";
-import Mylayout from "../components/Layout/Mylayout";
-import { Navigate, Route, Routes } from "react-router-dom";
 import {
   ParmeterSettingPage,
   TopicReviewPage,
@@ -8,7 +6,7 @@ import {
   TopicResultPage,
   PasswordUpdatePage,
 } from "../pages/AdminPage";
-
+import { GenerateRoutes } from "../utils";
 const items = [
   {
     id: "1",
@@ -52,25 +50,8 @@ const items = [
   },
 ];
 
-const generateRoutes = ({ items }) => {
-  return items.map((item) => (
-    <Route
-      key={item.id}
-      path={item.path}
-      element={
-        <Mylayout items={items} page={item.element} title={"管理员端"} />
-      }
-    />
-  ));
-};
-
 const AdminRoute = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Navigate to={items[0].path} replace />} />
-      {generateRoutes({ items })}
-    </Routes>
-  );
+  return <>{GenerateRoutes({ items: items, title: "管理员端" })}</>;
 };
 
 export default AdminRoute;

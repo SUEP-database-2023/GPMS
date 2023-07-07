@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../components/Layout/Sidebar";
+import { Sidebar } from "../components";
 import TestPage from "../pages/Testpage";
 const TestRoute = () => {
   return (
