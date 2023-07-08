@@ -15,7 +15,7 @@ const userSlice = createSlice({
       state.access_token = action.payload;
       state.identity = jwtDecode(action.payload).role;
       state.userid = jwtDecode(action.payload).id;
-      console.log(state.access_token, state.identity, state.userid);
+      console.log(state.identity);
     },
     clearUserSlice: (state) => {
       state.token = null;
