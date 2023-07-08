@@ -22,7 +22,7 @@ const Menu = ({ items }) => {
           <li
             key={item.id}
             className={`${
-              selectedItem === item.id ? "bg-white translate-x-[15%]" : ""
+              selectedItem === item.id ? "bg-gray-200 translate-x-[15%]" : ""
             } pr-0 rounded-l-full transform transition-transform duration-300  disabled:active flex flex-row items-center`}
             onClick={() => handleItemClick(item)}
           >
