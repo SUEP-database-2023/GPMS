@@ -1,7 +1,7 @@
 import React from "react";
 const TopicRulePage = () => {
   return (
-    <div className="flex flex-col h-screen items-center">
+    <div className="flex flex-col h-screen items-center mt-[5%]">
       <div className="flex flex-col items-center justify-center space-y-5 w-[75%] bg-white p-5">
         <div className="text-red-600 text-3xl items-center">
           数理学院毕业论文(设计)选题规则
