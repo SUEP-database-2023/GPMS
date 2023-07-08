@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserSlice } from "../../store/UserSlice";
+import { GetAccessToken } from "../../components/Api/AuthApi";
 const LoginFrom = () => {
+  const [UserNum, setUserNum] = useState("");
+  const [UserPassword, setUserPassword] = useState("");
+  const dispatch = useDispatch();
+  const url = useSelector((state) => state.api.url);
+
+  const handleLogin = async () => {
+    const token = await GetAccessToken(UserNum, UserPassword, url);
+    console.log(token);
+    dispatch(setUserSlice(token));
+  };
+
   return (
     <div className="flex flex-col justify-center space-y-4 w-[50%] h-[25%]">
       <div className="w-full text-center">
@@ -13,6 +27,8 @@ const LoginFrom = () => {
           <input
             type="text"
             placeholder="请输入账号"
+            value={UserNum}
+            onChange={(e) => setUserNum(e.target.value)}
             className="input w-full max-w-xs bg-white outline-none"
           />
         </div>
@@ -21,10 +37,17 @@ const LoginFrom = () => {
           <input
             type="text"
             placeholder="请输入密码"
+            value={UserPassword}
+            onChange={(e) => setUserPassword(e.target.value)}
             className="input w-full max-w-xs bg-white outline-none"
           />
         </div>
-        <button className="btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full">
+        <button
+          onClick={() => {
+            handleLogin();
+          }}
+          className="btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
+        >
           提交
         </button>
       </div>
