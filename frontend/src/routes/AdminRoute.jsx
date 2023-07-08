@@ -6,14 +6,21 @@ import {
   TopicResultPage,
   PasswordUpdatePage,
 } from "../pages/AdminPage";
-import { GenerateRoutes } from "../utils";
+import {
+  FormOutlined,
+  ExceptionOutlined,
+  EditOutlined,
+  FileDoneOutlined,
+  LockOutlined,
+} from "@ant-design/icons";
+import { GenerateRoutes, SetIcon } from "../utils";
 const items = [
   {
     id: "1",
     title: "参数设置",
     path: "ParmeterSettingPage",
     url: "/admin/ParmeterSettingPage",
-    icon: "setting",
+    icon: <SetIcon icon={FormOutlined} />,
     element: <ParmeterSettingPage />,
   },
   {
@@ -21,7 +28,7 @@ const items = [
     title: "课题审核",
     path: "TopicReviewPage",
     url: "/admin/TopicReviewPage",
-    icon: "audit",
+    icon: <SetIcon icon={ExceptionOutlined} />,
     element: <TopicReviewPage />,
   },
   {
@@ -29,7 +36,7 @@ const items = [
     title: "选课操作",
     path: "TopicSelectionPage",
     url: "/admin/TopicSelectionPage",
-    icon: "operation",
+    icon: <SetIcon icon={EditOutlined} />,
     element: <TopicSelectionPage />,
   },
   {
@@ -37,7 +44,7 @@ const items = [
     title: "选课结果",
     path: "TopicResultPage",
     url: "/admin/TopicResultPage",
-    icon: "result",
+    icon: <SetIcon icon={FileDoneOutlined} />,
     element: <TopicResultPage />,
   },
   {
@@ -45,7 +52,7 @@ const items = [
     title: "修改密码",
     path: "PasswordUpdatePage",
     url: "/admin/PasswordUpdatePage",
-    icon: "password",
+    icon: <SetIcon icon={LockOutlined} />,
     element: <PasswordUpdatePage />,
   },
 ];

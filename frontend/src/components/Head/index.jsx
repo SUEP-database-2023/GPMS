@@ -1,2 +1,3 @@
 import Head from "./Head";
-export { Head };
+import LoginHead from "./LoginHead";
+export { Head, LoginHead };

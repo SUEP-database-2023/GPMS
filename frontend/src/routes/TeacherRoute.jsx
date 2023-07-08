@@ -5,7 +5,13 @@ import {
   TopicResultPage,
   PasswordUpdatePage,
 } from "../pages/TeacherPage";
-import { GenerateRoutes } from "../utils";
+import {
+  FileAddOutlined,
+  ScheduleOutlined,
+  FileDoneOutlined,
+  LockOutlined,
+} from "@ant-design/icons";
+import { GenerateRoutes, SetIcon } from "../utils";
 
 const items = [
   {
@@ -13,7 +19,7 @@ const items = [
     title: "课题提交",
     path: "TopicSubmissionPage",
     url: "/teacher/TopicSubmissionPage",
-    icon: "topic",
+    icon: <SetIcon icon={FileAddOutlined} />,
     element: <TopicSubmissionPage />,
   },
   {
@@ -21,7 +27,7 @@ const items = [
     title: "选课列表",
     path: "TopicListPage",
     url: "/teacher/TopicListPage",
-    icon: "list",
+    icon: <SetIcon icon={ScheduleOutlined} />,
     element: <TopicListPage />,
   },
   {
@@ -29,7 +35,7 @@ const items = [
     title: "选课结果",
     path: "TopicResultPage",
     url: "/teacher/TopicResultPage",
-    icon: "result",
+    icon: <SetIcon icon={FileDoneOutlined} />,
     element: <TopicResultPage />,
   },
   {
@@ -37,7 +43,7 @@ const items = [
     title: "修改密码",
     path: "PasswordUpdatePage",
     url: "/teacher/PasswordUpdatePage",
-    icon: "password",
+    icon: <SetIcon icon={LockOutlined} />,
     element: <PasswordUpdatePage />,
   },
 ];

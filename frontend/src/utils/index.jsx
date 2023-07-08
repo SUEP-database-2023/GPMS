@@ -1,3 +1,3 @@
 import GenerateRoutes from "./GenerateRoutes";
-
-export { GenerateRoutes };
+import SetIcon from "./SetIcon";
+export { GenerateRoutes, SetIcon };

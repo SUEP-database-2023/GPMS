@@ -9,7 +9,7 @@ const Sidebar = ({ items }) => {
         {/* TODO:图片大小 */}
         <img
           src={CollegeLogo}
-          className="object-contain w-[50%] h-full "
+          className="object-contain w-[75%] h-full "
           alt="Logo"
         />
       </div>
