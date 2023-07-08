@@ -2,11 +2,11 @@ import React from "react";
 const TopicRulePage = () => {
   return (
     <div className="flex flex-col h-screen items-center">
-      <div className="flex flex-col items-center justify-center space-y-5 w-[50%] bg-white p-5">
+      <div className="flex flex-col items-center justify-center space-y-5 w-[75%] bg-white p-5">
         <div className="text-red-600 text-3xl items-center">
           数理学院毕业论文(设计)选题规则
         </div>
-        <div className="flex flex-col text-black text-xl space-y-10">
+        <div className="flex flex-col text-black text-2xl space-y-10">
           <div>
             数理学院毕业论文(设计)选题分两轮进行，本着公平、公开、公正的原则，在第一轮选题操作开始后，同学们第一次登录时会自动给一个随机数，作为后续题目匹配的参数。
           </div>
