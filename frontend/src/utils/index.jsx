@@ -1,3 +1,4 @@
 import GenerateRoutes from "./GenerateRoutes";
 import SetIcon from "./SetIcon";
-export { GenerateRoutes, SetIcon };
+import whatIsMyRole from "./whatIsMyRole";
+export { GenerateRoutes, SetIcon, whatIsMyRole };

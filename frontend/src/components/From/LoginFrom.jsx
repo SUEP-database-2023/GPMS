@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import { UserOutlined, LockOutlined, ImportOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserSlice } from "../../store/UserSlice";
 import { useNavigate } from "react-router-dom";
 import { GetAccessToken } from "../../components/Api/AuthApi";
+import jwtDecode from "jwt-decode";
+import { whatIsMyRole } from "../../utils";
 
 const LoginFrom = () => {
   const [UserNum, setUserNum] = useState("");
@@ -11,15 +13,17 @@ const LoginFrom = () => {
   const [UserPassword, setUserPassword] = useState("");
   const dispatch = useDispatch();
   const url = useSelector((state) => state.api.url);
-  const identity = useSelector((state) => state.user.identity);
 
   const handleLogin = async () => {
     const token = await GetAccessToken(UserNum, UserPassword, url);
     dispatch(setUserSlice(token));
-    console.log(identity);
-    if (identity === "0") navigate("/admin");
-    else if (identity === "1") navigate("/teacher");
-    else if (identity === "2") navigate("/student");
+    const storedTokenString = localStorage.getItem("access_token");
+    console.log(storedTokenString);
+    const identity = storedTokenString
+      ? jwtDecode(JSON.parse(storedTokenString)).role
+      : null;
+    const initialPath = whatIsMyRole({ identity });
+    navigate(initialPath);
   };
 
   return (
