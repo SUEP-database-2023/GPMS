@@ -1,22 +1,66 @@
-import React from "react";
+import React, { useState } from 'react';
+import { Divider, Radio, Table } from 'antd';
+const columns = [
+  {
+    title: "序号",
+    dataIndex: "id",
+    key: "id",
+    render: (text) => <a>{text}</a>,
+  },
+  {
+    title: "课题编号",
+    dataIndex: "subjectnumber",
+    key: "subjectnumber",
+    // render: (text) => <a>{text}</a>,
+  },
+  {
+    title: "课题名称",
+    dataIndex: "subjectname",
+    key: "subjectname",
+  },
+  {
+    title: "指导老师",
+    key: "teacher",
+    dataIndex: "teacher",
+  },
+];
+const data = [
+  {
+    key: '1',
+    id: 1,
+    subjectnumber:393413313,
+    subjectname: '我爱数学',
+    teacher:'a',
+  },
+  {
+    key: '2',
+    id: 2,
+    subjectnumber:41319,
+    subjectname: '我爱物理',
+    teacher:'b',
+  },
+];
+
+const rowSelection = {
+  onChange: (selectedRowKeys, selectedRows) => {
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  },
+};
 const TopicReviewPage = () => {
+  const [selectionType, setSelectionType] = useState('checkbox');
   return (
-    <div className="flex flex-col w-[100%] h-[100%] items-center bg-white-100">
-    <div className="flex flex-col w-[80%] h-[90%] items-start bg-blue-100">
-      <div className="flex w-[100%] h-[10%] items-center justify-center bg-blue-200">
-        课题名称组件
-      </div>
-      <div className="flex w-[100%] h-[40%] items-center justify-center bg-blue-100">
-        课题信息
-      </div>
-      <div className="flex w-[100%] h-[25%] items-center justify-center bg-blue-200">
-        简介盒
-      </div>
-      <div className="flex w-[100%] h-[25%] items-center justify-center bg-blue-100">
-        备注盒
+    <div className="flex flex-col h-screen items-center">
+      <div className="flex flex-col w-[90%]">
+      <Table
+        rowSelection={{
+          type: selectionType,
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={data}
+      />
       </div>
     </div>
-  </div>
-  )
+  );
 };
 export default TopicReviewPage;
