@@ -1,102 +1,62 @@
-import React from "react";
-import { DatePicker, Space } from 'antd';
-const onChange = (date, dateString) => {
-  console.log(date, dateString);
-};
-const { RangePicker } = DatePicker;
-const ParmeterSettingPage = () => {
+import React, { useState } from 'react';
+import { useSelector } from "react-redux";
+import DatePicker from 'antd/es/date-picker'; // Assuming you're using Ant Design DatePicker
+import { Button } from 'antd'; // Import Button from Ant Design
+
+function ParmeterSettingPage() {
+  const [selectedDate, setSelectedDate] = useState(new Date()); // State to store the selected date 
+  const access_token=useSelector((state) => state.user.access_token);
+  console.log(access_token);
+  const onChange = (date) => {
+    setSelectedDate(date); // Update selectedDate state when DatePicker value changes
+  };
+
+  const handleUpdate = async () => {
+    const updatedTimeData = {
+      teacher_post_time: selectedDate.toISOString(),
+      admin_audit_time: selectedDate.toISOString(),
+      student_begin_time1: selectedDate.toISOString(),
+      student_end_time1: selectedDate.toISOString(),
+      admin_end_time1: selectedDate.toISOString(),
+      student_end_time2: selectedDate.toISOString(),
+      admin_end_time2: selectedDate.toISOString(),
+    };
+
+    try {
+      const response = await fetch("http://localhost:8000/api/admin/update/end_time/1", {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'accept': 'application/json',
+          'access_token':access_token,
+        },
+        body: JSON.stringify(updatedTimeData),
+      });
+
+      if (response.ok) {
+        // Handle successful update
+        console.log("Update successful");
+      } else {
+        console.error("Update request failed.");
+      }
+    } catch (error) {
+      console.error("Error updating data:", error);
+    }
+  };
+
   return (
-    <div className="flex flex-col w-[100%] h-[100%] items-center bg-white-100">
-      <div className="flex flex-col w-[80%] h-[90%] items-start bg-blue-100">
-        <div className="flex w-[100%] h-[10%] items-center justify-center bg-blue-200">
-          请注意，此处设置的截止时间均为该日期xx点xx分xx秒
-        </div>
-        <div className="flex flex-col w-[100%] h-[90%] items-start justify-center bg-blue-100">
-          <div className="flex w-[100%] h-[20%] bg-pink-100">
-            <div className="flex flex-col w-[50%] h-[100%] items-start">
-              <div className="flex w-[100%] h-[50%] items-center justify-center">
-              教师提交题目截止时间
-              </div>
-              <div className="flex w-[100%] h-[50%] items-center justify-center">   {/*时间组件*/}
-              <Space direction="vertical"><DatePicker onChange={onChange} /></Space>
-              </div>
-            </div>
-            <div className="flex flex-col w-[50%] h-[100%] items-start">
-              <div className="flex w-[100%] h-[50%] items-center justify-center">
-              管理员审核题目截止时间
-              </div>
-              <div className="flex w-[100%] h-[50%] items-center justify-center">   {/*时间组件*/}
-              <Space direction="vertical"><DatePicker onChange={onChange} /></Space>
-              </div>
-            </div>
-          </div>
-          <div className="flex w-[100%] h-[30%] bg-pink-200">
-              <div className="flex flex-col w-[33%] h-[100%] items-start">
-                <div className="flex w-[100%] h-[50%] items-center justify-center">
-                学生第一次选题开始时间
-                </div>
-                <div className="flex w-[100%] h-[50%] items-center justify-center">   {/*时间组件*/}
-                {/* 输入时间组件 */}
-                <Space direction="vertical" size={12}><RangePicker /></Space>
-                </div>
-              </div>
-              <div className="flex flex-col w-[33%] h-[100%] items-start">
-                <div className="flex w-[100%] h-[50%] items-center justify-center">
-                学生第一次选题截止时间
-                </div>
-                <div className="flex w-[100%] h-[50%] items-center justify-center">   {/*时间组件*/}
-                输入时间组件
-                </div>
-              </div>
-              <div className="flex flex-col w-[33%] h-[100%] items-start">
-                <div className="flex w-[100%] h-[50%] items-center justify-center">
-                管理员第一次匹配截止时间
-                </div>
-                <div className="flex w-[100%] h-[50%] items-center justify-center">   {/*时间组件*/}
-                <Space direction="vertical"><DatePicker onChange={onChange} /></Space>
-                </div>
-              </div>
-          </div>
-          <div className="flex w-[100%] h-[30%] bg-pink-300">
-          <div className="flex flex-col w-[33%] h-[100%] items-start">
-                <div className="flex w-[100%] h-[50%] items-center justify-center">
-                学生第二次选题开始时间
-                </div>
-                <div className="flex w-[100%] h-[50%] items-center justify-center">   {/*时间组件*/}
-                {/* 输入时间组件 */}
-                <Space direction="vertical" size={12}><RangePicker /></Space>
-                </div>
-              </div>
-              <div className="flex flex-col w-[33%] h-[100%] items-start">
-                <div className="flex w-[100%] h-[50%] items-center justify-center">
-                学生第二次选题截止时间
-                </div>
-                <div className="flex w-[100%] h-[50%] items-center justify-center">   {/*时间组件*/}
-                输入时间组件
-                </div>
-              </div>
-              <div className="flex flex-col w-[33%] h-[100%] items-start">
-                <div className="flex w-[100%] h-[50%] items-center justify-center">
-                管理员第二次匹配截止时间
-                </div>
-                <div className="flex w-[100%] h-[50%] items-center justify-center">   {/*时间组件*/}
-                <Space direction="vertical"><DatePicker onChange={onChange} /></Space>
-                </div>
-              </div>
-          </div>
-          <div className="flex w-[100%] h-[20%] items-center justify-center bg-pink-400">
-          <button
-          onClick={() => {
-            handleLogin();
-          }}
-          className="w-[20%] btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
-        >
-          提交
-        </button>
-          </div>
-        </div>
-      </div>
+    <div>
+      {/* Render DatePicker */}
+      <DatePicker onChange={onChange} />
+
+      {/* Render Submit Button */}
+      <Button
+        type="primary"
+        onClick={handleUpdate}
+      >
+        提交更新
+      </Button>
     </div>
-  )
-};
+  );
+}
 export default ParmeterSettingPage;
