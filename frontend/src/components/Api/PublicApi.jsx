@@ -8,10 +8,11 @@ class PublicApi {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     };
+    console.log(token);
   }
   async changePassword({ newPassword }) {
     axios
-      .put(this.apiUrl, newPassword, this.headers)
+      .put(this.apiUrl+'update_pwd', newPassword, {headers:this.headers})
       .then((response) => {
         console.log("Password updated successfully:", response.data);
       })

@@ -1,15 +1,15 @@
 import React from "react";
 import { Button, Input,message} from "antd";
 import PublicApi from "../Api/PublicApi";
-import { clearUserSlice } from "../../store/UserSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { clearUserSlice } from "../../store/UserSlice";
 
 const PasswordUpdate = () => {
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
-  const [originalPassword, setOriginalPassword] = React.useState(false);
-  const [newPassword, setNewPassword] = React.useState(false);
-  const [confirmPassword, setConfirmPassword] = React.useState(false);
+  const [originalPassword, setOriginalPassword] = React.useState('');
+  const [newPassword, setNewPassword] = React.useState('');
+  const [confirmPassword, setConfirmPassword] = React.useState('');
+  
   const token = useSelector((state) => state.user.access_token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,12 +32,10 @@ const PasswordUpdate = () => {
         message.error('新密码和确认密码不匹配！');
         return;
       }
-
       const publicApi = new PublicApi(token);
-      await publicApi.changePassword(newPassword);
-      
-      dispatch(clearUserSlice());
-      navigate('/');
+        publicApi.changePassword(newPassword);
+        dispatch(clearUserSlice());
+        navigate('/');
     } catch (error) {
       console.error('Password update error:', error);
       // 处理密码更新错误，如显示错误信息等
@@ -56,7 +54,7 @@ const PasswordUpdate = () => {
               value={originalPassword}
               onChange={handlePasswordChange}
               visibilityToggle={{
-                visible: passwordVisible,
+                visible: originalPassword,
                 originalPassword: setOriginalPassword,
               }}
             />
@@ -68,8 +66,8 @@ const PasswordUpdate = () => {
               value={newPassword}
               onChange={handleNewPasswordChange}
               visibilityToggle={{
-                visible: passwordVisible,
-                onVisibleChange: setPasswordVisible,
+                visible: newPassword,
+                newPassword: setNewPassword,
               }}
             />
           </div>
@@ -80,8 +78,8 @@ const PasswordUpdate = () => {
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
               visibilityToggle={{
-                visible: passwordVisible,
-                onVisibleChange: setPasswordVisible,
+                visible: confirmPassword,
+                confirmPassword: setConfirmPassword,
               }}
             />
           </div>

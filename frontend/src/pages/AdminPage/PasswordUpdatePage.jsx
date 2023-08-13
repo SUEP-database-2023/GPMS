@@ -1,20 +1,17 @@
 import React from "react";
 import { Button, Input} from "antd";
 import PublicApi from "../../components/Api/PublicApi";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { clearUserSlice } from "../../store/UserSlice";
+import { useSelector } from "react-redux";
 
 const PasswordUpdatePage = () => {
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [password, setPassword] = React.useState('');
+  const [passwordVisible, setPasswordVisible] = React.useState('');
   const token = useSelector((state) => state.user.access_token);
   const handlePassword = () => {
-    const publicApi = new PublicApi(token);
-    publicApi.changePassword(passwordVisible);
-    dispatch(clearUserSlice());
-    navigate("/");
+    console.log(token);
+    const publicApi = new PublicApi({token:token});
+    publicApi.changePassword({ newPassword: password });
+    // setPassword('');
   };
 
   return (
@@ -26,6 +23,8 @@ const PasswordUpdatePage = () => {
             <div className=" w-[80%]">请输入账号:</div>
             <Input.Password
               placeholder="输入账号"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
               visibilityToggle={{
                 visible: passwordVisible,
                 onVisibleChange: setPasswordVisible,
