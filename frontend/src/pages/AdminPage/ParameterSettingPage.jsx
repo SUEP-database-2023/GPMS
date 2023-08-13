@@ -20,15 +20,17 @@ function ParmeterSettingPage() {
       admin_end_time1: selectedDate.toISOString(),
       student_end_time2: selectedDate.toISOString(),
       admin_end_time2: selectedDate.toISOString(),
+      major:"应物",
     };
 
     try {
-      const response = await fetch("http://localhost:8000/api/admin/update/end_time/1", {
+      const response = await fetch("http://localhost:8000/api/admin/update/end_time/1",
+         {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-          'accept': 'application/json',
-          'access_token':access_token,
+          'accept': "application/json",
+          Authorization: `Bearer ${access_token}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(updatedTimeData),
       });
