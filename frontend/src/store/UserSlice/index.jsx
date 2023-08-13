@@ -36,7 +36,9 @@ const userSlice = createSlice({
       state.token = null;
       state.identity = null;
       state.userid = null;
+      localStorage.removeItem("access_token");
     },
+    
   },
 });
 
