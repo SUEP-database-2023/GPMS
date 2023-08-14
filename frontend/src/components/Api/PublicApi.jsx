@@ -11,8 +11,9 @@ class PublicApi {
     console.log(token);
   }
   async changePassword({ newPassword }) {
+    const data = {password: newPassword};
     axios
-      .put(this.apiUrl+'update_pwd', newPassword, {headers:this.headers})
+      .put(this.apiUrl+'update_pwd', data, {headers:this.headers})
       .then((response) => {
         console.log("Password updated successfully:", response.data);
       })
