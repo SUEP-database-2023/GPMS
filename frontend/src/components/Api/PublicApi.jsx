@@ -8,7 +8,6 @@ class PublicApi {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     };
-    console.log(token);
   }
   async changePassword({ newPassword }) {
     const data = {password: newPassword};

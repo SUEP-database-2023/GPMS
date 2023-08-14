@@ -21,3 +21,6 @@ class UserRole(IntEnum):
     ADMIN = 0
     TEACHER = 1
     STUDENT = 2
+
+class UserPassword(BaseModel):
+    passowrd: str
