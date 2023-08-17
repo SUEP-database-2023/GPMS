@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from api import deps
-from schemas.user import UserRole,UserPassword
+from schemas.user import UserRole,ResetPassword
 from schemas.teacher import TeacherCreate,TeacherInDB
 from schemas.student import StudentCreate,StudentInDB
 from schemas.public import PublicTime
@@ -151,14 +151,15 @@ def update_teacher_info(
     return teacher
 
 #重置用户账号
-@router.put("/update/user/{user_number}")
+@router.put("/update/user/")
 def update_user_password(
-    user_number:str,
+    user_params:ResetPassword,
     db: Session = Depends(deps.get_db),
     current_user=Depends(deps.get_current_user),
 ):
     if deps.check_permission(current_user.role, UserRole.ADMIN):
         crud_admin.update_user_password(
             db=db,
-            user_number=user_number,
+            user_number=user_params,
+
         )

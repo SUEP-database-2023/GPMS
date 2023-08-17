@@ -1,15 +1,15 @@
 import React from "react";
-import { Button, Input,message} from "antd";
+import { Button, Input, message } from "antd";
 import PublicApi from "../Api/PublicApi";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { clearUserSlice } from "../../store/UserSlice";
 
 const PasswordUpdate = () => {
-  const [originalPassword, setOriginalPassword] = React.useState('');
-  const [newPassword, setNewPassword] = React.useState('');
-  const [confirmPassword, setConfirmPassword] = React.useState('');
-  
+  const [originalPassword, setOriginalPassword] = React.useState("");
+  const [newPassword, setNewPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+
   const token = useSelector((state) => state.user.access_token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,15 +29,15 @@ const PasswordUpdate = () => {
   const handlePassword = async () => {
     try {
       if (newPassword !== confirmPassword) {
-        message.error('新密码和确认密码不匹配！');
+        message.error("新密码和确认密码不匹配！");
         return;
       }
-      const publicApi = new PublicApi(token);
-        publicApi.changePassword(newPassword);
-        dispatch(clearUserSlice());
-        navigate('/');
+      const publicApi = new PublicApi({ token: token });
+      publicApi.changePassword({ newPassword });
+      dispatch(clearUserSlice());
+      navigate("/");
     } catch (error) {
-      console.error('Password update error:', error);
+      console.error("Password update error:", error);
       // 处理密码更新错误，如显示错误信息等
     }
   };
@@ -83,7 +83,10 @@ const PasswordUpdate = () => {
               }}
             />
           </div>
-          <Button className="w-[37%] bg-blue-600 text-white" onClick={handlePassword}>
+          <Button
+            className="w-[37%] bg-blue-600 text-white"
+            onClick={handlePassword}
+          >
             修改密码
           </Button>
         </div>

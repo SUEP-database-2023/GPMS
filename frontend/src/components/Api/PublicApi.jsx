@@ -10,9 +10,9 @@ class PublicApi {
     };
   }
   async changePassword({ newPassword }) {
-    const data = {password: newPassword};
+    const data = { password: newPassword };
     axios
-      .put(this.apiUrl+'update_pwd', data, {headers:this.headers})
+      .put(this.apiUrl + "update_pwd", data, { headers: this.headers })
       .then((response) => {
         console.log("Password updated successfully:", response.data);
       })
@@ -21,4 +21,4 @@ class PublicApi {
       });
   }
 }
-export default PublicApi
+export default PublicApi;

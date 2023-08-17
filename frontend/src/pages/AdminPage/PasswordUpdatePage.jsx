@@ -1,16 +1,16 @@
 import React from "react";
-import { Button, Input} from "antd";
+import { Button, Input } from "antd";
 import AdminApi from "../../components/Api/AdminApi";
 import { useSelector } from "react-redux";
 
 const PasswordUpdatePage = () => {
-  const [number, setNumber] = React.useState('');
-  const [passwordVisible, setPasswordVisible] = React.useState('');
+  const [number, setNumber] = React.useState("");
+  const [passwordVisible, setPasswordVisible] = React.useState("");
   const token = useSelector((state) => state.user.access_token);
   const handlePassword = () => {
     console.log(token);
-    const adminApi = new AdminApi({token:token});
-    adminApi.resetPassword({ number: number });
+    const adminApi = new AdminApi({ token });
+    adminApi.resetPassword({ number });
     // setPassword('');
   };
 
