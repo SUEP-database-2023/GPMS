@@ -8,8 +8,7 @@ const PasswordUpdatePage = () => {
   const [passwordVisible, setPasswordVisible] = React.useState("");
   const token = useSelector((state) => state.user.access_token);
   const handlePassword = () => {
-    console.log(token);
-    const adminApi = new AdminApi({ token });
+    const adminApi = new AdminApi({ token:token });
     adminApi.resetPassword({ number });
     // setPassword('');
   };

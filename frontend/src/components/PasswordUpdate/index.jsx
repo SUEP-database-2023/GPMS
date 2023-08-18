@@ -11,8 +11,8 @@ const PasswordUpdate = () => {
   const [confirmPassword, setConfirmPassword] = React.useState("");
 
   const token = useSelector((state) => state.user.access_token);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handlePasswordChange = (e) => {
     setOriginalPassword(e.target.value);

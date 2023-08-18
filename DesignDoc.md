@@ -152,7 +152,7 @@ TODO
 - `put`,`url`=`admin/update/teacher`,管理员用，用于更新老师的信息
 
 - `put`,`url`=`todo`,增加一个强制选题的API
-
+- `put`,`url`=`admin/update/user`,重置密码
 - `delete`,`url`=`admin/topic/{topic_id}`,管理员用于删除课题
 
 **Teacher**

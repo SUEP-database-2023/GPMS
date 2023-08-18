@@ -1,37 +1,17 @@
 curl -X 'PUT' \
-  'http://localhost:8000/api/public/update_pwd' \
+  'http://localhost:8000/api/admin/update/user/' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjM1NTgyNTgwNzQsImlkIjoiMSIsInJvbGUiOiIwIn0.aFOV3X9ZoUxg4QW3of4AsYZJM2waMxds6TY1m5KxUjg' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjM1NTg1MTYwOTIsImlkIjoiMSIsInJvbGUiOiIwIn0.63ApyuJlSXLmSwIsTn42eZm1sRsdRnDAEn04iFGYgno' \
   -H 'Content-Type: application/json' \
   -d '{
-  "password": "12345"
+  "number": "tom"
 }'
 
-curl -X 'PUT' \
-  'http://localhost:8000/api/admin/update/user/tom' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjM1NTgyNTgwNzQsImlkIjoiMSIsInJvbGUiOiIwIn0.aFOV3X9ZoUxg4QW3of4AsYZJM2waMxds6TY1m5KxUjg'
-
-import axios from "axios";
-
-class AdminApi {
-    constructor(token) {
-        this.apiUrl = "http://localhost:8000/api/admin/";
-        this.headers = {
-            accept: "application/json",
-            Authorization: `Bearer ${token}`,
-        };
-        }
-    async resetPassword({number}){
-        const data = {number: number};
-        axios
-            .put(this.apiUrl + 'update/user/tom',data,{headers: this.headers})
-            .then((response) => {
-                console.log("Password updated successfully:", response.data);
-            })
-            .catch((error) => {
-                console.error("Error updating password:", error);
-              });
-    }
-}
-export default AdminApi
+axios
+  .put(apiUrl + 'update/user/', userData, { headers })
+  .then(response => {
+    console.log("User data updated successfully:", response.data);
+  })
+  .catch(error => {
+    console.error("Error updating user data:", error);
+  });
