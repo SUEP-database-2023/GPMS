@@ -16,7 +16,7 @@ const Sidebar = ({ items }) => {
       <div className="space-y-8 w-full">
         <div>
           {/* TODO:字体 */}
-          <h1 className="text-base sm:text-lg md:text-2xl lg:text-3xl text-center text-white">
+          <h1 className="text-2xl text-center text-white">
             毕业设计选题管理系统
           </h1>
         </div>

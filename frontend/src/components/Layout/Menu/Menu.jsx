@@ -17,7 +17,7 @@ const Menu = ({ items }) => {
 
   return (
     <div>
-      <ul className="menu sm:menu-sm md:menu-md lg:menu-lg overflow-hidden">
+      <ul className="menu overflow-hidden">
         {items.map((item) => (
           <li
             key={item.id}
@@ -27,9 +27,7 @@ const Menu = ({ items }) => {
             onClick={() => handleItemClick(item)}
           >
             {item.icon}
-            <a className="text-base sm:text-lg md:text-xl lg:text-2xl text-center pl-0 my-1">
-              {item.title}
-            </a>
+            <a className="text-xl text-center pl-0 my-1">{item.title}</a>
           </li>
         ))}
       </ul>
