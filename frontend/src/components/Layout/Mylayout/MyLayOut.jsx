@@ -21,7 +21,7 @@ const MyLayOut = ({ items, page, title }) => {
   }, []);
 
   return (
-    <div className="flex h-screen w-screen ">
+    <div className="flex h-screen w-screen min-w-[1500px] min-h-[700px]">
       <Sidebar items={items} />
       <Body page={page} title={title} />
     </div>
