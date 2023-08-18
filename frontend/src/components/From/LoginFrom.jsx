@@ -18,7 +18,6 @@ const LoginFrom = () => {
     const token = await GetAccessToken(UserNum, UserPassword, url);
     dispatch(setUserSlice(token));
     const storedTokenString = localStorage.getItem("access_token");
-    console.log(storedTokenString);
     const identity = storedTokenString
       ? jwtDecode(JSON.parse(storedTokenString)).role
       : null;
@@ -27,9 +26,9 @@ const LoginFrom = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center space-y-4 w-[50%] h-[25%]">
-      <div className="w-full text-center">
-        <div className="text-blue-600 text-3xl bg-gray-100 py-2">账号登录</div>
+    <div className="flex flex-col justify-center w-[50%] h-[25%]">
+      <div className="text-blue-600 text-3xl bg-gray-100 py-2 text-center">
+        账号登录
       </div>
       <div className="flex flex-col space-y-4">
         <div className="flex flex-row justify-center items-center border-2">
