@@ -1,3 +1,3 @@
-import Menu from "./Menu";
+import MyMenu from "./Menu";
 
-export { Menu };
+export { MyMenu };

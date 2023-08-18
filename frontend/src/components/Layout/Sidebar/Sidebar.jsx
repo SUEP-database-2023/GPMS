@@ -1,6 +1,6 @@
 import React from "react";
 import CollegeLogo from "../../../assets/CollegeLogo.png";
-import { Menu } from "../Menu";
+import { MyMenu } from "../Menu";
 
 const Sidebar = ({ items }) => {
   return (
@@ -20,7 +20,7 @@ const Sidebar = ({ items }) => {
             毕业设计选题管理系统
           </h1>
         </div>
-        <Menu items={items} />
+        <MyMenu items={items} />
       </div>
     </div>
   );
