@@ -1,23 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-const Menu = ({ items }) => {
-  const navigate = useNavigate();
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { Menu } from "antd";
+
+const MyMenu = ({ items }) => {
+  // const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState(null);
   const location = useLocation();
+  const Item = items.map((item) => {
+    return {
+      label: (
+        <Link className="flex items-center text-xl" to={item.url}>
+          {item.title}
+        </Link>
+      ),
+      key: item.id,
+      icon: <div>{item.icon}</div>,
+    };
+  });
 
-  const handleItemClick = (item) => {
-    navigate(item.url);
-  };
+  // const handleItemClick = (item) => {
+  //   navigate(item.url);
+  // };
 
   useEffect(() => {
     const path = location.pathname;
     const item = items.find((item) => item.url === path);
     setSelectedItem(item.id);
+    console.log(`${selectedItem}`);
   }, [location.pathname]);
 
   return (
     <div>
-      <ul className="menu sm:menu-sm md:menu-md lg:menu-lg overflow-hidden">
+      <Menu
+        mode="inline"
+        // defaultSelectedKeys={`${selectedItem}`}
+        defaultSelectedKeys={"1"}
+        items={Item}
+        className="bg-transparent"
+      />
+      {/* <ul className="menu overflow-hidden">
         {items.map((item) => (
           <li
             key={item.id}
@@ -27,14 +48,12 @@ const Menu = ({ items }) => {
             onClick={() => handleItemClick(item)}
           >
             {item.icon}
-            <a className="text-base sm:text-lg md:text-xl lg:text-2xl text-center pl-0 my-1">
-              {item.title}
-            </a>
+            <a className="text-xl text-center pl-0 my-1">{item.title}</a>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
 
-export default Menu;
+export default MyMenu;
