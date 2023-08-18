@@ -16,15 +16,17 @@ const LoginPage = () => {
   }, []);
 
   return (
-    <div className="flex w-screen h-screen bg-white">
-      <div className="h-screen w-[45%] flex flex-col items-center justify-center mt-[-5%]">
-        {/* TODO:整体上移? */}
+    <div className="grid grid-cols-2 grid-rows-2 grid-flow-col-dense bg-white min-w-[1500px]">
+      <div className="row-span-1 col-span-1">
         <LoginHead />
+      </div>
+      <div className="row-span-1 col-span-1  flex justify-center">
         <LoginFrom />
       </div>
-      <div className="h-screen w-[55%]">
-        {/* TODO: 图片设置有问题*/}
-        <img src={LoginPicture} className="w-full h-full object-cover" />
+      <div className="row-span-2 col-span-2  ">
+        <div className="h-full">
+          <img src={LoginPicture} className="w-full h-screen" />
+        </div>
       </div>
     </div>
   );
