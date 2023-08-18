@@ -1,8 +1,19 @@
 import React from "react";
-import { EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
-import { Button, Input, Space } from "antd";
+import { Button, Input } from "antd";
+import AdminApi from "../../components/Api/AdminApi";
+import { useSelector } from "react-redux";
+
 const PasswordUpdatePage = () => {
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
+  const [number, setNumber] = React.useState("");
+  const [passwordVisible, setPasswordVisible] = React.useState("");
+  const token = useSelector((state) => state.user.access_token);
+  const handlePassword = () => {
+    console.log(token);
+    const adminApi = new AdminApi({ token });
+    adminApi.resetPassword({ number });
+    // setPassword('');
+  };
+
   return (
     <div className="flex flex-col h-screen items-center">
       <div className="flex flex-col items-center space-y-5 w-[75%] bg-white p-5">
@@ -12,15 +23,18 @@ const PasswordUpdatePage = () => {
             <div className=" w-[80%]">请输入账号:</div>
             <Input.Password
               placeholder="输入账号"
+              onChange={(e) => setNumber(e.target.value)}
+              value={number}
               visibilityToggle={{
                 visible: passwordVisible,
                 onVisibleChange: setPasswordVisible,
               }}
             />
           </div>
-          
-         
-          <Button className="w-[37%] bg-blue-600 text-white">
+          <Button
+            className="w-[37%] bg-blue-600 text-white"
+            onClick={handlePassword}
+          >
             重置
           </Button>
         </div>
