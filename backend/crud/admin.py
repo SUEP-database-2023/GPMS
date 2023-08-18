@@ -1,7 +1,7 @@
 from crud.base import CRUDBase
 from sqlalchemy.orm import Session
-from schemas.teacher import TeacherCreate,TeacherInDB
-from schemas.student import StudentCreate,StudentInDB
+from schemas.teacher import TeacherCreate, TeacherInDB
+from schemas.student import StudentCreate, StudentInDB
 from schemas.user import ResetPassword
 from models import User, Teacher, Student, Selection, Result, Topic
 from fastapi.encoders import jsonable_encoder
@@ -10,12 +10,14 @@ from fastapi import HTTPException
 from sqlalchemy.exc import SQLAlchemyError
 import random
 from sqlalchemy import not_, select, and_
-from schemas.topic import TopicRequest,TopicAudit
+from schemas.topic import TopicRequest, TopicAudit
 from schemas.public import PublicTime
 from models.topic import Topic
 from models.status import Status
 from typing import Any
 from datetime import datetime
+
+
 class CRUDAdmin(CRUDBase):
     def create_user(self, db: Session, number, role):
         existing_user = db.query(User).filter(User.number == number).first()
@@ -33,7 +35,7 @@ class CRUDAdmin(CRUDBase):
         db.commit()
         db.refresh(user)
         return user
-    
+
     def create_teacher(self, db: Session, teacher_params: TeacherCreate):
         teacher_data = jsonable_encoder(teacher_params)
         try:
@@ -56,7 +58,7 @@ class CRUDAdmin(CRUDBase):
             raise HTTPException(
                 status_code=500, detail="Failed to create teacher"
             ) from e
-        
+
     def create_student(self, db: Session, student_params: StudentCreate):
         student_data = jsonable_encoder(student_params)
         try:
@@ -179,12 +181,12 @@ class CRUDAdmin(CRUDBase):
 
     def force_assign_topics(self, db: Session, student_number: str, topic_number: str):
         user_id = db.query(Student).filter(Student.number == student_number).first()
-        topic_id = db.query(Topic).filter(Topic.number == topic_number).first().id
+        topic_id = db.query(Topic).filter(Topic.number == topic_number).first()
         user_id_in_result = (
             db.query(Result).filter(Result.user_id == user_id.user_id).first()
         )
         topic_id_in_result = (
-            db.query(Result).filter(Result.topic_id == topic_id).first()
+            db.query(Result).filter(Result.topic_id == topic_id.id).first()
         )
         if user_id_in_result or topic_id_in_result:
             raise HTTPException(
@@ -193,6 +195,10 @@ class CRUDAdmin(CRUDBase):
         elif not (user_id and topic_id):
             raise HTTPException(
                 status_code=400, detail="The student or topic not exist"
+            )
+        elif user_id.major != topic_id.major:
+            raise HTTPException(
+                status_code=400, detail="The student and topic not in the same major"
             )
         else:
             result = Result(
@@ -258,12 +264,8 @@ class CRUDAdmin(CRUDBase):
             # 处理数据库操作异常
             db.rollback()
             raise HTTPException(status_code=500, detail="Failed to update topic") from e
-        
-    
-    def update_end_time(
-        self, db: Session, status_params: PublicTime, status_id: Any
-    ):
-        
+
+    def update_end_time(self, db: Session, status_params: PublicTime, status_id: Any):
         try:
             # 查询对应的主题记录
             status = db.query(Status).filter(Status.id == status_id).first()
@@ -271,7 +273,7 @@ class CRUDAdmin(CRUDBase):
             if not status:
                 # 如果找不到对应的主题记录，抛出 HTTPException
                 raise HTTPException(status_code=404, detail="status not found")
-            
+
             # 更新主题记录的属性
             for field, value in status_params.dict().items():
                 setattr(status, field, value)
@@ -285,13 +287,13 @@ class CRUDAdmin(CRUDBase):
         except SQLAlchemyError as e:
             # 处理数据库操作异常
             db.rollback()
-            raise HTTPException(status_code=500, detail="Failed to update status") from e
-        
+            raise HTTPException(
+                status_code=500, detail="Failed to update status"
+            ) from e
 
     def update_student_info(
         self, db: Session, student_params: StudentInDB, student_id: Any
     ):
-        
         try:
             # 查询对应的主题记录
             student = db.query(Student).filter(Student.id == student_id).first()
@@ -299,7 +301,7 @@ class CRUDAdmin(CRUDBase):
             if not student:
                 # 如果找不到对应的主题记录，抛出 HTTPException
                 raise HTTPException(status_code=404, detail="student not found")
-            
+
             # 更新主题记录的属性
             for field, value in student_params.dict().items():
                 setattr(student, field, value)
@@ -313,12 +315,13 @@ class CRUDAdmin(CRUDBase):
         except SQLAlchemyError as e:
             # 处理数据库操作异常
             db.rollback()
-            raise HTTPException(status_code=500, detail="Failed to update student") from e
-        
+            raise HTTPException(
+                status_code=500, detail="Failed to update student"
+            ) from e
+
     def update_teacher_info(
         self, db: Session, teacher_params: TeacherInDB, teacher_id: Any
     ):
-        
         try:
             # 查询对应的主题记录
             teacher = db.query(Teacher).filter(Teacher.id == teacher_id).first()
@@ -326,7 +329,7 @@ class CRUDAdmin(CRUDBase):
             if not teacher:
                 # 如果找不到对应的主题记录，抛出 HTTPException
                 raise HTTPException(status_code=404, detail="teacher not found")
-            
+
             # 更新主题记录的属性
             for field, value in teacher_params.dict().items():
                 setattr(teacher, field, value)
@@ -340,19 +343,22 @@ class CRUDAdmin(CRUDBase):
         except SQLAlchemyError as e:
             # 处理数据库操作异常
             db.rollback()
-            raise HTTPException(status_code=500, detail="Failed to update teacher") from e
-        
+            raise HTTPException(
+                status_code=500, detail="Failed to update teacher"
+            ) from e
+
     def update_user_password(
-        self, db: Session,user_number: ResetPassword,
+        self,
+        db: Session,
+        user_number: ResetPassword,
     ):
-        
         try:
             # 查询对应的主题记录
             user = db.query(User).filter(User.number == user_number.number).first()
             if not user:
                 # 如果找不到对应的主题记录，抛出 HTTPException
                 raise HTTPException(status_code=404, detail="user not found")
-            
+
             user.password = get_password_hash(user.number)
             # 提交事务
             db.commit()
@@ -362,6 +368,9 @@ class CRUDAdmin(CRUDBase):
         except SQLAlchemyError as e:
             # 处理数据库操作异常
             db.rollback()
-            raise HTTPException(status_code=500, detail="Failed to update password") from e
-        
+            raise HTTPException(
+                status_code=500, detail="Failed to update password"
+            ) from e
+
+
 crud_admin = CRUDAdmin(User)
