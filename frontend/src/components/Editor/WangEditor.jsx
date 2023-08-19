@@ -8,6 +8,9 @@ import "@wangeditor/editor/dist/css/style.css";
 import { Editor, Toolbar } from "@wangeditor/editor-for-react";
 import { useDispatch } from "react-redux";
 import { Button } from "antd";
+import formulaModule from "@wangeditor/plugin-formula";
+import { Boot } from "@wangeditor/editor";
+Boot.registerModule(formulaModule);
 
 function WangEditor({ callback }) {
   const [editor, setEditor] = useState(null); // 存储 editor 实例
@@ -20,10 +23,23 @@ function WangEditor({ callback }) {
     "group-image",
     "group-video",
   ];
+
   const editorConfig = {
     placeholder: "请输入简介...",
+    hoverbarKeys: {
+      formula: {
+        menuKeys: ["editFormula"], // “编辑公式”菜单
+      },
+    },
   };
 
+  toolbarConfig.insertKeys = {
+    index: 0,
+    keys: [
+      "insertFormula", // “插入公式”菜单
+      // 'editFormula' // “编辑公式”菜单
+    ],
+  };
   // 及时销毁 editor
   useEffect(() => {
     return () => {
