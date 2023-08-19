@@ -17,11 +17,9 @@ const PasswordUpdate = () => {
   const handlePasswordChange = (e) => {
     setOriginalPassword(e.target.value);
   };
-
   const handleNewPasswordChange = (e) => {
     setNewPassword(e.target.value);
   };
-
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
   };

@@ -21,4 +21,24 @@ class AdminApi {
       });
   }
 }
-export default AdminApi;
+class NotParamsAdminApi {
+  constructor({ token }) {
+    this.apiUrl = "http://localhost:8000/api/admin/";
+    this.headers = {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+  }
+  async assignTopics({student_number,topic_number}) {
+    axios
+      .put(this.apiUrl + `/force_assign_topics/${student_number}/${topic_number}`, {}, { headers: this.headers })
+      .then((response) => {
+        console.log("Password reset successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error resetting password:", error);
+      });
+  }
+}
+export default AdminApi ;
+export {NotParamsAdminApi};
