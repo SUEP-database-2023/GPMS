@@ -26,7 +26,6 @@ const MyMenu = ({ items }) => {
     const path = location.pathname;
     const item = items.find((item) => item.url === path);
     setSelectedItem(item.id);
-    console.log(`${selectedItem}`);
   }, [location.pathname]);
 
   return (
