@@ -8,6 +8,7 @@ from fastapi import HTTPException
 from sqlalchemy import func
 from sqlalchemy.exc import SQLAlchemyError
 from schemas.teacher import TeacherSelected
+from datetime import datetime
 
 
 class CRUDTeacher(CRUDBase):
@@ -38,10 +39,12 @@ class CRUDTeacher(CRUDBase):
 
     def create_topic(self, db: Session, topic_params: TopicCreate, user_id: Any):
         topic_data = jsonable_encoder(topic_params)
+        current_time = datetime.now()
         teacher = db.query(Teacher).filter(Teacher.user_id == user_id).first()
         number = self.create_number(db, teacher.major, topic_data["grade"])
         topic = Topic(
             **topic_data,
+            post_time=current_time,
             teacher_name=teacher.name,
             user_id=user_id,
             number=number,

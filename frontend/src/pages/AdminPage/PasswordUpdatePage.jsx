@@ -10,7 +10,7 @@ const PasswordUpdatePage = () => {
   const handlePassword = () => {
     const adminApi = new AdminApi({ token:token });
     adminApi.resetPassword({ number });
-    // setPassword('');
+    setPassword("");
   };
 
   return (

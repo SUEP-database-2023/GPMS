@@ -1,3 +1,3 @@
 import LoginFrom from "./LoginFrom";
-
-export { LoginFrom };
+import TeacherSubmmitFrom from "./TeacherSubmmitFrom";
+export { LoginFrom, TeacherSubmmitFrom };

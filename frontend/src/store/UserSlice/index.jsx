@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
-import { whatIsMyRole } from "../../utils";
+// import { whatIsMyRole } from "../../utils";
 
 const storedTokenString = localStorage.getItem("access_token");
 const identity = storedTokenString
@@ -12,6 +12,14 @@ const userid = storedTokenString
 const storedToken = storedTokenString
   ? JSON.parse(storedTokenString).access_token
   : null;
+
+const whatIsMyRole = ({ identity }) => {
+  if (identity === "0") return "/admin";
+  else if (identity === "1") return "/teacher";
+  else if (identity === "2") return "/student";
+  else return "/";
+};
+
 const initialPath = whatIsMyRole({ identity });
 
 const initialState = {
@@ -38,7 +46,6 @@ const userSlice = createSlice({
       state.userid = null;
       localStorage.removeItem("access_token");
     },
-    
   },
 });
 
