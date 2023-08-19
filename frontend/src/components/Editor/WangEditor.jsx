@@ -6,10 +6,13 @@
 import React, { useState, useEffect } from "react";
 import "@wangeditor/editor/dist/css/style.css";
 import { Editor, Toolbar } from "@wangeditor/editor-for-react";
-function WangEditor() {
+import { useDispatch } from "react-redux";
+import { Button } from "antd";
+
+function WangEditor({ callback }) {
   const [editor, setEditor] = useState(null); // 存储 editor 实例
   const [html, setHtml] = useState("");
-
+  const dispatch = useDispatch();
   const toolbarConfig = [];
   toolbarConfig.excludeKeys = [
     "italic",
@@ -29,15 +32,17 @@ function WangEditor() {
       setEditor(null);
     };
   }, [editor]);
-
+  const handlecommit = () => {
+    dispatch(callback(html));
+  };
   return (
     <div>
-      <div style={{ border: "1px solid #ccc", zIndex: 100 }}>
+      <div className="border-gray-300 px-5 py-5">
         <Toolbar
           editor={editor}
           defaultConfig={toolbarConfig}
           mode="default"
-          style={{ borderBottom: "1px solid #ccc" }}
+          className="border-b border-gray-300"
         />
         <Editor
           defaultConfig={editorConfig}
@@ -48,6 +53,16 @@ function WangEditor() {
           className="h-[300px]"
         />
       </div>
+      <div className="flex items-center justify-center">
+        <Button
+          type="primary"
+          className="bg-blue-400 w-[10%]"
+          onClick={() => handlecommit()}
+        >
+          确定
+        </Button>
+      </div>
+      <br />
     </div>
   );
 }

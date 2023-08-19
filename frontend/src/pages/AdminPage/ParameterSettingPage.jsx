@@ -1,7 +1,7 @@
 import React from "react";
 import { DatePicker, Space } from "antd";
 const onChange = (date, dateString) => {
-  console.log(date, dateString);
+  // console.log(date, dateString);
 };
 const { RangePicker } = DatePicker;
 const ParmeterSettingPage = () => {
