@@ -4,6 +4,7 @@ import {
   TopicListPage,
   TopicResultPage,
   PasswordUpdatePage,
+  TopicDetailPage,
 } from "../pages/TeacherPage";
 import {
   FileAddOutlined,
@@ -45,6 +46,12 @@ const items = [
     url: "/teacher/PasswordUpdatePage",
     icon: <SetIcon icon={LockOutlined} />,
     element: <PasswordUpdatePage />,
+  },
+  {
+    id: "5",
+    title: "extra",
+    path: "TopicDetailPage/:topic_id",
+    element: <TopicDetailPage />,
   },
 ];
 

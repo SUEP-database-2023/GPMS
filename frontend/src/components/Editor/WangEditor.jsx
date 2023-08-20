@@ -6,15 +6,21 @@
 import React, { useState, useEffect } from "react";
 import "@wangeditor/editor/dist/css/style.css";
 import { Editor, Toolbar } from "@wangeditor/editor-for-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "antd";
 import formulaModule from "@wangeditor/plugin-formula";
 import { Boot } from "@wangeditor/editor";
 Boot.registerModule(formulaModule);
 
-function WangEditor({ callback }) {
+function WangEditor({ state, callback }) {
   const [editor, setEditor] = useState(null); // 存储 editor 实例
   const [html, setHtml] = useState("");
+  useEffect(() => {
+    console.log("state", state);
+    setHtml(state);
+    // console.log(html);
+  }, []);
+
   const dispatch = useDispatch();
   const toolbarConfig = [];
   toolbarConfig.excludeKeys = [
@@ -48,9 +54,11 @@ function WangEditor({ callback }) {
       setEditor(null);
     };
   }, [editor]);
+
   const handlecommit = () => {
     dispatch(callback(html));
   };
+
   return (
     <div>
       <div className="border-gray-300 px-5 py-5">

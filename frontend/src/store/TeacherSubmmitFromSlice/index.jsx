@@ -3,8 +3,6 @@ import TeacherApi from "../../components/Api/TeacherApi";
 const initialState = {
   name: "name",
   type: "type",
-  nature: "nature",
-  major: "major",
   background: false,
   bgid: "",
   other: "other",
@@ -21,12 +19,6 @@ const teacherSubmitFormSlice = createSlice({
     },
     setType: (state, action) => {
       state.type = action.payload;
-    },
-    setNature: (state, action) => {
-      state.nature = action.payload;
-    },
-    setMajor: (state, action) => {
-      state.major = action.payload;
     },
     setBackground: (state, action) => {
       if (action.payload === "") {
@@ -47,9 +39,13 @@ const teacherSubmitFormSlice = createSlice({
       state.note = action.payload;
     },
     setAll: (state, action) => {
-      return {
-        ...action.payload,
-      };
+      state.name = action.payload.name;
+      state.type = action.payload.category;
+      state.background = action.payload.whether_background;
+      state.bgid = action.payload.have_bg_id;
+      state.other = action.payload.have_bg_else;
+      state.body = action.payload.synopsis;
+      state.note = action.payload.remark;
     },
     commit: (state, action) => {
       const teacherApi = new TeacherApi(action.payload);

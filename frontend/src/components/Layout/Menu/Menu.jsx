@@ -25,7 +25,9 @@ const MyMenu = ({ items }) => {
   useEffect(() => {
     const path = location.pathname;
     const item = items.find((item) => item.url === path);
-    setSelectedItem(item.id);
+    if (item) {
+      setSelectedItem(item.id);
+    }
   }, [location.pathname]);
 
   return (

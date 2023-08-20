@@ -8,7 +8,10 @@ class TeacherApi {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     };
-    console.log(token);
+    this.get_headers = {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    };
   }
   async AddTopic({
     name,
@@ -40,6 +43,28 @@ class TeacherApi {
       .catch((error) => {
         console.error("Error adding topic:", error);
       });
+  }
+
+  async GetTopics() {
+    try {
+      const response = await axios.get(this.apiUrl + "get_topics", {
+        headers: this.get_headers,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error getting topics:", error);
+    }
+  }
+
+  async GetTopic({ topic_id }) {
+    try {
+      const response = await axios.get(this.apiUrl + "get_topic/" + topic_id, {
+        headers: this.get_headers,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error getting topic:", error);
+    }
   }
 }
 

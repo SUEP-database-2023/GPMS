@@ -2,7 +2,14 @@ import React from "react";
 import { Space, Table, Tag } from "antd";
 import { TextLine } from "../../components/Text/Textline";
 import { useSelector } from "react-redux";
-import TeacherGetTopicData from "../../utils/TeacherGetTopicData";
+// import TeacherGetTopicData from "../../utils/TeacherGetTopicData";
+import TeacherApi from "../../components/Api/TeacherApi";
+import { Link } from "react-router-dom";
+
+const haddleDelete = (id) => {
+  console.log("delete", id);
+};
+
 const columns = [
   {
     title: "序号",
@@ -12,8 +19,8 @@ const columns = [
   },
   {
     title: "课题名称",
-    dataIndex: "subject name",
-    key: "subject name",
+    dataIndex: "subjectName",
+    key: "subjectName",
   },
   {
     title: "适用专业",
@@ -25,16 +32,41 @@ const columns = [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
+        <Link to={`/teacher/TopicDetailPage/${record.topic_id}`}>查看</Link>
       </Space>
     ),
   },
 ];
+
+const TeacherGetTopicData = async ({ token }) => {
+  const teacherApi = new TeacherApi({ token });
+  const data = await teacherApi.GetTopics();
+  const Topic_data = data.map((item, index) => {
+    return {
+      id: index + 1,
+      key: index + 1,
+      topic_id: item.id,
+      subjectName: item.name,
+      major: item.major,
+    };
+  });
+
+  return Topic_data;
+};
+
 const TopicListPage = () => {
+  const [data, setData] = React.useState([]);
   const token = useSelector((state) => state.user.access_token);
 
-  const data = TeacherGetTopicData({ token });
+  React.useEffect(() => {
+    async function fetchInitialData() {
+      const newData = await TeacherGetTopicData({ token });
+      setData(newData);
+    }
+
+    fetchInitialData();
+  }, []);
+
   return (
     <div className="flex flex-col h-screen items-center">
       <div className="flex flex-col w-[90%]">
@@ -44,7 +76,7 @@ const TopicListPage = () => {
           size="2xl"
           colour="text-red-500"
         />
-        <Table columns={columns} />
+        <Table columns={columns} dataSource={data} />
       </div>
     </div>
   );
