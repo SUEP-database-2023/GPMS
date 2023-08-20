@@ -29,9 +29,9 @@ class NotParamsAdminApi {
       Authorization: `Bearer ${token}`,
     };
   }
-  async assignTopics({student_number,topic_number}) {
+  async assignTopics({studentID,topicID}) {
     axios
-      .put(this.apiUrl + `/force_assign_topics/${student_number}/${topic_number}`, {}, { headers: this.headers })
+      .put(this.apiUrl + `force_assign_topics/${studentID}/${topicID}`, {}, { headers: this.headers })
       .then((response) => {
         console.log("Password reset successfully:", response.data);
       })

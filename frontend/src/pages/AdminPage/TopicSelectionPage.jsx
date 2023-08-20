@@ -2,7 +2,7 @@ import React from "react";
 import { DownloadOutlined } from "@ant-design/icons";
 import { Button, Space, Input } from "antd";
 import { NotParamsAdminApi } from "../../components/Api/AdminApi";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const TopicSelectionPage = () => {
   const [studentID, setStudentID] = React.useState("");
@@ -16,10 +16,10 @@ const TopicSelectionPage = () => {
     setTopicID(e.target.value);
   };
 
-  const handleForceAssignTopic = async () => {
-    const adminapi = NotParamsAdminApi({token:token})
-    adminapi.assignTopics({studentID,topicID})
-  }
+  const handleForceAssignTopic = () => {
+    const assignapi = new NotParamsAdminApi({ token: token });
+    assignapi.assignTopics({ studentID, topicID });
+  };
   return (
     <div className="flex flex-col w-[100%] h-screen items-center bg-white-100">
       <h1>my app</h1>
@@ -37,9 +37,7 @@ const TopicSelectionPage = () => {
             {/*选课组件盒*/}
             <div className="flex w-[100%] h-[35%] items-center justify-center bg-yellow-100">
               <button
-                onClick={() => {
-                  
-                }}
+                onClick={() => {}}
                 className="w-[30%] btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
               >
                 第一次选题分配
@@ -47,9 +45,7 @@ const TopicSelectionPage = () => {
             </div>
             <div className="flex w-[100%] h-[35%] items-center justify-center bg-pink-100">
               <button
-                onClick={() => {
-                  
-                }}
+                onClick={() => {}}
                 className="w-[30%] btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
               >
                 第二次选题分配
@@ -57,9 +53,7 @@ const TopicSelectionPage = () => {
             </div>
             <div className="flex w-[100%] h-[35%] items-center justify-center bg-yellow-100">
               <button
-                onClick={() => {
-                
-                }}
+                onClick={() => {}}
                 className="w-[30%] btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
               >
                 强制选题分配
@@ -72,22 +66,14 @@ const TopicSelectionPage = () => {
             <div className="flex w-[100%] h-[50%] items-center justify-center bg-pink-100">
               <Space direction="vertical">
                 <Space wrap>
-                  <Button
-                    type="primary"
-                    icon={<DownloadOutlined />}
-                    
-                  >
+                  <Button type="primary" icon={<DownloadOutlined />}>
                     第一次匹配结果
                   </Button>
                 </Space>
               </Space>
               <Space direction="vertical">
                 <Space wrap>
-                  <Button
-                    type="primary"
-                    icon={<DownloadOutlined />}
-                    
-                  >
+                  <Button type="primary" icon={<DownloadOutlined />}>
                     未成功人名单
                   </Button>
                 </Space>
@@ -96,22 +82,14 @@ const TopicSelectionPage = () => {
             <div className="flex w-[100%] h-[50%] items-center justify-center bg-yellow-100">
               <Space direction="vertical">
                 <Space wrap>
-                  <Button
-                    type="primary"
-                    icon={<DownloadOutlined />}
-                    
-                  >
+                  <Button type="primary" icon={<DownloadOutlined />}>
                     第二次匹配结果
                   </Button>
                 </Space>
               </Space>
               <Space direction="vertical">
                 <Space wrap>
-                  <Button
-                    type="primary"
-                    icon={<DownloadOutlined />}
-                    
-                  >
+                  <Button type="primary" icon={<DownloadOutlined />}>
                     未成功人名单
                   </Button>
                 </Space>
@@ -149,7 +127,7 @@ const TopicSelectionPage = () => {
           </div>
           <div className="flex w-[100%] h-[40%] justify-center">
             <button
-              onClick={{handleForceAssignTopic}}
+              onClick={ handleForceAssignTopic }
               className="w-[25%] bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
             >
               提交
