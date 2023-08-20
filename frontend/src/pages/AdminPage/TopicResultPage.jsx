@@ -29,6 +29,11 @@ const columns = [
     key: "teacher",
     dataIndex: "teacher",
   },
+  {
+    title: "学年",
+    dataIndex: "grade",
+    key: "grade",
+  },
 ];
 const { Search } = Input;
 // const suffix = <AudioOutlined style={{ fontSize: 16, color: "#1677ff" }} />;
@@ -45,6 +50,7 @@ const getTopicDataList = async ({ token }) => {
       studentName: item.student_name,
       subjectName: item.topic_name,
       teacher: item.teacher_name,
+      grade: item.grade,
     };
   });
   return Topic_data;
