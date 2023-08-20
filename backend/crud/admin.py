@@ -225,11 +225,12 @@ class CRUDAdmin(CRUDBase):
         topics = db.query(Topic).all()
         topics = [
             TopicRequest(
-                topic_number=topic.number,
-                topic_name=topic.name,
+                number=topic.number,
+                name=topic.name,
                 whether_background=topic.whether_background,
                 have_bg_id=topic.have_bg_id,
                 have_bg_else=topic.have_bg_else,
+                category=topic.category,
                 synopsis=topic.synopsis,
                 remark=topic.remark,
                 user_id=topic.user_id,

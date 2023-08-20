@@ -4,7 +4,6 @@ import TeacherApi from "../../components/Api/TeacherApi";
 import { useSelector, useDispatch } from "react-redux";
 import { setAll } from "../../store/TeacherSubmmitFromSlice";
 import TopicSubmissionPage from "./TopicSubmissionPage";
-import { t } from "@wangeditor/core";
 const TeacherGetTopicDataDetail = async ({ token, topic_id }) => {
   const teacherApi = new TeacherApi({ token });
   const data = await teacherApi.GetTopic({ topic_id });
