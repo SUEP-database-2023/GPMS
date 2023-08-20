@@ -1,22 +1,22 @@
-import React from "react";
-import { AudioOutlined } from '@ant-design/icons';
-import {Input, Space, Table, Tag } from "antd";
+import React, { useEffect, useState } from "react";
+import { AudioOutlined } from "@ant-design/icons";
+import { Input, Space, Table, Tag } from "antd";
+import TeacherApi from "../../components/Api/TeacherApi";
 const columns = [
   {
     title: "序号",
     dataIndex: "id",
     key: "id",
-    // render: (text) => <a>{text}</a>,
   },
   {
     title: "学号",
-    dataIndex: "student number",
-    key: "student number",
+    dataIndex: "studentNumber",
+    key: "studentNumber",
   },
   {
     title: "姓名",
-    dataIndex: "student name",
-    key: "student name",
+    dataIndex: "studentName",
+    key: "studentName",
   },
   {
     title: "专业",
@@ -35,19 +35,49 @@ const columns = [
   },
   {
     title: "课题名称",
-    dataIndex: "subject name",
-    key: "subject name",
+    dataIndex: "subjectName",
+    key: "subjectName",
   },
-  
 ];
+
+const TeacherSelectedData = async ({ token }) => {
+  const teacherApi = new TeacherApi({ token });
+  const newdata = await teacherApi.TeacherSelected();
+  const Topic_data = newdata.map((item, index) => {
+    return {
+      id: index + 1,
+      key: index + 1,
+      studentNumber: item.student_number,
+      studentName: item.student_name,
+      major: item.student_major,
+      class: item.student_team,
+      telephone: item.student_phone,
+      subjectName: item.name,
+    };
+  });
+
+  return Topic_data;
+};
+
 const TopicResultPage = () => {
+  const [data, setData] = useState();
+  useEffect(() => {
+    const storedToken = localStorage.getItem("access_token");
+    const token = storedToken.replace(/"/g, "");
+    async function fetchInitialData({ token }) {
+      const newData = await TeacherSelectedData({ token });
+      setData(newData);
+    }
+
+    fetchInitialData({ token });
+  }, []);
   return (
     <div className="flex flex-col h-screen items-center">
       <div className="flex flex-col w-[90%] items-center justify-center bg-blue-200">
-      请注意！教师提交毕业设计题目的截止时间：xxxx/xx/xx，届时系统将无法提交和更新课题信息！
+        请注意！教师提交毕业设计题目的截止时间：xxxx/xx/xx，届时系统将无法提交和更新课题信息！
       </div>
       <div className="flex flex-col w-[90%]">
-        <Table columns={columns} />
+        <Table columns={columns} dataSource={data} />
       </div>
     </div>
   );

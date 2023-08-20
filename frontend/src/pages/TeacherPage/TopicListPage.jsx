@@ -32,7 +32,12 @@ const columns = [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <Link to={`/teacher/TopicDetailPage/${record.topic_id}`}>查看</Link>
+        <Link
+          to={`/teacher/TopicDetailPage/${record.topic_id}`}
+          className="text-blue-500"
+        >
+          查看/修改
+        </Link>
       </Space>
     ),
   },

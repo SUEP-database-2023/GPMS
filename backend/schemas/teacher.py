@@ -22,3 +22,7 @@ class TeacherInDB(TeacherCreate):
 class TeacherSelected(TopicBase, StudentBase):
     student_id: int
     topic_id: int
+    student_number: str
+    student_major: str
+    student_team: str
+    student_phone: str

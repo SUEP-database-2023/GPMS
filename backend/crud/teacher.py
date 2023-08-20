@@ -19,6 +19,10 @@ class CRUDTeacher(CRUDBase):
                 Topic.name,
                 Student.user_id,
                 Student.name,
+                Student.number,
+                Student.major,
+                Student.team,
+                Student.phone,
             )
             .join(self.model, self.model.name == Topic.teacher_name)
             .join(Result, Result.topic_id == Topic.id)
@@ -32,6 +36,10 @@ class CRUDTeacher(CRUDBase):
                 name=topic[1],
                 student_id=topic[2],
                 student_name=topic[3],
+                student_number=topic[4],
+                student_major=topic[5],
+                student_team=topic[6],
+                student_phone=topic[7],
             )
             for topic in result
         ]

@@ -101,6 +101,17 @@ class TeacherApi {
         console.error("Error updating topic:", error);
       });
   }
+
+  async TeacherSelected() {
+    try {
+      const response = await axios.get(this.apiUrl + "selected", {
+        headers: this.get_headers,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error getting selected:", error);
+    }
+  }
 }
 
 export default TeacherApi;
