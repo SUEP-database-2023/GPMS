@@ -13,10 +13,7 @@ import {
 
 const TopicSubmissionPage = ({ fuc, topic_id }) => {
   const token = useSelector((state) => state.user.access_token);
-  // const TeacherSubmitForm = useSelector((state) => state.TeacherSubmitForm);
-  // const { body, note } = TeacherSubmitForm;
   const dispatch = useDispatch();
-  // console.log(fuc, topic_id);
   const handlecommit = () => {
     if (fuc !== "update") {
       dispatch(commit({ token }));

@@ -46,7 +46,6 @@ const teacherSubmitFormSlice = createSlice({
       state.other = action.payload.have_bg_else;
       state.body = action.payload.synopsis;
       state.note = action.payload.remark;
-      console.log("state.body", state.body);
     },
     commit: (state, action) => {
       const teacherApi = new TeacherApi(action.payload);

@@ -22,7 +22,7 @@ function WangEditor({ state, callback }) {
   useEffect(() => {
     if (state === "body") setHtml(body);
     if (state === "note") setHtml(note);
-  }, []);
+  }, [body, note]);
 
   const dispatch = useDispatch();
   const toolbarConfig = [];
@@ -86,7 +86,7 @@ function WangEditor({ state, callback }) {
           className="bg-blue-400 w-[10%]"
           onClick={() => handlecommit()}
         >
-          确定
+          保存
         </Button>
       </div>
       <br />
