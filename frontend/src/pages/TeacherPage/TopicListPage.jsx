@@ -61,15 +61,18 @@ const TeacherGetTopicData = async ({ token }) => {
 
 const TopicListPage = () => {
   const [data, setData] = React.useState([]);
-  const token = useSelector((state) => state.user.access_token);
+  // const token = useSelector((state) => state.user.access_token);
 
   React.useEffect(() => {
-    async function fetchInitialData() {
+    const storedToken = localStorage.getItem("access_token");
+    const token = storedToken.replace(/"/g, "");
+
+    async function fetchInitialData({ token }) {
       const newData = await TeacherGetTopicData({ token });
       setData(newData);
     }
 
-    fetchInitialData();
+    fetchInitialData({ token });
   }, []);
 
   return (
