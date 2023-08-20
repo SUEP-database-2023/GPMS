@@ -101,5 +101,15 @@ class CRUDTeacher(CRUDBase):
             number = grade + "XJ" + id
         return number
 
+    def get_topic(self, db: Session, topic_id: Any, user_id: Any):
+        topic = db.query(Topic).filter(Topic.id == topic_id).first()
+        if topic.user_id != user_id:
+            raise HTTPException(status_code=404, detail="not your topic")
+        return topic
+
+    def get_topics(self, db: Session, user_id: Any):
+        topics = db.query(Topic).filter(Topic.user_id == user_id).all()
+        return topics
+
 
 crud_teacher = CRUDTeacher(Teacher)

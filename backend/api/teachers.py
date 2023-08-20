@@ -42,3 +42,24 @@ def teacher_change_topic(
         crud_teacher.change_topic(
             db=db, topic_params=topic_params, topic_id=topic_id, user_id=current_user.id
         )
+
+
+@router.get("/get_topic/{topic_id}")
+def teacher_get_topic(
+    topic_id: int,
+    db: Session = Depends(deps.get_db),
+    current_user=Depends(deps.get_current_user),
+):
+    if deps.check_permission(current_user.role, UserRole.TEACHER):
+        data = crud_teacher.get_topic(db=db, topic_id=topic_id, user_id=current_user.id)
+        return data
+
+
+@router.get("/get_topics")
+def teacher_get_topics(
+    db: Session = Depends(deps.get_db),
+    current_user=Depends(deps.get_current_user),
+):
+    if deps.check_permission(current_user.role, UserRole.TEACHER):
+        data = crud_teacher.get_topics(db=db, user_id=current_user.id)
+        return data
