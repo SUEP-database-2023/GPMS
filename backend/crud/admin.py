@@ -182,12 +182,20 @@ class CRUDAdmin(CRUDBase):
     def force_assign_topics(self, db: Session, student_number: str, topic_number: str):
         user_id = db.query(Student).filter(Student.number == student_number).first()
         topic_id = db.query(Topic).filter(Topic.number == topic_number).first()
-        user_id_in_result = (
-            db.query(Result).filter(Result.user_id == user_id.user_id).first()
-        )
-        topic_id_in_result = (
-            db.query(Result).filter(Result.topic_id == topic_id.id).first()
-        )
+        try:
+            user_id_in_result = (
+                db.query(Result).filter(Result.user_id == user_id.user_id).first()
+            )
+        except Exception:
+            user_id_in_result = False
+
+        try:
+            topic_id_in_result = (
+                db.query(Result).filter(Result.topic_id == topic_id.id).first()
+            )
+        except Exception:
+            topic_id_in_result = False
+
         if user_id_in_result or topic_id_in_result:
             raise HTTPException(
                 status_code=400, detail="The student or topic has been chosen"

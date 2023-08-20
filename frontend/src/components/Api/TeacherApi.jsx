@@ -66,6 +66,41 @@ class TeacherApi {
       console.error("Error getting topic:", error);
     }
   }
+
+  async UpdateTopic({
+    topic_id,
+    name,
+    whether_background,
+    have_bg_id,
+    have_bg_else,
+    category,
+    synopsis,
+    remark,
+    post_time,
+    grade,
+  }) {
+    const data = {
+      name: name,
+      whether_background: whether_background,
+      have_bg_id: have_bg_id,
+      have_bg_else: have_bg_else,
+      category: category,
+      synopsis: synopsis,
+      remark: remark,
+      post_time: post_time,
+      grade: grade,
+    };
+    axios
+      .put(this.apiUrl + "topic_info/" + topic_id, data, {
+        headers: this.headers,
+      })
+      .then((response) => {
+        console.log("Topic updated successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating topic:", error);
+      });
+  }
 }
 
 export default TeacherApi;

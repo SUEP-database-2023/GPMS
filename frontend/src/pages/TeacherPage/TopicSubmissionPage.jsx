@@ -4,15 +4,25 @@ import { TextLine } from "../../components/Text/Textline";
 import { TeacherSubmmitFrom } from "../../components/From";
 import { Button } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { setBody, setNote, commit } from "../../store/TeacherSubmmitFromSlice";
+import {
+  setBody,
+  setNote,
+  commit,
+  update,
+} from "../../store/TeacherSubmmitFromSlice";
 
-const TopicSubmissionPage = ({ body, note }) => {
+const TopicSubmissionPage = ({ fuc, topic_id }) => {
   const token = useSelector((state) => state.user.access_token);
   // const TeacherSubmitForm = useSelector((state) => state.TeacherSubmitForm);
   // const { body, note } = TeacherSubmitForm;
   const dispatch = useDispatch();
+  // console.log(fuc, topic_id);
   const handlecommit = () => {
-    dispatch(commit({ token }));
+    if (fuc !== "update") {
+      dispatch(commit({ token }));
+    } else {
+      dispatch(update({ token, topic_id }));
+    }
   };
 
   return (
@@ -28,11 +38,11 @@ const TopicSubmissionPage = ({ body, note }) => {
         <div className="bg-blue-100">
           <div>
             <TextLine text="简介" size="xl" colour="text-black" />
-            <WangEditor states={body} callback={setBody} />
+            <WangEditor state="body" callback={setBody} />
           </div>
           <div>
             <TextLine text="备注" size="xl" colour="text-black" />
-            <WangEditor states={note} callback={setNote} />
+            <WangEditor state={"note"} callback={setNote} />
           </div>
         </div>
       </div>

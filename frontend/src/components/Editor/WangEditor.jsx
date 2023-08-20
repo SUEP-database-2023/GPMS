@@ -15,10 +15,13 @@ Boot.registerModule(formulaModule);
 function WangEditor({ state, callback }) {
   const [editor, setEditor] = useState(null); // 存储 editor 实例
   const [html, setHtml] = useState("");
+
+  const TeacherSubmitForm = useSelector((state) => state.TeacherSubmitForm);
+  const { body, note } = TeacherSubmitForm;
+
   useEffect(() => {
-    console.log("state", state);
-    setHtml(state);
-    // console.log(html);
+    if (state === "body") setHtml(body);
+    if (state === "note") setHtml(note);
   }, []);
 
   const dispatch = useDispatch();
