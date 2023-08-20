@@ -1,7 +1,7 @@
 import React from "react";
 import { DownloadOutlined } from "@ant-design/icons";
 import { Button, Space, Input } from "antd";
-import { NotParamsAdminApi } from "../../components/Api/AdminApi";
+import AdminApi from "../../components/Api/AdminApi";
 import { useSelector } from "react-redux";
 
 const TopicSelectionPage = () => {
@@ -17,8 +17,16 @@ const TopicSelectionPage = () => {
   };
 
   const handleForceAssignTopic = () => {
-    const assignapi = new NotParamsAdminApi({ token: token });
+    const assignapi = new AdminApi({ token: token });
     assignapi.assignTopics({ studentID, topicID });
+  };
+  const handleFirstAssignTopic = () => {
+    const firstassignapi = new AdminApi({ token: token });
+    firstassignapi.firstAssignTopics();
+  };
+  const handleSecondAssignTopic = () => {
+    const secondassignapi = new AdminApi({ token: token });
+    secondassignapi.secondAssignTopics();
   };
   return (
     <div className="flex flex-col w-[100%] h-screen items-center bg-white-100">
@@ -37,7 +45,7 @@ const TopicSelectionPage = () => {
             {/*选课组件盒*/}
             <div className="flex w-[100%] h-[35%] items-center justify-center bg-yellow-100">
               <button
-                onClick={() => {}}
+                onClick={handleFirstAssignTopic}
                 className="w-[30%] btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
               >
                 第一次选题分配
@@ -45,19 +53,13 @@ const TopicSelectionPage = () => {
             </div>
             <div className="flex w-[100%] h-[35%] items-center justify-center bg-pink-100">
               <button
-                onClick={() => {}}
+                onClick={handleSecondAssignTopic}
                 className="w-[30%] btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
               >
                 第二次选题分配
               </button>
             </div>
             <div className="flex w-[100%] h-[35%] items-center justify-center bg-yellow-100">
-              <button
-                onClick={() => {}}
-                className="w-[30%] btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
-              >
-                强制选题分配
-              </button>
             </div>
           </div>
           <div className="flex flex-col w-[50%] h-[100%] items-center justify-center bg-blue-200">

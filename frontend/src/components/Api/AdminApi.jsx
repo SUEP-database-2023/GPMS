@@ -8,6 +8,10 @@ class AdminApi {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     };
+    this.noparamsheaders = {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    };
   }
   async resetPassword({ number }) {
     const data = { number: number };
@@ -20,25 +24,36 @@ class AdminApi {
         console.error("Error resetting password:", error);
       });
   }
-}
-class NotParamsAdminApi {
-  constructor({ token }) {
-    this.apiUrl = "http://localhost:8000/api/admin/";
-    this.headers = {
-      accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    };
-  }
   async assignTopics({studentID,topicID}) {
     axios
-      .put(this.apiUrl + `force_assign_topics/${studentID}/${topicID}`, {}, { headers: this.headers })
+      .put(this.apiUrl + `force_assign_topics/${studentID}/${topicID}`, {}, { headers: this.noparamsheaders })
       .then((response) => {
-        console.log("Password reset successfully:", response.data);
+        console.log("forceAssign successfully:", response.data);
       })
       .catch((error) => {
-        console.error("Error resetting password:", error);
+        console.error("Error:", error);
+      });
+  }
+  async firstAssignTopics() {
+    axios
+      .put(this.apiUrl + `start_matching/2020/1`, {}, { headers: this.noparamsheaders })
+      .then((response) => {
+        console.log("firstAssign successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+  async secondAssignTopics() {
+    axios
+      .put(this.apiUrl + `start_matching/2020/2`, {}, { headers: this.noparamsheaders })
+      .then((response) => {
+        console.log("secondAssign successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
       });
   }
 }
+
 export default AdminApi ;
-export {NotParamsAdminApi};

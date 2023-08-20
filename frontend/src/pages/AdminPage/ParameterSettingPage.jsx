@@ -1,5 +1,6 @@
 import React from "react";
 import { DatePicker, Space } from "antd";
+import { Button, Input } from "antd";
 const onChange = (date, dateString) => {
   // console.log(date, dateString);
 };
@@ -53,12 +54,10 @@ const ParmeterSettingPage = () => {
             </div>
             <div className="flex flex-col w-[33%] h-[100%] items-start">
               <div className="flex w-[100%] h-[50%] items-center justify-center">
-                学生第一次选题截止时间
+                ID
               </div>
               <div className="flex w-[100%] h-[50%] items-center justify-center">
-                {" "}
-                {/*时间组件*/}
-                输入时间组件
+              <Input/>
               </div>
             </div>
             <div className="flex flex-col w-[33%] h-[100%] items-start">
@@ -90,12 +89,10 @@ const ParmeterSettingPage = () => {
             </div>
             <div className="flex flex-col w-[33%] h-[100%] items-start">
               <div className="flex w-[100%] h-[50%] items-center justify-center">
-                学生第二次选题截止时间
+                专业
               </div>
               <div className="flex w-[100%] h-[50%] items-center justify-center">
-                {" "}
-                {/*时间组件*/}
-                输入时间组件
+              <Input/>
               </div>
             </div>
             <div className="flex flex-col w-[33%] h-[100%] items-start">
@@ -114,7 +111,7 @@ const ParmeterSettingPage = () => {
           <div className="flex w-[100%] h-[20%] items-center justify-center bg-pink-400">
             <button
               onClick={() => {
-                handleLogin();
+
               }}
               className="w-[20%] btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
             >
