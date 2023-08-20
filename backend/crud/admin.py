@@ -15,7 +15,8 @@ from schemas.public import PublicTime
 from models.topic import Topic
 from models.status import Status
 from typing import Any
-from datetime import datetime
+from sqlalchemy.orm import aliased
+from schemas.result import GetAllResult
 
 
 class CRUDAdmin(CRUDBase):
@@ -380,6 +381,40 @@ class CRUDAdmin(CRUDBase):
             raise HTTPException(
                 status_code=500, detail="Failed to update password"
             ) from e
+
+    def get_all_result(self, db: Session):
+        StudentAlias = aliased(Student, name="student_alias")
+        TopicAlias = aliased(Topic, name="topic_alias")
+
+        # 定义查询并使用 .select_from() 方法
+        results = (
+            db.query(
+                Result.id,
+                StudentAlias.number,
+                StudentAlias.name,
+                TopicAlias.name.label("topic_name"),
+                TopicAlias.number.label("topic_number"),
+                TopicAlias.teacher_name.label("teacher_name"),
+                Result.grade,
+            )
+            .select_from(Result)
+            .join(StudentAlias, Result.user_id == StudentAlias.user_id)
+            .join(TopicAlias, Result.topic_id == TopicAlias.id)
+            .all()
+        )
+        results = [
+            GetAllResult(
+                result_id=result[0],
+                student_number=result[1],
+                student_name=result[2],
+                topic_name=result[3],
+                topic_number=result[4],
+                teacher_name=result[5],
+                grade=result[6],
+            )
+            for result in results
+        ]
+        return results
 
 
 crud_admin = CRUDAdmin(User)
