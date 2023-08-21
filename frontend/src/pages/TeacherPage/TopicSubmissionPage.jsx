@@ -3,16 +3,23 @@ import { WangEditor } from "../../components/Editor";
 import { TextLine } from "../../components/Text/Textline";
 import { TeacherSubmmitFrom } from "../../components/From";
 import { Button } from "antd";
-import { useSelector } from "react-redux";
-import { setBody, setNote, commit } from "../../store/TeacherSubmmitFromSlice";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setBody,
+  setNote,
+  commit,
+  update,
+} from "../../store/TeacherSubmmitFromSlice";
 
-const TopicSubmissionPage = () => {
+const TopicSubmissionPage = ({ fuc, topic_id }) => {
   const token = useSelector((state) => state.user.access_token);
   const dispatch = useDispatch();
   const handlecommit = () => {
-    console.log(token);
-    dispatch(commit({ token }));
+    if (fuc !== "update") {
+      dispatch(commit({ token }));
+    } else {
+      dispatch(update({ token, topic_id }));
+    }
   };
 
   return (
@@ -28,11 +35,11 @@ const TopicSubmissionPage = () => {
         <div className="bg-blue-100">
           <div>
             <TextLine text="简介" size="xl" colour="text-black" />
-            <WangEditor callback={setBody} />
+            <WangEditor state="body" callback={setBody} />
           </div>
           <div>
             <TextLine text="备注" size="xl" colour="text-black" />
-            <WangEditor callback={setNote} />
+            <WangEditor state={"note"} callback={setNote} />
           </div>
         </div>
       </div>

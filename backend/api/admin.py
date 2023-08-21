@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from api import deps
-from schemas.user import UserRole,ResetPassword
-from schemas.teacher import TeacherCreate,TeacherInDB
-from schemas.student import StudentCreate,StudentInDB
+from schemas.user import UserRole, ResetPassword
+from schemas.teacher import TeacherCreate, TeacherInDB
+from schemas.student import StudentCreate, StudentInDB
 from schemas.public import PublicTime
 from schemas.topic import TopicRequest, TopicAudit
 from crud import crud_admin
@@ -118,11 +118,12 @@ def update_end_time(
         )
     return status
 
+
 # 更新学生信息
 @router.put("/update/student/{student_id}")
 def update_student_info(
-    student_id:int,
-    student_params:StudentInDB,
+    student_id: int,
+    student_params: StudentInDB,
     db: Session = Depends(deps.get_db),
     current_user=Depends(deps.get_current_user),
 ):
@@ -134,11 +135,12 @@ def update_student_info(
         )
     return student
 
+
 # 更新老师信息
 @router.put("/update/teacher/{teacher_id}")
 def update_teacher_info(
-    teacher_id:int,
-    teacher_params:TeacherInDB,
+    teacher_id: int,
+    teacher_params: TeacherInDB,
     db: Session = Depends(deps.get_db),
     current_user=Depends(deps.get_current_user),
 ):
@@ -150,10 +152,11 @@ def update_teacher_info(
         )
     return teacher
 
-#重置用户账号
+
+# 重置用户账号
 @router.put("/update/user/")
 def update_user_password(
-    user_params:ResetPassword,
+    user_params: ResetPassword,
     db: Session = Depends(deps.get_db),
     current_user=Depends(deps.get_current_user),
 ):
@@ -161,5 +164,16 @@ def update_user_password(
         crud_admin.update_user_password(
             db=db,
             user_number=user_params,
-
         )
+
+
+@router.get("/get/allresult")
+def get_all_result(
+    db: Session = Depends(deps.get_db),
+    current_user=Depends(deps.get_current_user),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        result = crud_admin.get_all_result(
+            db=db,
+        )
+    return result

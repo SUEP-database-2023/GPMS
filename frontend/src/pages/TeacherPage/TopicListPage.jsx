@@ -1,5 +1,15 @@
 import React from "react";
 import { Space, Table, Tag } from "antd";
+import { TextLine } from "../../components/Text/Textline";
+import { useSelector } from "react-redux";
+// import TeacherGetTopicData from "../../utils/TeacherGetTopicData";
+import TeacherApi from "../../components/Api/TeacherApi";
+import { Link } from "react-router-dom";
+
+const haddleDelete = (id) => {
+  console.log("delete", id);
+};
+
 const columns = [
   {
     title: "序号",
@@ -9,8 +19,8 @@ const columns = [
   },
   {
     title: "课题名称",
-    dataIndex: "subject name",
-    key: "subject name",
+    dataIndex: "subjectName",
+    key: "subjectName",
   },
   {
     title: "适用专业",
@@ -22,20 +32,59 @@ const columns = [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
+        <Link
+          to={`/teacher/TopicDetailPage/${record.topic_id}`}
+          className="text-blue-500"
+        >
+          查看/修改
+        </Link>
       </Space>
     ),
   },
 ];
+
+const TeacherGetTopicData = async ({ token }) => {
+  const teacherApi = new TeacherApi({ token });
+  const data = await teacherApi.GetTopics();
+  const Topic_data = data.map((item, index) => {
+    return {
+      id: index + 1,
+      key: index + 1,
+      topic_id: item.id,
+      subjectName: item.name,
+      major: item.major,
+    };
+  });
+
+  return Topic_data;
+};
+
 const TopicListPage = () => {
+  const [data, setData] = React.useState([]);
+  // const token = useSelector((state) => state.user.access_token);
+
+  React.useEffect(() => {
+    const storedToken = localStorage.getItem("access_token");
+    async function fetchInitialData({ token }) {
+      const newData = await TeacherGetTopicData({ token });
+      setData(newData);
+    }
+    if (storedToken) {
+      const token = storedToken.replace(/"/g, "");
+      fetchInitialData({ token });
+    }
+  }, []);
+
   return (
     <div className="flex flex-col h-screen items-center">
-      <div className="flex w-[90%] items-center justify-center bg-blue-200">
-      请注意！教师提交毕业设计题目的截止时间：xxxx/xx/xx，届时系统将无法提交和更新课题信息！
-      </div>
       <div className="flex flex-col w-[90%]">
-        <Table columns={columns} />
+        <TextLine
+          text="
+          请注意！教师提交毕业设计题目的截止时间：xxxx/xx/xx，届时系统将无法提交和更新课题信息！"
+          size="2xl"
+          colour="text-red-500"
+        />
+        <Table columns={columns} dataSource={data} />
       </div>
     </div>
   );

@@ -3,41 +3,43 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Menu } from "antd";
 
 const MyMenu = ({ items }) => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState(null);
   const location = useLocation();
-  const Item = items.map((item) => {
-    return {
-      label: (
-        <Link className="flex items-center text-xl" to={item.url}>
-          {item.title}
-        </Link>
-      ),
-      key: item.id,
-      icon: <div>{item.icon}</div>,
-    };
-  });
+  // const Item = items.map((item) => {
+  //   return {
+  //     label: (
+  //       <Link className="flex items-center text-xl" to={item.url}>
+  //         {item.title}
+  //       </Link>
+  //     ),
+  //     key: item.id,
+  //     icon: <div>{item.icon}</div>,
+  //   };
+  // });
 
-  // const handleItemClick = (item) => {
-  //   navigate(item.url);
-  // };
+  const handleItemClick = (item) => {
+    navigate(item.url);
+  };
 
   useEffect(() => {
     const path = location.pathname;
     const item = items.find((item) => item.url === path);
-    setSelectedItem(item.id);
+    if (item) {
+      setSelectedItem(item.id);
+    }
   }, [location.pathname]);
 
   return (
     <div>
-      <Menu
+      {/* <Menu
         mode="inline"
         // defaultSelectedKeys={`${selectedItem}`}
         defaultSelectedKeys={"1"}
         items={Item}
         className="bg-transparent"
-      />
-      {/* <ul className="menu overflow-hidden">
+      /> */}
+      <ul className="menu overflow-hidden">
         {items.map((item) => (
           <li
             key={item.id}
@@ -50,7 +52,7 @@ const MyMenu = ({ items }) => {
             <a className="text-xl text-center pl-0 my-1">{item.title}</a>
           </li>
         ))}
-      </ul> */}
+      </ul>
     </div>
   );
 };

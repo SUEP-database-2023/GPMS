@@ -6,12 +6,24 @@
 import React, { useState, useEffect } from "react";
 import "@wangeditor/editor/dist/css/style.css";
 import { Editor, Toolbar } from "@wangeditor/editor-for-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "antd";
+import formulaModule from "@wangeditor/plugin-formula";
+import { Boot } from "@wangeditor/editor";
+Boot.registerModule(formulaModule);
 
-function WangEditor({ callback }) {
+function WangEditor({ state, callback }) {
   const [editor, setEditor] = useState(null); // 存储 editor 实例
   const [html, setHtml] = useState("");
+
+  const TeacherSubmitForm = useSelector((state) => state.TeacherSubmitForm);
+  const { body, note } = TeacherSubmitForm;
+
+  useEffect(() => {
+    if (state === "body") setHtml(body);
+    if (state === "note") setHtml(note);
+  }, [body, note]);
+
   const dispatch = useDispatch();
   const toolbarConfig = [];
   toolbarConfig.excludeKeys = [
@@ -20,10 +32,23 @@ function WangEditor({ callback }) {
     "group-image",
     "group-video",
   ];
+
   const editorConfig = {
     placeholder: "请输入简介...",
+    hoverbarKeys: {
+      formula: {
+        menuKeys: ["editFormula"], // “编辑公式”菜单
+      },
+    },
   };
 
+  toolbarConfig.insertKeys = {
+    index: 0,
+    keys: [
+      "insertFormula", // “插入公式”菜单
+      // 'editFormula' // “编辑公式”菜单
+    ],
+  };
   // 及时销毁 editor
   useEffect(() => {
     return () => {
@@ -32,9 +57,11 @@ function WangEditor({ callback }) {
       setEditor(null);
     };
   }, [editor]);
+
   const handlecommit = () => {
     dispatch(callback(html));
   };
+
   return (
     <div>
       <div className="border-gray-300 px-5 py-5">
@@ -59,7 +86,7 @@ function WangEditor({ callback }) {
           className="bg-blue-400 w-[10%]"
           onClick={() => handlecommit()}
         >
-          确定
+          保存
         </Button>
       </div>
       <br />

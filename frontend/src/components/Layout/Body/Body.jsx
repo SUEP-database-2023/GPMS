@@ -6,8 +6,8 @@ const Body = ({ page, title }) => {
   const dispatch = useDispatch();
   React.useEffect(() => {
     const storedToken = localStorage.getItem("access_token");
-    const tokenWithoutQuotes = storedToken.replace(/"/g, "");
     if (storedToken) {
+      const tokenWithoutQuotes = storedToken.replace(/"/g, "");
       dispatch(setUserSlice(tokenWithoutQuotes));
     }
   }, []);

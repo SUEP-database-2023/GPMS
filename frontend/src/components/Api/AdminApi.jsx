@@ -57,6 +57,17 @@ class AdminApi {
         console.error("Error resetting password:", error);
       });
   }
+
+  async getTopicData() {
+    try {
+      const response = await axios.get(this.apiUrl + "get/allresult", {
+        headers: this.get_headers,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error getting topics:", error);
+    }
+  }
   async assignTopics({ studentID, topicID }) {
     axios
       .put(
