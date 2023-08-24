@@ -5,7 +5,7 @@ from schemas.user import UserRole, ResetPassword
 from schemas.teacher import TeacherCreate, TeacherInDB
 from schemas.student import StudentCreate, StudentInDB
 from schemas.public import PublicTime
-from schemas.topic import TopicRequest, TopicAudit
+from schemas.topic import TopicRequest, TopicAudit, TopicForce
 from crud import crud_admin
 from models import Topic
 from datetime import datetime
@@ -64,16 +64,17 @@ def admin_start_matching(
         crud_admin.start_matching(round=round, db=db, grade=grade)
 
 
-@router.put("/force_assign_topics/{student_number}/{topic_number}")
+@router.put("/force_assign_topics")
 def force_assign_topics(
-    student_number: str,
-    topic_number: str,
+    topic_params: TopicForce,
     current_user=Depends(deps.get_current_user),
     db=Depends(deps.get_db),
 ):
     if deps.check_permission(current_user.role, UserRole.ADMIN):
         crud_admin.force_assign_topics(
-            db=db, student_number=student_number, topic_number=topic_number
+            db=db,
+            student_number=topic_params.student_number,
+            topic_number=topic_params.topic_number,
         )
 
 

@@ -47,3 +47,8 @@ class StudentGetTopic(TopicBase):
 class StudentGetTopicDetail(TopicBase):
     synopsis: str
     remark: str
+
+
+class TopicForce(BaseModel):
+    student_number: str
+    topic_number: str

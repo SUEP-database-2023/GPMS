@@ -18,7 +18,7 @@ const TopicSelectionPage = () => {
 
   const handleForceAssignTopic = () => {
     const assignapi = new AdminApi({ token: token });
-    assignapi.assignTopics({ studentID, topicID });
+    assignapi.assignTopics({ studentID: studentID, topicID: topicID });
   };
   const handleFirstAssignTopic = () => {
     const firstassignapi = new AdminApi({ token: token });
@@ -59,8 +59,7 @@ const TopicSelectionPage = () => {
                 第二次选题分配
               </button>
             </div>
-            <div className="flex w-[100%] h-[35%] items-center justify-center bg-yellow-100">
-            </div>
+            <div className="flex w-[100%] h-[35%] items-center justify-center bg-yellow-100"></div>
           </div>
           <div className="flex flex-col w-[50%] h-[100%] items-center justify-center bg-blue-200">
             {" "}
@@ -129,7 +128,7 @@ const TopicSelectionPage = () => {
           </div>
           <div className="flex w-[100%] h-[40%] justify-center">
             <button
-              onClick={ handleForceAssignTopic }
+              onClick={handleForceAssignTopic}
               className="w-[25%] bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
             >
               提交
