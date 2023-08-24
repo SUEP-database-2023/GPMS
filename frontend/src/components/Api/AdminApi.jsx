@@ -12,6 +12,7 @@ class AdminApi {
       accept: "application/json",
       Authorization: `Bearer ${token}`,
     };
+    console.log(token);
   }
   async updateTime({
     id,
@@ -69,6 +70,7 @@ class AdminApi {
     }
   }
   async assignTopics({ studentID, topicID }) {
+    console.log(studentID, topicID)
     axios
       .put(this.apiUrl + `force_assign_topics/${studentID}/${topicID}`, {
         headers: this.no_params_headers,
