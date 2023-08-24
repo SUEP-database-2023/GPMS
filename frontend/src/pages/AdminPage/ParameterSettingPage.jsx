@@ -10,8 +10,13 @@ const ParmeterSettingPage = () => {
     setID(e.target.value);
   };
   const [teacher_post_time, set_teacher_post_time] = React.useState("");
-  const handle_set_teacher_post_time = (e) => {
-    set_teacher_post_time(e.target.value);
+  const onChange = (value, dateString) => {
+    console.log('Selected Time: ', value);
+    console.log('Formatted Selected Time: ', dateString);
+  };
+  const handle_set_teacher_post_time = ({ date, dateString }) => {
+    console.log(dateString); // 可以在控制台查看所选日期的字符串形式
+    set_teacher_post_time(dateString);
   };
   const [admin_audit_time, set_admin_audit_time] = React.useState("");
   const handle_set_admin_audit_time = (e) => {
@@ -44,7 +49,8 @@ const ParmeterSettingPage = () => {
   const token = useSelector((state) => state.user.access_token);
   const handleTime = () => {
     const time = new AdminApi({ token: token });
-    time.time(
+    console.log(teacher_post_time);
+    time.updateTime({
       id,
       teacher_post_time,
       admin_audit_time,
@@ -54,7 +60,7 @@ const ParmeterSettingPage = () => {
       student_end_time2,
       admin_end_time2,
       major,
-      );
+    } );
   };
   
   return (
@@ -73,7 +79,7 @@ const ParmeterSettingPage = () => {
                 {" "}
                 {/*时间组件*/}
                 <Space direction="vertical">
-                  <DatePicker onChange={handle_set_teacher_post_time} />
+                  <DatePicker showTime onChange={onChange} />
                 </Space>
               </div>
             </div>

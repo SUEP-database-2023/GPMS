@@ -13,7 +13,7 @@ class AdminApi {
       Authorization: `Bearer ${token}`,
     };
   }
-  async time({
+  async updateTime({
     id,
     teacher_post_time,
     admin_audit_time,
@@ -29,12 +29,12 @@ class AdminApi {
       admin_audit_time: admin_audit_time,
       student_begin_time1: student_begin_time1,
       student_end_time1: student_end_time1,
-      admin_end_time1:admin_end_time1,
+      admin_end_time1: admin_end_time1,
       student_end_time2: student_end_time2,
-      admin_end_time2:admin_end_time2,
-      major
+      admin_end_time2: admin_end_time2,
+      major:major,
     };
-
+   
     axios
       .put(this.apiUrl + `update/end_time/${id}`, data, {
         headers: this.headers,
@@ -61,7 +61,7 @@ class AdminApi {
   async getTopicData() {
     try {
       const response = await axios.get(this.apiUrl + "get/allresult", {
-        headers: this.get_headers,
+        headers: this.no_params_headers,
       });
       return response.data;
     } catch (error) {
@@ -70,11 +70,9 @@ class AdminApi {
   }
   async assignTopics({ studentID, topicID }) {
     axios
-      .put(
-        this.apiUrl + `force_assign_topics/${studentID}/${topicID}`,
-        {},
-        { headers: this.no_params_headers }
-      )
+      .put(this.apiUrl + `force_assign_topics/${studentID}/${topicID}`, {
+        headers: this.no_params_headers,
+      })
       .then((response) => {
         console.log("forceAssign successfully:", response.data);
       })
@@ -84,11 +82,9 @@ class AdminApi {
   }
   async firstAssignTopics() {
     axios
-      .get(
-        this.apiUrl + `start_matching/2020/1`,
-        {},
-        { headers: this.no_params_headers }
-      )
+      .get(this.apiUrl + `start_matching/2020/1`, {
+        headers: this.no_params_headers,
+      })
       .then((response) => {
         console.log("firstAssign successfully:", response.data);
       })
@@ -98,11 +94,9 @@ class AdminApi {
   }
   async secondAssignTopics() {
     axios
-      .get(
-        this.apiUrl + `start_matching/2020/2`,
-        {},
-        { headers: this.no_params_headers }
-      )
+      .get(this.apiUrl + `start_matching/2020/2`, {
+        headers: this.no_params_headers,
+      })
       .then((response) => {
         console.log("secondAssign successfully:", response.data);
       })
