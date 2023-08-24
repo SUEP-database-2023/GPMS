@@ -32,9 +32,8 @@ class AdminApi {
       admin_end_time1: admin_end_time1,
       student_end_time2: student_end_time2,
       admin_end_time2: admin_end_time2,
-      major:major,
+      major: major,
     };
-   
     axios
       .put(this.apiUrl + `update/end_time/${id}`, data, {
         headers: this.headers,
@@ -46,6 +45,7 @@ class AdminApi {
         console.error("Error setting:", error);
       });
   }
+
   async resetPassword({ number }) {
     const data = { number: number };
     axios
@@ -69,10 +69,10 @@ class AdminApi {
     }
   }
   async assignTopics({ studentID, topicID }) {
-    console.log(studentID, topicID)
+    const data = { student_number: studentID, topic_number: topicID };
     axios
-      .put(this.apiUrl + `force_assign_topics/${studentID}/${topicID}`, {
-        headers: this.no_params_headers,
+      .put(this.apiUrl + `force_assign_topics`, data, {
+        headers: this.headers,
       })
       .then((response) => {
         console.log("forceAssign successfully:", response.data);
