@@ -12,7 +12,6 @@ class AdminApi {
       accept: "application/json",
       Authorization: `Bearer ${token}`,
     };
-    console.log(token);
   }
   async updateTime({
     id,
