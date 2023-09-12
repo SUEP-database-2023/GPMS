@@ -11,7 +11,7 @@ const getTopics = async ({ token }) => {
   const data = await studentApi.getAllTopics();
   const Topic_data = data.map((item, index) => {
     return {
-      id: index + 1,
+      id: item.id,
       key: index + 1,
       topic_id: item.number,
       topic_name: item.name,
@@ -51,13 +51,13 @@ const TopicSelectionPage = () => {
       render: (_, record) => (
         <Space size="middle">
           <Link
-            to={`/student/TopicDetailPage/${record.topic_id}`}
+            to={`/student/TopicDetailPage/${record.id}`}
             className="text-blue-500"
           >
             查看
           </Link>
 
-          <StudentRadio topic_id={record.topic_id} />
+          <StudentRadio id={record.id} />
         </Space>
       ),
     },

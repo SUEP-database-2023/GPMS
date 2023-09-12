@@ -13,7 +13,7 @@ import {
   setfourthchoice,
 } from "../../store/StudentChoiceSlice";
 
-const StudentRadio = ({ topic_id }) => {
+const StudentRadio = ({ id }) => {
   const [haveChoiced, setHaveChoiced] = React.useState(false);
 
   const [value, setValue] = React.useState(1);
@@ -52,7 +52,7 @@ const StudentRadio = ({ topic_id }) => {
             onChange(e);
             setHaveChoiced(true);
             dispatch(setfirst());
-            dispatch(setfirstchoice({ id: topic_id }));
+            dispatch(setfirstchoice({ id: id }));
           }}
           value={1}
         >
@@ -64,7 +64,7 @@ const StudentRadio = ({ topic_id }) => {
             onChange(e);
             setHaveChoiced(true);
             dispatch(setsecond());
-            dispatch(setsecondchoice({ id: topic_id }));
+            dispatch(setsecondchoice({ id: id }));
           }}
           value={2}
         >
@@ -76,7 +76,7 @@ const StudentRadio = ({ topic_id }) => {
             onChange(e);
             setHaveChoiced(true);
             dispatch(setthird());
-            dispatch(setthirdchoice({ id: topic_id }));
+            dispatch(setthirdchoice({ id: id }));
           }}
           value={3}
         >
@@ -88,7 +88,7 @@ const StudentRadio = ({ topic_id }) => {
             onChange(e);
             setHaveChoiced(true);
             dispatch(setfourth());
-            dispatch(setfourthchoice({ id: topic_id }));
+            dispatch(setfourthchoice({ id: id }));
           }}
           value={4}
         >

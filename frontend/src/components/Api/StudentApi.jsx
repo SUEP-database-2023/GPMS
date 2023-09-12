@@ -1,4 +1,5 @@
 import axios from "axios";
+import PublicApi from "./PublicApi";
 
 class StudentApi {
   constructor({ token }) {
@@ -13,31 +14,31 @@ class StudentApi {
       Authorization: `Bearer ${token}`,
     };
   }
-  async addSelections({
-    round,
-    choice1_id,
-    choice2_id,
-    choice3_id,
-    choice4_id,
-  }) {
-    const time = new Date().toLocaleTimeString();
-    const data = {
-      choice1_id: choice1_id,
-      choice2_id: choice2_id,
-      choice3_id: choice3_id,
-      choice4_id: choice4_id,
-      time: time,
-    };
-    axios
-      .post(this.apiUrl + `topic/${round}`, data, {
-        headers: this.headers,
-      })
-      .then((response) => {
-        console.log("Select successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error selecting:", error);
-      });
+  async addSelections({ choice1_id, choice2_id, choice3_id, choice4_id }) {
+    const storedToken = localStorage.getItem("access_token");
+    if (storedToken) {
+      const token = storedToken.replace(/"/g, "");
+      const publicApi = new PublicApi({ token });
+      const round = await publicApi.getRound();
+
+      console.log(round);
+      const data = {
+        choice1_id: choice1_id,
+        choice2_id: choice2_id,
+        choice3_id: choice3_id,
+        choice4_id: choice4_id,
+      };
+      axios
+        .post(this.apiUrl + `topic/${round}`, data, {
+          headers: this.headers,
+        })
+        .then((response) => {
+          console.log("Select successfully:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error selecting:", error);
+        });
+    }
   }
   async getAllTopics() {
     try {

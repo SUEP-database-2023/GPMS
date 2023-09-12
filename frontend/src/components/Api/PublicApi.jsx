@@ -10,14 +10,14 @@ class PublicApi {
     };
   }
   async getRound() {
-    axios
-      .get(this.apiUrl + "round", { headers: this.no_params_headers })
-      .then((response) => {
-        console.log("parameter get successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error geting:", error);
+    try {
+      const response = await axios.get(this.apiUrl + "round", {
+        headers: this.no_params_headers,
       });
+      return response.data;
+    } catch (error) {
+      console.error("Error getting topics:", error);
+    }
   }
   async changePassword({ newPassword }) {
     const data = { password: newPassword };

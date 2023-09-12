@@ -55,11 +55,8 @@ const StudentChoiceSlice = createSlice({
       const storedToken = localStorage.getItem("access_token");
       if (storedToken) {
         const token = storedToken.replace(/"/g, "");
-        const publicApi = new PublicApi({ token });
         const studentApi = new StudentApi({ token });
-        const round = publicApi.getRound();
         studentApi.addSelections({
-          round: round,
           choice1_id: state.firstchoice,
           choice2_id: state.secondchoice,
           choice3_id: state.thirdchoice,

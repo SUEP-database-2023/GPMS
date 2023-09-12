@@ -18,13 +18,15 @@ const TopicDetailPage = () => {
   // const [token, setToken] = React.useState("");
   const dispatch = useDispatch();
   const { topic_id } = useParams(); // 使用 topic_id 参数名
-
+  const [data, setData] = React.useState([]);
   React.useEffect(() => {
     const storedToken = localStorage.getItem("access_token");
     const token = storedToken.replace(/"/g, "");
     async function fetchInitialData({ token }) {
       const newData = await StudentGetTopicDataDetail({ token, topic_id });
-      dispatch(setAll(newData));
+      console.log(newData);
+      setData(newData);
+      console.log(data);
     }
 
     fetchInitialData({ token });

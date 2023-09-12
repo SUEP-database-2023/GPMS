@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from datetime import datetime
 
 
 class selectionBase(BaseModel):
@@ -7,7 +6,6 @@ class selectionBase(BaseModel):
     choice2_id: int
     choice3_id: int
     choice4_id: int
-    time: datetime
 
 
 class StudentGetSelection(selectionBase):

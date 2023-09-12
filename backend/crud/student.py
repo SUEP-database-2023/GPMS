@@ -8,6 +8,7 @@ from schemas.topic import StudentGetTopicDetail
 from sqlalchemy.orm import Session
 from schemas.selection import StudentGetSelection
 from schemas.result import ResultBase
+import datetime
 
 
 class CRUDStudent(CRUDBase):
@@ -37,6 +38,7 @@ class CRUDStudent(CRUDBase):
             round=status,
             grade=student_number.grade,
             random=student_number.random,
+            time=datetime.datetime.now()
         )
         choice_numbers = ["choice1_id", "choice2_id", "choice3_id", "choice4_id"]
         for choice in choice_numbers:
