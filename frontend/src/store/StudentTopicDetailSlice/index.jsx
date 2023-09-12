@@ -19,19 +19,15 @@ const StudentTopicDetailSlice = createSlice({
       state.note = action.payload;
     },
     setAll: (state, action) => {
-      state.name = action.payload.name;
-      state.body = action.payload.synopsis;
-      state.note = action.payload.remark;
-      console.log(state.name, state.body);
+      console.log("state");
+      // state.name = action.payload.name;
+      // state.body = action.payload.synopsis;
+      // state.note = action.payload.remark;
     },
   },
 });
 
-export const {
-  setName,
-  setAll,
-  setBody,
-  setNote,
-} = StudentTopicDetailSlice.actions;
+export const { setName, setAll, setBody, setNote } =
+  StudentTopicDetailSlice.actions;
 
 export default StudentTopicDetailSlice.reducer;
