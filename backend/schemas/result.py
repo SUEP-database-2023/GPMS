@@ -2,9 +2,9 @@ from pydantic import BaseModel
 
 
 class ResultBase(BaseModel):
-    topic_number: str
-    round: int
-    choice: int
+    number: str
+    teacher_name: str
+    name: str
 
 
 class GetAllResult(BaseModel):

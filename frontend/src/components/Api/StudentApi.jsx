@@ -75,16 +75,14 @@ class StudentApi {
     }
   }
   async getResult() {
-    axios
-      .get(this.apiUrl + `result`, {
+    try {
+      const response = await axios.get(this.apiUrl + `result`, {
         headers: this.no_params_headers,
-      })
-      .then((response) => {
-        console.log("get successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error getting:", error);
       });
+      return response.data;
+    } catch (error) {
+      console.error("Error getting result:", error);
+    }
   }
   async updateSelection({ status_id, choice, topic_id }) {
     const data = {

@@ -121,9 +121,14 @@ class CRUDStudent(CRUDBase):
         return name[0]
 
     def get_result(self, db, user_id):
-        result = db.query(Result).filter(Result.user_id == user_id).first()
+        result = db.query(Result.topic_id).filter(Result.user_id == user_id).first()
+        topic = (
+            db.query(Topic.name, Topic.teacher_name, Topic.number)
+            .filter(Topic.id == result.topic_id)
+            .first()
+        )
         result = ResultBase(
-            round=result.round, topic_number=result.topic_number, choice=result.choice
+            number=topic.number, teacher_name=topic.teacher_name, name=topic.name
         )
         return result
 
