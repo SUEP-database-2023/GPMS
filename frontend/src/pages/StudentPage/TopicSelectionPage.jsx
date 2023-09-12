@@ -23,7 +23,6 @@ const getTopics = async ({ token }) => {
 const TopicSelectionPage = () => {
   const [data, setData] = React.useState([]);
   const dispatch = useDispatch();
-  const handleclear = () => {};
   const columns = [
     {
       title: "序号",

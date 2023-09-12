@@ -73,7 +73,6 @@ const TopicListPage = () => {
     async function fetchInitialData({ token }) {
       const newData = await TeacherGetTopicData({ token });
       setData(newData);
-      console.log(data);
     }
   }, []);
 

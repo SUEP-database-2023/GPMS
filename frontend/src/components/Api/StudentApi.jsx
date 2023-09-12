@@ -20,8 +20,6 @@ class StudentApi {
       const token = storedToken.replace(/"/g, "");
       const publicApi = new PublicApi({ token });
       const round = await publicApi.getRound();
-
-      console.log(round);
       const data = {
         choice1_id: choice1_id,
         choice2_id: choice2_id,
@@ -60,12 +58,18 @@ class StudentApi {
       console.error("Error getting topic Detail:", error);
     }
   }
-  async getSelection({ status_id }) {
+  async getSelection() {
     try {
-      const response = await axios.get(this.apiUrl + `selection/${status_id}`, {
-        headers: this.headers,
-      });
-      return response.data;
+      const storedToken = localStorage.getItem("access_token");
+      if (storedToken) {
+        const token = storedToken.replace(/"/g, "");
+        const publicApi = new PublicApi({ token });
+        const round = await publicApi.getRound();
+        const response = await axios.get(this.apiUrl + `selection/${round}`, {
+          headers: this.headers,
+        });
+        return response.data;
+      }
     } catch (error) {
       console.error("Error getting topics:", error);
     }
