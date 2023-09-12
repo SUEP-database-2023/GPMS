@@ -1,12 +1,16 @@
 from crud.base import CRUDBase
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from models import Status, User
+from models import Status, User, Rounds
 from schemas.public import PublicTime
 from core.security import get_password_hash
 
 
 class CRUDPublic(CRUDBase):
+    def get_round(self, db: Session):
+        round = db.query(Rounds).filter(Rounds.id == 1).first()
+        return round.round
+
     def get_status(
         self,
         db: Session,

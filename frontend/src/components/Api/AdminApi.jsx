@@ -13,6 +13,20 @@ class AdminApi {
       Authorization: `Bearer ${token}`,
     };
   }
+
+  async updateRound({ round }) {
+    const data = { round: round };
+    axios
+      .put(this.apiUrl + `update/round`, data, {
+        headers: this.headers,
+      })
+      .then((response) => {
+        console.log("parameter update successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating:", error);
+      });
+  }
   async updateTime({
     id,
     teacher_post_time,

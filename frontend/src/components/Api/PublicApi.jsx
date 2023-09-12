@@ -9,6 +9,16 @@ class PublicApi {
       "Content-Type": "application/json",
     };
   }
+  async getRound() {
+    axios
+      .get(this.apiUrl + "round", { headers: this.no_params_headers })
+      .then((response) => {
+        console.log("parameter get successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error geting:", error);
+      });
+  }
   async changePassword({ newPassword }) {
     const data = { password: newPassword };
     axios

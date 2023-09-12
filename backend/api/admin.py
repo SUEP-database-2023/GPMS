@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from api import deps
 from schemas.user import UserRole, ResetPassword
+from schemas.round import RoundBase
 from schemas.teacher import TeacherCreate, TeacherInDB
 from schemas.student import StudentCreate, StudentInDB
 from schemas.public import PublicTime
@@ -11,6 +12,39 @@ from models import Topic
 from datetime import datetime
 
 router = APIRouter()
+
+
+@router.get("/start_matching/{grade}/{round}")
+def admin_start_matching(
+    grade: int,
+    round: int,
+    current_user=Depends(deps.get_current_user),
+    db=Depends(deps.get_db),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        crud_admin.start_matching(round=round, db=db, grade=grade)
+
+
+# 获取所有课题
+@router.get("/topics", response_model=list[TopicRequest])
+def get_all_topics(
+    current_user=Depends(deps.get_current_user), db: Session = Depends(deps.get_db)
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        topics = crud_admin.get_all_topics(db)
+    return topics
+
+
+@router.get("/get/allresult")
+def get_all_result(
+    db: Session = Depends(deps.get_db),
+    current_user=Depends(deps.get_current_user),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        result = crud_admin.get_all_result(
+            db=db,
+        )
+    return result
 
 
 @router.post("/add/teacher")
@@ -53,17 +87,6 @@ def admin_add_students(
         crud_admin.create_students(db=db, student_params=student_params)
 
 
-@router.get("/start_matching/{grade}/{round}")
-def admin_start_matching(
-    grade: int,
-    round: int,
-    current_user=Depends(deps.get_current_user),
-    db=Depends(deps.get_db),
-):
-    if deps.check_permission(current_user.role, UserRole.ADMIN):
-        crud_admin.start_matching(round=round, db=db, grade=grade)
-
-
 @router.put("/force_assign_topics")
 def force_assign_topics(
     topic_params: TopicForce,
@@ -76,16 +99,6 @@ def force_assign_topics(
             student_number=topic_params.student_number,
             topic_number=topic_params.topic_number,
         )
-
-
-# 获取所有课题
-@router.get("/topics", response_model=list[TopicRequest])
-def get_all_topics(
-    current_user=Depends(deps.get_current_user), db: Session = Depends(deps.get_db)
-):
-    if deps.check_permission(current_user.role, UserRole.ADMIN):
-        topics = crud_admin.get_all_topics(db)
-    return topics
 
 
 # 审核题目是否通过
@@ -101,6 +114,21 @@ def audit_topic(
             db=db, topic_params=topic_params, topic_id=topic_id, user_id=current_user.id
         )
     return topics
+
+
+# 更新选题轮次
+@router.put("/update/round/")
+def update_round(
+    round_params: RoundBase,
+    db: Session = Depends(deps.get_db),
+    current_user=Depends(deps.get_current_user),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        round = crud_admin.update_round(
+            db=db,
+            round_params=round_params,
+        )
+    return round
 
 
 # 更新选题截止时间
@@ -166,15 +194,3 @@ def update_user_password(
             db=db,
             user_number=user_params,
         )
-
-
-@router.get("/get/allresult")
-def get_all_result(
-    db: Session = Depends(deps.get_db),
-    current_user=Depends(deps.get_current_user),
-):
-    if deps.check_permission(current_user.role, UserRole.ADMIN):
-        result = crud_admin.get_all_result(
-            db=db,
-        )
-    return result

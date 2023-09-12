@@ -1,73 +1,89 @@
 import React from "react";
-import { Space, Table, Tag } from "antd";
-const columns = [
-  {
-    title: "课题编号",
-    dataIndex: "name",
-    key: "name",
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "课题名称",
-    dataIndex: "age",
-    key: "age",
-  },
-  {
-    title: "课题性质",
-    key: "tags",
-    dataIndex: "tags",
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-  {
-    title: "操作",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
-      </Space>
-    ),
-  },
-];
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    tags: ["cool", "teacher"],
-  },
-];
+import { Space, Table, Radio } from "antd";
+import StudentApi from "../../components/Api/StudentApi";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { commit } from "../../store/StudentChoiceSlice";
+import { StudentRadio } from "../../components/StudentRadio";
+
+const getTopics = async ({ token }) => {
+  const studentApi = new StudentApi({ token });
+  const data = await studentApi.getAllTopics();
+  const Topic_data = data.map((item, index) => {
+    return {
+      id: index + 1,
+      key: index + 1,
+      topic_id: item.number,
+      topic_name: item.name,
+      topic_category: item.category,
+    };
+  });
+  return Topic_data;
+};
 const TopicSelectionPage = () => {
+  const [data, setData] = React.useState([]);
+  const dispatch = useDispatch();
+  const handleclear = () => {};
+  const columns = [
+    {
+      title: "序号",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "课题编号",
+      dataIndex: "topic_id",
+      key: "topic_id",
+    },
+    {
+      title: "课题名称",
+      dataIndex: "topic_name",
+      key: "topic_name",
+    },
+    {
+      title: "课题类别",
+      dataIndex: "topic_category",
+      key: "topic_category",
+    },
+    {
+      title: "操作",
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle">
+          <Link
+            to={`/student/TopicDetailPage/${record.topic_id}`}
+            className="text-blue-500"
+          >
+            查看
+          </Link>
+
+          <StudentRadio topic_id={record.topic_id} />
+        </Space>
+      ),
+    },
+  ];
+
+  React.useEffect(() => {
+    const storedToken = localStorage.getItem("access_token");
+    if (storedToken) {
+      const token = storedToken.replace(/"/g, "");
+      fetchInitialData({ token });
+    }
+    async function fetchInitialData({ token }) {
+      const newData = await getTopics({ token });
+      setData(newData);
+    }
+  }, []);
+
+  const handlecommit = () => {
+    dispatch(commit());
+  };
+
   return (
     <div className="flex flex-col h-screen items-center">
       <div className="flex flex-col w-[90%]">
         <Table columns={columns} dataSource={data} />
+        <button onClick={handlecommit}>提交</button>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import TopicResultPage from "./TopicResultPage";
 import TopicRulePage from "./TopicRulePage";
 import TopicSelectionPage from "./TopicSelectionPage";
 import VolunteerSelectionPage from "./VolunteerSelectionPage";
+import TopicDetailPage from "./TopicDetailPage";
 
 export {
   PasswordUpdatePage,
@@ -10,4 +11,5 @@ export {
   TopicSelectionPage,
   TopicResultPage,
   VolunteerSelectionPage,
+  TopicDetailPage
 };

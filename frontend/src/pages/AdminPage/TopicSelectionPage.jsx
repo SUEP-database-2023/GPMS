@@ -23,25 +23,24 @@ const TopicSelectionPage = () => {
   const handleFirstAssignTopic = () => {
     const firstassignapi = new AdminApi({ token: token });
     firstassignapi.firstAssignTopics();
+    firstassignapi.updateRound({ round: 1 });
   };
   const handleSecondAssignTopic = () => {
     const secondassignapi = new AdminApi({ token: token });
     secondassignapi.secondAssignTopics();
+    secondassignapi.updateRound({ round: 2 });
   };
   return (
     <div className="flex flex-col w-[100%] h-screen items-center bg-white-100">
       <h1>my app</h1>
       <div className="flex flex-col w-[80%] h-[90%] items-start bg-white-100">
         <div className="flex w-[100%] h-[10%] items-center justify-center bg-blue-300">
-          {" "}
           {/*标题盒子*/}
           管理选课
         </div>
         <div className="flex w-[100%] h-[60%] bg-blue-100">
-          {" "}
           {/*普通批选课盒子和结果盒子*/}
           <div className="flex flex-col w-[50%] h-[100%] items-start bg-blue-200">
-            {" "}
             {/*选课组件盒*/}
             <div className="flex w-[100%] h-[35%] items-center justify-center bg-yellow-100">
               <button

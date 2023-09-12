@@ -66,9 +66,16 @@ class CRUDStudent(CRUDBase):
     def get_topic(self, db):
         used_topic = db.query(Result.topic_id)
         result = (
-            db.query(Topic.name, Topic.id).filter(not_(Topic.id.in_(used_topic))).all()
+            db.query(Topic.name, Topic.id, Topic.category, Topic.number)
+            .filter(not_(Topic.id.in_(used_topic)))
+            .all()
         )
-        result = [StudentGetTopic(name=topic[0], id=topic[1]) for topic in result]
+        result = [
+            StudentGetTopic(
+                name=topic[0], id=topic[1], category=topic[2], number=topic[3]
+            )
+            for topic in result
+        ]
         return result
 
     def get_topic_detail(self, db: Session, topic_id):

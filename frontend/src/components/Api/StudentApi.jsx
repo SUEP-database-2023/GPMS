@@ -14,13 +14,13 @@ class StudentApi {
     };
   }
   async addSelections({
-    status_id,
+    round,
     choice1_id,
     choice2_id,
     choice3_id,
     choice4_id,
-    time,
   }) {
+    const time = new Date().toLocaleTimeString();
     const data = {
       choice1_id: choice1_id,
       choice2_id: choice2_id,
@@ -29,7 +29,7 @@ class StudentApi {
       time: time,
     };
     axios
-      .post(this.apiUrl + `topic/${status_id}`, data, {
+      .post(this.apiUrl + `topic/${round}`, data, {
         headers: this.headers,
       })
       .then((response) => {
@@ -40,76 +40,34 @@ class StudentApi {
       });
   }
   async getAllTopics() {
-    axios
-      .get(this.apiUrl + `topic`, {
+    try {
+      const response = await axios.get(this.apiUrl + `topic`, {
         headers: this.no_params_headers,
-      })
-      .then((response) => {
-        console.log("get successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error getting:", error);
       });
+      return response.data;
+    } catch (error) {
+      console.error("Error getting topics:", error);
+    }
   }
-  async getTopicDetails({ id, topic_name, topic_synopsis, topic_remark }) {
-    const data = {
-      topic_name: topic_name,
-      topic_synopsis: topic_synopsis,
-      topic_remark: topic_remark,
-    };
-    axios
-      .get(this.apiUrl + `topic/${id}`, data, {
+  async getTopicDetails({ topic_id }) {
+    try {
+      const response = await axios.get(this.apiUrl + `topic/${topic_id}`, {
         headers: this.no_params_headers,
-      })
-      .then((response) => {
-        console.log("get successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error getting:", error);
       });
+      return response.data;
+    } catch (error) {
+      console.error("Error getting topic Detail:", error);
+    }
   }
-  async getSelection({
-    status_id,
-    choice1_id,
-    choice2_id,
-    choice3_id,
-    choice4_id,
-    time,
-    choice1_number,
-    choice2_number,
-    choice3_number,
-    choice4_number,
-    choice1_name,
-    choice2_name,
-    choice3_name,
-    choice4_name,
-  }) {
-    const data = {
-      status_id: status_id,
-      choice1_id: choice1_id,
-      choice2_id: choice2_id,
-      choice3_id: choice3_id,
-      choice4_id: choice4_id,
-      time: time,
-      choice1_number: choice1_number,
-      choice2_number: choice2_number,
-      choice3_number: choice3_number,
-      choice4_number: choice4_number,
-      choice1_name: choice1_name,
-      choice2_name: choice2_name,
-      choice3_name: choice3_name,
-      choice4_name: choice4_name,
-    };
-    axios
-      .get(this.apiUrl + `selection/${status_id}`, data, {
+  async getSelection({ status_id }) {
+    try {
+      const response = await axios.get(this.apiUrl + `selection/${status_id}`, {
         headers: this.headers,
-      })
-      .then((response) => {
-        console.log("get successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error getting:", error);
       });
+      return response.data;
+    } catch (error) {
+      console.error("Error getting topics:", error);
+    }
   }
   async getResult() {
     axios

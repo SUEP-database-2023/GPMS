@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from schemas.teacher import TeacherCreate, TeacherInDB
 from schemas.student import StudentCreate, StudentInDB
 from schemas.user import ResetPassword
-from models import User, Teacher, Student, Selection, Result, Topic
+from models import User, Teacher, Student, Selection, Result, Topic, Rounds
 from fastapi.encoders import jsonable_encoder
 from core.security import get_password_hash
 from fastapi import HTTPException
@@ -111,6 +111,7 @@ class CRUDAdmin(CRUDBase):
 
     def calculate_sum(self, length: int):
         return sum(range(1, length + 1))
+
 
     def start_matching(self, db: Session, grade: str, round: int):
         choices = range(1, 5)  # 选择的范围：1到4
@@ -274,6 +275,18 @@ class CRUDAdmin(CRUDBase):
             # 处理数据库操作异常
             db.rollback()
             raise HTTPException(status_code=500, detail="Failed to update topic") from e
+
+    def update_round(self, db: Session, round_params):
+        number = db.query(Rounds).all()
+        if len(number) == 0:
+            rounds = Rounds(id=1, round=round_params.round)
+            db.add(rounds)
+            db.commit()
+            db.refresh(rounds)
+        else:
+            round = db.query(Rounds).filter(Rounds.id == 1).first()
+            round.round = round_params.round
+            db.commit()
 
     def update_end_time(self, db: Session, status_params: PublicTime, status_id: Any):
         try:

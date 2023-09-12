@@ -58,7 +58,6 @@ const ParmeterSettingPage = () => {
                 教师提交题目截止时间
               </div>
               <div className="flex w-[100%] h-[50%] items-center justify-center">
-                {" "}
                 {/*时间组件*/}
                 <Space direction="vertical">
                   <DatePicker
@@ -91,7 +90,6 @@ const ParmeterSettingPage = () => {
                 学生第一次选题开始和截止时间
               </div>
               <div className="flex w-[100%] h-[50%] items-center justify-center">
-                {" "}
                 {/*时间组件*/}
                 {/* 输入时间组件 */}
                 <Space direction="vertical" size={12}>

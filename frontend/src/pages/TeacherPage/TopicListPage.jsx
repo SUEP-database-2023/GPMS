@@ -65,13 +65,15 @@ const TopicListPage = () => {
 
   React.useEffect(() => {
     const storedToken = localStorage.getItem("access_token");
-    async function fetchInitialData({ token }) {
-      const newData = await TeacherGetTopicData({ token });
-      setData(newData);
-    }
+
     if (storedToken) {
       const token = storedToken.replace(/"/g, "");
       fetchInitialData({ token });
+    }
+    async function fetchInitialData({ token }) {
+      const newData = await TeacherGetTopicData({ token });
+      setData(newData);
+      console.log(data);
     }
   }, []);
 

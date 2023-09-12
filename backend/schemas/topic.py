@@ -42,6 +42,8 @@ class TopicChange(TopicCreate):
 
 class StudentGetTopic(TopicBase):
     id: int
+    category :str
+    number: str
 
 
 class StudentGetTopicDetail(TopicBase):

@@ -18,13 +18,6 @@ const TopicDetailPage = () => {
 
   React.useEffect(() => {
     const storedToken = localStorage.getItem("access_token");
-    if (storedToken) {
-      const token1 = storedToken.replace(/"/g, "");
-    }
-  }, []);
-
-  React.useEffect(() => {
-    const storedToken = localStorage.getItem("access_token");
     const token = storedToken.replace(/"/g, "");
     async function fetchInitialData({ token }) {
       const newData = await TeacherGetTopicDataDetail({ token, topic_id });

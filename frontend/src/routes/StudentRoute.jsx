@@ -5,6 +5,7 @@ import {
   VolunteerSelectionPage,
   TopicResultPage,
   PasswordUpdatePage,
+  TopicDetailPage,
 } from "../pages/StudentPage";
 import {
   HomeOutlined,
@@ -54,6 +55,12 @@ const items = [
     url: "/student/PasswordUpdatePage",
     icon: <SetIcon icon={LockOutlined} />,
     element: <PasswordUpdatePage />,
+  },
+  {
+    id: "6",
+    title: "extra",
+    path: "TopicDetailPage/:topic_id",
+    element: <TopicDetailPage />,
   },
 ];
 // TODO:优化items写法

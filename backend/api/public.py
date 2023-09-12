@@ -11,6 +11,13 @@ from schemas.public import PublicTime
 router = APIRouter()
 
 
+@router.get("/round")
+def admin_get_round(
+    db=Depends(deps.get_db),
+):
+    return crud_public.get_round(db=db)
+
+
 @router.get("/status", response_model=list[PublicTime])
 def read_status(db: Session = Depends(deps.get_db)):
     status = crud_public.get_status(db)
