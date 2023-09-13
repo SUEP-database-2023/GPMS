@@ -41,7 +41,6 @@ const { Search } = Input;
 const getTopicDataList = async ({ token }) => {
   const adminApi = new AdminApi({ token });
   const data = await adminApi.getTopicData();
-  console.log(data);
   const Topic_data = data.map((item, index) => {
     return {
       key: index + 1,
@@ -57,7 +56,6 @@ const getTopicDataList = async ({ token }) => {
 };
 
 const TopicResultPage = () => {
-  const onSearch = (value) => console.log(value);
   const [data, setData] = React.useState([]);
   React.useEffect(() => {
     async function fetchInitialData({ token }) {
@@ -75,13 +73,8 @@ const TopicResultPage = () => {
   return (
     <div className="flex flex-col h-screen items-center">
       <div className="flex flex-col w-[90%] items-end">
-        {/* 搜索框 */}
         <Space direction="vertical">
-          <Search
-            placeholder="input search text"
-            onSearch={onSearch}
-            style={{ width: 200 }}
-          />
+          <Search placeholder="input search text" style={{ width: 200 }} />
         </Space>
       </div>
       <div className="flex flex-col w-[90%]">
