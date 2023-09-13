@@ -95,7 +95,6 @@ class AdminApi {
 
   async getDetailTopicData({ topic_id }) {
     try {
-      console.log(topic_id);
       const response = await axios.get(this.apiUrl + `topic/${topic_id}`, {
         headers: this.no_params_headers,
       });
