@@ -3,6 +3,7 @@ from datetime import datetime
 
 
 class TopicRequest(BaseModel):
+    id: int
     number: str
     name: str
     whether_background: bool
@@ -22,8 +23,8 @@ class TopicBase(BaseModel):
     name: str
 
 
-class TopicAudit(TopicBase):
-    is_approved: bool
+class TopicAudit(BaseModel):
+    id: int
 
 
 class TopicCreate(TopicBase):
@@ -42,7 +43,7 @@ class TopicChange(TopicCreate):
 
 class StudentGetTopic(TopicBase):
     id: int
-    category :str
+    category: str
     number: str
 
 

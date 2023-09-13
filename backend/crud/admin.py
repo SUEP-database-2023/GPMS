@@ -112,7 +112,6 @@ class CRUDAdmin(CRUDBase):
     def calculate_sum(self, length: int):
         return sum(range(1, length + 1))
 
-
     def start_matching(self, db: Session, grade: str, round: int):
         choices = range(1, 5)  # 选择的范围：1到4
 
@@ -227,6 +226,7 @@ class CRUDAdmin(CRUDBase):
         topics = db.query(Topic).all()
         topics = [
             TopicRequest(
+                id=topic.id,
                 number=topic.number,
                 name=topic.name,
                 whether_background=topic.whether_background,
@@ -247,29 +247,22 @@ class CRUDAdmin(CRUDBase):
             raise HTTPException(status_code=404, detail="Topics not found")
         return topics
 
-    def audit_topic(
-        self, db: Session, topic_params: TopicAudit, topic_id: Any, user_id: Any
-    ):
+    def audit_topic(self, db: Session, topic_params: TopicAudit, user_id: Any):
         try:
             # 查询对应的主题记录
-            topic = db.query(Topic).filter(Topic.id == topic_id).first()
+            for topics in topic_params:
+                topic = db.query(Topic).filter(Topic.id == topics.id).first()
 
-            if not topic:
-                # 如果找不到对应的主题记录，抛出 HTTPException
-                raise HTTPException(status_code=404, detail="Topic not found")
+                if not topic:
+                    # 如果找不到对应的主题记录，抛出 HTTPException
+                    raise HTTPException(status_code=404, detail="Topic not found")
 
-            if topic.user_id != user_id:
-                raise HTTPException(status_code=404, detail="not your topic")
+                # 更新主题记录的属性
 
-            # 更新主题记录的属性
-            for field, value in topic_params.dict().items():
-                setattr(topic, field, value)
+                setattr(topic, "whether_pass", True)
 
-            # 提交事务
-            db.commit()
-
-            # 返回更新后的主题记录
-            return topic
+                # 提交事务
+                db.commit()
 
         except SQLAlchemyError as e:
             # 处理数据库操作异常

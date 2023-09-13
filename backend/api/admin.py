@@ -102,18 +102,16 @@ def force_assign_topics(
 
 
 # 审核题目是否通过
-@router.put("/update/audit_topic/{topic_id}", response_model=list[TopicAudit])
+@router.put("/update/audit_topic")
 def audit_topic(
-    topic_id: int,
-    topic_params: TopicAudit,
+    topic_params: list[TopicAudit],
     db: Session = Depends(deps.get_db),
     current_user=Depends(deps.get_current_user),
 ):
     if deps.check_permission(current_user.role, UserRole.ADMIN):
-        topics = crud_admin.audit_topic(
-            db=db, topic_params=topic_params, topic_id=topic_id, user_id=current_user.id
+        crud_admin.audit_topic(
+            db=db, topic_params=topic_params, user_id=current_user.id
         )
-    return topics
 
 
 # 更新选题轮次

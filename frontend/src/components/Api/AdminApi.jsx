@@ -16,7 +16,7 @@ class AdminApi {
 
   async updateRound({ round }) {
     const data = { round: round };
-    axios
+    await axios
       .put(this.apiUrl + `update/round`, data, {
         headers: this.headers,
       })
@@ -62,7 +62,7 @@ class AdminApi {
 
   async resetPassword({ number }) {
     const data = { number: number };
-    axios
+    await axios
       .put(this.apiUrl + `update/user/`, data, { headers: this.headers })
       .then((response) => {
         console.log("Password reset successfully:", response.data);
@@ -82,9 +82,19 @@ class AdminApi {
       console.error("Error getting topics:", error);
     }
   }
+  async getAllTopicData() {
+    try {
+      const response = await axios.get(this.apiUrl + "topics", {
+        headers: this.no_params_headers,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error getting topics:", error);
+    }
+  }
   async assignTopics({ studentID, topicID }) {
     const data = { student_number: studentID, topic_number: topicID };
-    axios
+    await axios
       .put(this.apiUrl + `force_assign_topics`, data, {
         headers: this.headers,
       })
@@ -96,7 +106,7 @@ class AdminApi {
       });
   }
   async firstAssignTopics() {
-    axios
+    await axios
       .get(this.apiUrl + `start_matching/2020/1`, {
         headers: this.no_params_headers,
       })
@@ -108,7 +118,7 @@ class AdminApi {
       });
   }
   async secondAssignTopics() {
-    axios
+    await axios
       .get(this.apiUrl + `start_matching/2020/2`, {
         headers: this.no_params_headers,
       })
@@ -118,6 +128,16 @@ class AdminApi {
       .catch((error) => {
         console.error("Error:", error);
       });
+  }
+  async AuditTopic({ data }) {
+    try {
+      console.log(data);
+      await axios.put(this.apiUrl + "update/audit_topic", data, {
+        headers: this.headers,
+      });
+    } catch (error) {
+      console.error("Error getting topics:", error);
+    }
   }
 }
 

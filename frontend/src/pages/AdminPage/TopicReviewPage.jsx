@@ -1,65 +1,140 @@
-import React, { useState } from 'react';
-import { Divider, Radio, Table } from 'antd';
+import React, { useState, useEffect } from "react";
+import { Divider, Radio, Table } from "antd";
+import AdminApi from "../../components/Api/AdminApi";
 const columns = [
   {
     title: "序号",
-    dataIndex: "id",
-    key: "id",
-    render: (text) => <a>{text}</a>,
+    dataIndex: "key",
+    key: "key",
   },
   {
     title: "课题编号",
-    dataIndex: "subjectnumber",
-    key: "subjectnumber",
-    // render: (text) => <a>{text}</a>,
+    dataIndex: "number",
+    key: "number",
   },
   {
     title: "课题名称",
-    dataIndex: "subjectname",
-    key: "subjectname",
+    dataIndex: "name",
+    key: "name",
   },
   {
     title: "指导老师",
-    key: "teacher",
-    dataIndex: "teacher",
-  },
-];
-const data = [
-  {
-    key: '1',
-    id: 1,
-    subjectnumber:393413313,
-    subjectname: '我爱数学',
-    teacher:'a',
+    key: "teacher_name",
+    dataIndex: "teacher_name",
   },
   {
-    key: '2',
-    id: 2,
-    subjectnumber:41319,
-    subjectname: '我爱物理',
-    teacher:'b',
+    title: "专业",
+    key: "major",
+    dataIndex: "major",
+  },
+  {
+    title: "是否通过",
+    key: "whether_pass",
+    dataIndex: "whether_pass",
+  },
+  {
+    title: "年级",
+    key: "grade",
+    dataIndex: "grade",
   },
 ];
 
-const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  },
+const TopicData = async ({ token }) => {
+  const adminApi = new AdminApi({ token });
+  const newdata = await adminApi.getAllTopicData();
+  const Topic_data = newdata.map((item, index) => {
+    let pass = "未通过";
+    if (item.whether_pass === true) pass = "通过";
+    return {
+      id: item.id,
+      key: index + 1,
+      number: item.number,
+      name: item.name,
+      teacher_name: item.teacher_name,
+      whether_pass: pass,
+      whether_passed_bool: item.whether_pass,
+      major: item.major,
+      grade: item.grade,
+    };
+  });
+
+  return Topic_data;
 };
+
 const TopicReviewPage = () => {
-  const [selectionType, setSelectionType] = useState('checkbox');
+  const [selectionType, setSelectionType] = useState("checkbox");
+  const [data, setData] = useState();
+  const [buttonClicked, setButtonClicked] = useState(false);
+  useEffect(() => {
+    const storedToken = localStorage.getItem("access_token");
+
+    async function fetchInitialData({ token }) {
+      const newData = await TopicData({ token });
+      setData(newData);
+    }
+    if (storedToken) {
+      const token = storedToken.replace(/"/g, "");
+      fetchInitialData({ token });
+    }
+  }, []);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("access_token");
+
+    async function fetchInitialData({ token }) {
+      const newData = await TopicData({ token });
+      setData(newData);
+    }
+    if (storedToken) {
+      const token = storedToken.replace(/"/g, "");
+      fetchInitialData({ token });
+    }
+  }, [buttonClicked]);
+
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+      setSelectionType(selectedRows);
+    },
+  };
+
+  const handlecommit = () => {
+    if (selectionType) {
+      const data = selectionType
+        .filter((selection) => selection.whether_passed_bool === false)
+        .map((selection) => {
+          return {
+            id: selection.id,
+          };
+        });
+      const storedToken = localStorage.getItem("access_token");
+
+      if (storedToken) {
+        const token = storedToken.replace(/"/g, "");
+        const adminApi = new AdminApi({ token });
+        adminApi.AuditTopic({ data });
+        setButtonClicked(!buttonClicked);
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen items-center">
       <div className="flex flex-col w-[90%]">
-      <Table
-        rowSelection={{
-          type: selectionType,
-          ...rowSelection,
-        }}
-        columns={columns}
-        dataSource={data}
-      />
+        <Table
+          rowSelection={{
+            type: selectionType,
+            ...rowSelection,
+          }}
+          columns={columns}
+          dataSource={data}
+        />
       </div>
+      <button onClick={handlecommit}>通过</button>
     </div>
   );
 };
