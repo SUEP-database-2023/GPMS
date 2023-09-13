@@ -5,6 +5,7 @@ import {
   TopicSelectionPage,
   TopicResultPage,
   PasswordUpdatePage,
+  TopicDetailPage,
 } from "../pages/AdminPage";
 import {
   FormOutlined,
@@ -54,6 +55,12 @@ const items = [
     url: "/admin/PasswordUpdatePage",
     icon: <SetIcon icon={LockOutlined} />,
     element: <PasswordUpdatePage />,
+  },
+  {
+    id: "6",
+    title: "extra",
+    path: "TopicDetailPage/:topic_id",
+    element: <TopicDetailPage />,
   },
 ];
 

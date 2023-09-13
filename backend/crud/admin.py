@@ -247,6 +247,29 @@ class CRUDAdmin(CRUDBase):
             raise HTTPException(status_code=404, detail="Topics not found")
         return topics
 
+    def get_detail_topics(self, topic_id, db: Session):
+        topics = db.query(Topic).filter(Topic.id == topic_id).first()
+        topics = TopicRequest(
+            id=topics.id,
+            number=topics.number,
+            name=topics.name,
+            whether_background=topics.whether_background,
+            have_bg_id=topics.have_bg_id,
+            have_bg_else=topics.have_bg_else,
+            category=topics.category,
+            synopsis=topics.synopsis,
+            remark=topics.remark,
+            user_id=topics.user_id,
+            teacher_name=topics.teacher_name,
+            whether_pass=topics.whether_pass,
+            major=topics.major,
+            grade=topics.grade,
+        )
+
+        if not topics:
+            raise HTTPException(status_code=404, detail="Topics not found")
+        return topics
+
     def audit_topic(self, db: Session, topic_params: TopicAudit, user_id: Any):
         try:
             # 查询对应的主题记录

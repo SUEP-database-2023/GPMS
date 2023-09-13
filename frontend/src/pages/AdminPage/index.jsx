@@ -3,6 +3,7 @@ import TopicReviewPage from "./TopicReviewPage";
 import TopicResultPage from "./TopicResultPage";
 import TopicSelectionPage from "./TopicSelectionPage";
 import PasswordUpdatePage from "./PasswordUpdatePage";
+import TopicDetailPage from "./TopicDetailPage";
 
 export {
   ParmeterSettingPage,
@@ -10,4 +11,5 @@ export {
   TopicSelectionPage,
   TopicResultPage,
   PasswordUpdatePage,
+  TopicDetailPage,
 };

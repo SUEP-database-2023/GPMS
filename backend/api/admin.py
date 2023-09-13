@@ -35,6 +35,17 @@ def get_all_topics(
     return topics
 
 
+@router.get("/topic/{topic_id}", response_model=TopicRequest)
+def get_detail_topic(
+    topic_id: str,
+    current_user=Depends(deps.get_current_user),
+    db: Session = Depends(deps.get_db),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        topics = crud_admin.get_detail_topics(topic_id, db)
+    return topics
+
+
 @router.get("/get/allresult")
 def get_all_result(
     db: Session = Depends(deps.get_db),

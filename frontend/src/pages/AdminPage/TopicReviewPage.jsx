@@ -1,6 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { Divider, Radio, Table } from "antd";
 import AdminApi from "../../components/Api/AdminApi";
+import { Link } from "react-router-dom";
+const currentYear = new Date().getFullYear() + 1;
+const startYear = 2024;
+
+const filteyear = [];
+
+for (let year = startYear; year <= currentYear; year++) {
+  filteyear.push({
+    text: year.toString(),
+    value: year.toString(),
+  });
+}
+
+const filtepass = [
+  {
+    text: "通过",
+    value: "通过",
+  },
+  {
+    text: "未通过",
+    value: "未通过",
+  },
+];
+
+const filtemajor = [
+  {
+    text: "信计",
+    value: "信计",
+  },
+  {
+    text: "应物",
+    value: "应物",
+  },
+];
+
 const columns = [
   {
     title: "序号",
@@ -26,16 +61,40 @@ const columns = [
     title: "专业",
     key: "major",
     dataIndex: "major",
+    filters: filtemajor,
+    filterMode: "tree",
+    filterSearch: true,
+    onFilter: (value, record) => record.major.startsWith(value),
   },
   {
     title: "是否通过",
     key: "whether_pass",
     dataIndex: "whether_pass",
+    filters: filtepass,
+    filterMode: "tree",
+    filterSearch: true,
+    onFilter: (value, record) => record.whether_pass.startsWith(value),
   },
   {
     title: "年级",
     key: "grade",
     dataIndex: "grade",
+    filters: filteyear,
+    filterMode: "tree",
+    filterSearch: true,
+    onFilter: (value, record) => record.grade.startsWith(value),
+  },
+  {
+    title: "操作",
+    key: "action",
+    render: (_, record) => (
+      <Link
+        to={`/admin/TopicDetailPage/${record.id}`}
+        className="text-blue-500"
+      >
+        查看
+      </Link>
+    ),
   },
 ];
 

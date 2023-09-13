@@ -92,6 +92,18 @@ class AdminApi {
       console.error("Error getting topics:", error);
     }
   }
+
+  async getDetailTopicData({ topic_id }) {
+    try {
+      console.log(topic_id);
+      const response = await axios.get(this.apiUrl + `topic/${topic_id}`, {
+        headers: this.no_params_headers,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error getting topics:", error);
+    }
+  }
   async assignTopics({ studentID, topicID }) {
     const data = { student_number: studentID, topic_number: topicID };
     await axios
@@ -131,7 +143,6 @@ class AdminApi {
   }
   async AuditTopic({ data }) {
     try {
-      console.log(data);
       await axios.put(this.apiUrl + "update/audit_topic", data, {
         headers: this.headers,
       });
