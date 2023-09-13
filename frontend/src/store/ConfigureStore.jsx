@@ -9,7 +9,6 @@ const store = configureStore({
     api: ApiReducer,
     TeacherSubmitForm: TeacherSubmmitFromReducer,
     time: TimeReducer,
-    StudentChoice: StudentChoiceReducer,
   },
 });
 
