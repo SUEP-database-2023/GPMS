@@ -2,12 +2,12 @@ import React from "react";
 import { AudioOutlined } from "@ant-design/icons";
 import { Input, Space, Table, Tag } from "antd";
 import AdminApi from "../../components/Api/AdminApi";
+import { ResultExcelButton } from "../../components/ExcelButton";
 const columns = [
   {
     title: "课题编号",
     dataIndex: "subjectNumber",
     key: "subjectNumber",
-    // render: (text) => <a>{text}</a>,
   },
   {
     title: "学号",
@@ -80,6 +80,7 @@ const TopicResultPage = () => {
       <div className="flex flex-col w-[90%]">
         <Table columns={columns} dataSource={data} />
       </div>
+      <ResultExcelButton data={data} />
     </div>
   );
 };
