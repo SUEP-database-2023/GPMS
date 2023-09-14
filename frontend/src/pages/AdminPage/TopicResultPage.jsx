@@ -1,6 +1,5 @@
 import React from "react";
-import { AudioOutlined } from "@ant-design/icons";
-import { Input, Space, Table, Tag } from "antd";
+import { Input, Space, Table, Select } from "antd";
 import AdminApi from "../../components/Api/AdminApi";
 import { ResultExcelButton } from "../../components/ExcelButton";
 const columns = [
@@ -57,6 +56,7 @@ const getTopicDataList = async ({ token }) => {
 
 const TopicResultPage = () => {
   const [data, setData] = React.useState([]);
+  const [yearData, setYearData] = React.useState([]);
   React.useEffect(() => {
     async function fetchInitialData({ token }) {
       const newData = await getTopicDataList({ token });
@@ -70,17 +70,41 @@ const TopicResultPage = () => {
     }
   }, []);
 
+  const currentYear = new Date().getFullYear() + 1;
+  const startYear = 2020;
+
+  const items = [];
+
+  for (let year = currentYear; year >= startYear; year--) {
+    items.push({
+      value: year.toString(),
+      label: year.toString(),
+    });
+  }
+
+  const handleSelect = (value) => {
+    if (data) {
+      setYearData(data.filter((item) => item.grade === value));
+      // TODO 更改数据结构
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen items-center">
-      <div className="flex flex-col w-[90%] items-end">
-        <Space direction="vertical">
-          <Search placeholder="input search text" style={{ width: 200 }} />
-        </Space>
+      <Space direction="vertical" className="w-[90%] items-end">
+        <Search placeholder="input search text" style={{ width: 200 }} />
+      </Space>
+      <Table columns={columns} dataSource={data} className="w-[90%]" />
+      <div>
+        <Select
+          defaultValue={currentYear.toString()}
+          options={items}
+          onChange={handleSelect}
+        />
+        <a>年的</a>
+        <ResultExcelButton data={yearData} />
+        {/* TODO 修改UI */}
       </div>
-      <div className="flex flex-col w-[90%]">
-        <Table columns={columns} dataSource={data} />
-      </div>
-      <ResultExcelButton data={data} />
     </div>
   );
 };
