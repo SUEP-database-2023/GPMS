@@ -38,25 +38,47 @@ const TopicSelectionPage = () => {
       >
         <div
           className="flex w-[100%] h-[15%] items-center justify-center bg-blue-500 border border-gray-300"
-          style={{ borderRadius: "20px 20px 0 0" }}
+          style={{
+            fontSize: "30px",
+            fontWeight: "bold",
+            color: "white",
+            borderRadius: "20px 20px 0 0",
+          }}
         >
           管理选课
         </div>
         <div className="flex-col w-[100%] h-[35%] border border-gray-300">
-          <div className="flex w-[100%] h-[20%] items-center justify-center bg-blue-300">
+          <div
+            className="flex w-[100%] h-[20%] items-center justify-center"
+            style={{ fontSize: "20px", fontWeight: "bold", color: "blue" }}
+          >
             提前批选课
           </div>
           <div className="flex w-[100%] h-[50%]">
-            <div className="flex w-[50%] h-[100%] items-center justify-center">
-              学号
+            <div
+              className="flex w-[50%] h-[100%] items-center justify-center"
+              style={{
+                fontSize: "20px",
+                fontWeight: "bold",
+                color: "blue",
+              }}
+            >
+              学号:
               <Space direction="vertical" size="middle">
                 <Space.Compact>
                   <Input value={studentID} onChange={handleStudentID} />
                 </Space.Compact>
               </Space>
             </div>
-            <div className="flex w-[50%] h-[100%] items-center justify-center">
-              课号
+            <div
+              className="flex w-[50%] h-[100%] items-center justify-center"
+              style={{
+                fontSize: "20px",
+                fontWeight: "bold",
+                color: "blue",
+              }}
+            >
+              课号:
               <Space direction="vertical" size="middle">
                 <Space.Compact>
                   <Input value={topicID} onChange={handleTopicID} />
@@ -82,17 +104,31 @@ const TopicSelectionPage = () => {
               第一次选题分配
             </button>
           </div>
-          <div className="flex w-[50%] h-[100%] items-center justify-center bg-blue-200">
+          <div className="flex w-[50%] h-[100%] items-center justify-center">
             <Space direction="vertical">
               <Space wrap>
-                <Button type="primary" icon={<DownloadOutlined />}>
+                <Button
+                  className="border border-gray-300"
+                  type="primary"
+                  style={{
+                    color: "black",
+                  }}
+                  icon={<DownloadOutlined />}
+                >
                   第一次匹配结果
                 </Button>
               </Space>
             </Space>
             <Space direction="vertical">
               <Space wrap>
-                <Button type="primary" icon={<DownloadOutlined />}>
+                <Button
+                  className="border border-gray-300"
+                  type="primary"
+                  style={{
+                    color: "black",
+                  }}
+                  icon={<DownloadOutlined />}
+                >
                   未成功人名单
                 </Button>
               </Space>
@@ -115,19 +151,33 @@ const TopicSelectionPage = () => {
             </button>
           </div>
           <div
-            className="flex w-[50%] h-[100%] items-center justify-center bg-blue-200"
+            className="flex w-[50%] h-[100%] items-center justify-center"
             style={{ borderRadius: "0 0 10px 0" }}
           >
             <Space direction="vertical">
               <Space wrap>
-                <Button type="primary" icon={<DownloadOutlined />}>
+                <Button
+                  className="border border-gray-300"
+                  type="primary"
+                  style={{
+                    color: "black",
+                  }}
+                  icon={<DownloadOutlined />}
+                >
                   第二次匹配结果
                 </Button>
               </Space>
             </Space>
             <Space direction="vertical">
               <Space wrap>
-                <Button type="primary" icon={<DownloadOutlined />}>
+                <Button
+                  className="border border-gray-300"
+                  type="primary"
+                  style={{
+                    color: "black",
+                  }}
+                  icon={<DownloadOutlined />}
+                >
                   未成功人名单
                 </Button>
               </Space>
