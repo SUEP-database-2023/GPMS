@@ -26,8 +26,8 @@ const TopicSelectionPage = () => {
   const columns = [
     {
       title: "序号",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "key",
+      key: "key",
     },
     {
       title: "课题编号",
