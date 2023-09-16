@@ -74,12 +74,15 @@ const TopicDetailPage = () => {
           其他： {data.have_bg_else}
           </div>
         </div>
-        <div className="flex w-[100%] h-[30%] items-center justify-center bg-blue-100">
+        <div className="flex w-[100%] h-[25%] items-center justify-center bg-blue-100">
         简介：
          {/* <p dangerouslySetInnerHTML={{ __html: data.synopsis }} /> */}
         </div>
-        <div className="flex w-[100%] h-[30%] items-center justify-center bg-blue-100">
+        <div className="flex w-[100%] h-[15%] items-center justify-center bg-blue-100">
         备注： <p dangerouslySetInnerHTML={{ __html: data.remark }} />
+        </div>
+        <div className="flex w-[100%] h-[10%] items-center justify-center bg-blue-100">
+        是否通过: {data.whether_pass ? "Yes" : "No"}
         </div>
       </div>  
       <button onClick={handlecommit}
