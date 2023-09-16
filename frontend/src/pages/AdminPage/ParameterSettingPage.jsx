@@ -62,29 +62,16 @@ const ParmeterSettingPage = () => {
         >
           请注意，此处设置的截止时间均为该日期00点00分00秒
         </div>
-        <div className="flex w-[100%] h-[10%] border border-gray-300">
-          <div
-            className="flex w-[50%] h-[100%] items-center justify-center"
-            style={{
-              fontSize: "20px",
-              fontWeight: "bold",
-              color: "blue",
-            }}
-          >
-            ID:
-            <Input onChange={handleID} style={{ width: 100 }} maxLength={1} />
-          </div>
-          <div
-            className="flex w-[50%] h-[100%] items-center justify-center"
-            style={{
-              fontSize: "20px",
-              fontWeight: "bold",
-              color: "blue",
-            }}
-          >
-            专业：
-            <Input onChange={handleSetMajor} style={{ width: 300 }} />
-          </div>
+        <div
+          className="flex w-[100%] h-[10%] items-center justify-center border border-gray-300"
+          style={{
+            fontSize: "20px",
+            fontWeight: "bold",
+            color: "blue",
+          }}
+        >
+          专业：
+          <Input onChange={handleSetMajor} style={{ width: 300 }} />
         </div>
         <div className="flex w-[100%] h-[20%] border border-gray-300">
           <div
