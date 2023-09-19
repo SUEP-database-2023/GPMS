@@ -1,63 +1,71 @@
 import React from "react";
-import SelectionRules from "../pages/StudentPage/SelectionRules";
-import ProjectSubmit from "../pages/StudentPage/ProjectSubmit";
-import CourseSelection from "../pages/StudentPage/CourseSelection";
-import SelectionResults from "../pages/StudentPage/SelectionResults";
-import SystemSettings from "../pages/StudentPage/SystemSettings";
-import MyLayOut from "../components/Layout/MyLayOut";
 import {
-  ProfileOutlined,
-  FolderOutlined,
-  ControlOutlined,
-  MailOutlined,
-  SettingOutlined,
+  TopicRulePage,
+  TopicSelectionPage,
+  VolunteerSelectionPage,
+  TopicResultPage,
+  PasswordUpdatePage,
+  TopicDetailPage,
+} from "../pages/StudentPage";
+import {
+  HomeOutlined,
+  EditOutlined,
+  ScheduleOutlined,
+  FileDoneOutlined,
+  LockOutlined,
 } from "@ant-design/icons";
-import "../index.css";
-
-const menuItems = [
+import { GenerateRoutes, SetIcon } from "../utils";
+const items = [
   {
-    key: "1",
-    label: "选课规则",
-    icon: <ProfileOutlined />,
-    url: "SelectionRules",
-    element: <SelectionRules />,
+    id: "1",
+    title: "选题规则",
+    path: "TopicRulePage",
+    url: "/student/TopicRulePage",
+    icon: <SetIcon icon={HomeOutlined} />,
+    element: <TopicRulePage />,
   },
   {
-    key: "2",
-    label: "课题提交",
-    icon: <FolderOutlined />,
-    url: "ProjectSubmit",
-    element: <ProjectSubmit />,
+    id: "2",
+    title: "选课操作",
+    path: "TopicSelectionPage",
+    url: "/student/TopicSelectionPage",
+    icon: <SetIcon icon={EditOutlined} />,
+    element: <TopicSelectionPage />,
   },
   {
-    key: "3",
-    label: "选课操作",
-    icon: <ControlOutlined />,
-    url: "CourseSelection",
-    element: <CourseSelection />,
+    id: "3",
+    title: "预选志愿",
+    path: "VolunteerSelectionPage",
+    url: "/student/VolunteerSelectionPage",
+    icon: <SetIcon icon={ScheduleOutlined} />,
+    element: <VolunteerSelectionPage />,
   },
   {
-    key: "4",
-    label: "选课结果",
-    icon: <MailOutlined />,
-    url: "SelectionResults",
-    element: <SelectionResults />,
+    id: "4",
+    title: "选题结果",
+    path: "TopicResultPage",
+    url: "/student/TopicResultPage",
+    icon: <SetIcon icon={FileDoneOutlined} />,
+    element: <TopicResultPage />,
   },
   {
-    key: "5",
-    label: "系统设置",
-    icon: <SettingOutlined />,
-    url: "SystemSettings",
-    element: <SystemSettings />,
+    id: "5",
+    title: "修改密码",
+    path: "PasswordUpdatePage",
+    url: "/student/PasswordUpdatePage",
+    icon: <SetIcon icon={LockOutlined} />,
+    element: <PasswordUpdatePage />,
+  },
+  {
+    id: "6",
+    title: "extra",
+    path: "TopicDetailPage/:topic_id",
+    element: <TopicDetailPage />,
   },
 ];
-
-const TeacherRoute = () => {
-  return (
-    <>
-      <MyLayOut menuItems={menuItems} />
-    </>
-  );
+// TODO:优化items写法
+const StudentRoute = () => {
+  return <>{GenerateRoutes({ items: items, title: "Students" })}</>;
 };
 
-export default TeacherRoute;
+export default StudentRoute;

@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import { Provider } from "react-redux";
-import ConfigureStore from "./store/ConfigureStore";
 import GlobalRoute from "./routes/GlobalRoute";
-
+import "./index.css";
+import store from "./store/ConfigureStore";
+import { Provider } from "react-redux";
 function App() {
   return (
-    <Provider store={ConfigureStore}>
+    <Provider store={store}>
       <GlobalRoute />
     </Provider>
   );

@@ -1,32 +1,25 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Loginpage from "../pages/LoginPage/index";
-import StudentRoute from "./StudentRoute";
-import ManagerRoute from "./ManagerRoute";
-import TeacherRoute from "./TeacherRoute";
-import { ConfigProvider, theme } from "antd";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AdminRoute, TeacherRoute, StudentRoute } from "./index";
+import { LoginPage } from "../pages/LoginPage";
 import { useSelector } from "react-redux";
+import { TopicDetailPage } from "../pages/TeacherPage";
 
 function GlobalRoute() {
-  const { defaultAlgorithm, darkAlgorithm } = theme;
-  const isDarkMode = useSelector((state) => state.config.isDarkMode);
+  const initialPath = useSelector((state) => state.user.initialPath);
   return (
-    <>
-      <ConfigProvider
-        theme={{
-          algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
-        }}
-      >
-        <Router>
-          <Routes>
-            <Route path="/" element={<Loginpage />} />
-            <Route path="/teacherpage/*" element={<TeacherRoute />} />
-            <Route path="/studentpage/*" element={<StudentRoute />} />
-            <Route path="/managerpage/*" element={<ManagerRoute />} />
-          </Routes>
-        </Router>
-      </ConfigProvider>
-    </>
+    <Router initialPath={initialPath}>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/admin/*" element={<AdminRoute />} />
+        {/* <Route
+          path="/teacher/TopicDetailPage/:topic_id"
+          element={<TopicDetailPage />}
+        /> */}
+        <Route path="/teacher/*" element={<TeacherRoute />} />
+        <Route path="/student/*" element={<StudentRoute />} />
+      </Routes>
+    </Router>
   );
 }
 

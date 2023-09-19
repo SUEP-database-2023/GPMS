@@ -8,6 +8,7 @@ from fastapi import HTTPException
 from sqlalchemy import func
 from sqlalchemy.exc import SQLAlchemyError
 from schemas.teacher import TeacherSelected
+from datetime import datetime
 
 
 class CRUDTeacher(CRUDBase):
@@ -18,6 +19,10 @@ class CRUDTeacher(CRUDBase):
                 Topic.name,
                 Student.user_id,
                 Student.name,
+                Student.number,
+                Student.major,
+                Student.team,
+                Student.phone,
             )
             .join(self.model, self.model.name == Topic.teacher_name)
             .join(Result, Result.topic_id == Topic.id)
@@ -31,6 +36,10 @@ class CRUDTeacher(CRUDBase):
                 name=topic[1],
                 student_id=topic[2],
                 student_name=topic[3],
+                student_number=topic[4],
+                student_major=topic[5],
+                student_team=topic[6],
+                student_phone=topic[7],
             )
             for topic in result
         ]
@@ -38,10 +47,12 @@ class CRUDTeacher(CRUDBase):
 
     def create_topic(self, db: Session, topic_params: TopicCreate, user_id: Any):
         topic_data = jsonable_encoder(topic_params)
+        current_time = datetime.now()
         teacher = db.query(Teacher).filter(Teacher.user_id == user_id).first()
         number = self.create_number(db, teacher.major, topic_data["grade"])
         topic = Topic(
             **topic_data,
+            post_time=current_time,
             teacher_name=teacher.name,
             user_id=user_id,
             number=number,
@@ -97,6 +108,16 @@ class CRUDTeacher(CRUDBase):
         else:
             number = grade + "XJ" + id
         return number
+
+    def get_topic(self, db: Session, topic_id: Any, user_id: Any):
+        topic = db.query(Topic).filter(Topic.id == topic_id).first()
+        if topic.user_id != user_id:
+            raise HTTPException(status_code=404, detail="not your topic")
+        return topic
+
+    def get_topics(self, db: Session, user_id: Any):
+        topics = db.query(Topic).filter(Topic.user_id == user_id).all()
+        return topics
 
 
 crud_teacher = CRUDTeacher(Teacher)

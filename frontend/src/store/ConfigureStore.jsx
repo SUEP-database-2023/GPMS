@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import UserReducer from "./UserSlice";
-import ConfigReducer from "./ConfigSlice";
+import ApiReducer from "./ApiSlice";
+import TeacherSubmmitFromReducer from "./TeacherSubmmitFromSlice";
+import TimeReducer from "./TimeSlice";
 const store = configureStore({
   reducer: {
     user: UserReducer,
-    config: ConfigReducer,
+    api: ApiReducer,
+    TeacherSubmitForm: TeacherSubmmitFromReducer,
+    time: TimeReducer,
   },
 });
 

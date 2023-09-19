@@ -1,16 +1,61 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from api import deps
-from schemas.user import UserRole
-from schemas.teacher import TeacherCreate,TeacherInDB
-from schemas.student import StudentCreate,StudentInDB
+from schemas.user import UserRole, ResetPassword
+from schemas.round import RoundBase
+from schemas.teacher import TeacherCreate, TeacherInDB
+from schemas.student import StudentCreate, StudentInDB
 from schemas.public import PublicTime
-from schemas.topic import TopicRequest, TopicAudit
+from schemas.topic import TopicRequest, TopicAudit, TopicForce
 from crud import crud_admin
 from models import Topic
 from datetime import datetime
 
 router = APIRouter()
+
+
+@router.get("/start_matching/{grade}/{round}")
+def admin_start_matching(
+    grade: int,
+    round: int,
+    current_user=Depends(deps.get_current_user),
+    db=Depends(deps.get_db),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        crud_admin.start_matching(round=round, db=db, grade=grade)
+
+
+# 获取所有课题
+@router.get("/topics", response_model=list[TopicRequest])
+def get_all_topics(
+    current_user=Depends(deps.get_current_user), db: Session = Depends(deps.get_db)
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        topics = crud_admin.get_all_topics(db)
+    return topics
+
+
+@router.get("/topic/{topic_id}", response_model=TopicRequest)
+def get_detail_topic(
+    topic_id: str,
+    current_user=Depends(deps.get_current_user),
+    db: Session = Depends(deps.get_db),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        topics = crud_admin.get_detail_topics(topic_id, db)
+    return topics
+
+
+@router.get("/get/allresult")
+def get_all_result(
+    db: Session = Depends(deps.get_db),
+    current_user=Depends(deps.get_current_user),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        result = crud_admin.get_all_result(
+            db=db,
+        )
+    return result
 
 
 @router.post("/add/teacher")
@@ -53,53 +98,46 @@ def admin_add_students(
         crud_admin.create_students(db=db, student_params=student_params)
 
 
-@router.get("/start_matching/{grade}/{round}")
-def admin_start_matching(
-    grade: int,
-    round: int,
-    current_user=Depends(deps.get_current_user),
-    db=Depends(deps.get_db),
-):
-    if deps.check_permission(current_user.role, UserRole.ADMIN):
-        crud_admin.start_matching(round=round, db=db, grade=grade)
-
-
-@router.put("/force_assign_topics/{student_number}/{topic_number}")
+@router.put("/force_assign_topics")
 def force_assign_topics(
-    student_number: str,
-    topic_number: str,
+    topic_params: TopicForce,
     current_user=Depends(deps.get_current_user),
     db=Depends(deps.get_db),
 ):
     if deps.check_permission(current_user.role, UserRole.ADMIN):
         crud_admin.force_assign_topics(
-            db=db, student_number=student_number, topic_number=topic_number
+            db=db,
+            student_number=topic_params.student_number,
+            topic_number=topic_params.topic_number,
         )
 
 
-# 获取所有课题
-@router.get("/topics", response_model=list[TopicRequest])
-def get_all_topics(
-    current_user=Depends(deps.get_current_user), db: Session = Depends(deps.get_db)
-):
-    if deps.check_permission(current_user.role, UserRole.ADMIN):
-        topics = crud_admin.get_all_topics(db)
-    return topics
-
-
 # 审核题目是否通过
-@router.put("/update/audit_topic/{topic_id}", response_model=list[TopicAudit])
+@router.put("/update/audit_topic")
 def audit_topic(
-    topic_id: int,
-    topic_params: TopicAudit,
+    topic_params: list[TopicAudit],
     db: Session = Depends(deps.get_db),
     current_user=Depends(deps.get_current_user),
 ):
     if deps.check_permission(current_user.role, UserRole.ADMIN):
-        topics = crud_admin.audit_topic(
-            db=db, topic_params=topic_params, topic_id=topic_id, user_id=current_user.id
+        crud_admin.audit_topic(
+            db=db, topic_params=topic_params, user_id=current_user.id
         )
-    return topics
+
+
+# 更新选题轮次
+@router.put("/update/round/")
+def update_round(
+    round_params: RoundBase,
+    db: Session = Depends(deps.get_db),
+    current_user=Depends(deps.get_current_user),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        round = crud_admin.update_round(
+            db=db,
+            round_params=round_params,
+        )
+    return round
 
 
 # 更新选题截止时间
@@ -118,11 +156,12 @@ def update_end_time(
         )
     return status
 
+
 # 更新学生信息
 @router.put("/update/student/{student_id}")
 def update_student_info(
-    student_id:int,
-    student_params:StudentInDB,
+    student_id: int,
+    student_params: StudentInDB,
     db: Session = Depends(deps.get_db),
     current_user=Depends(deps.get_current_user),
 ):
@@ -134,11 +173,12 @@ def update_student_info(
         )
     return student
 
+
 # 更新老师信息
 @router.put("/update/teacher/{teacher_id}")
 def update_teacher_info(
-    teacher_id:int,
-    teacher_params:TeacherInDB,
+    teacher_id: int,
+    teacher_params: TeacherInDB,
     db: Session = Depends(deps.get_db),
     current_user=Depends(deps.get_current_user),
 ):
@@ -149,3 +189,17 @@ def update_teacher_info(
             teacher_id=teacher_id,
         )
     return teacher
+
+
+# 重置用户账号
+@router.put("/update/user/")
+def update_user_password(
+    user_params: ResetPassword,
+    db: Session = Depends(deps.get_db),
+    current_user=Depends(deps.get_current_user),
+):
+    if deps.check_permission(current_user.role, UserRole.ADMIN):
+        crud_admin.update_user_password(
+            db=db,
+            user_number=user_params,
+        )

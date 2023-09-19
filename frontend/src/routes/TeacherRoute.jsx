@@ -1,65 +1,62 @@
 import React from "react";
-import SubjectInfo from "../pages/TeacherPage/SubjectInfo";
-import ProjectSubmit from "../pages/TeacherPage/ProjectSubmit";
-import CourseSelection from "../pages/TeacherPage/CourseSelection";
-import SelectionResults from "../pages/TeacherPage/SelectionResults";
-import SystemSettings from "../pages/TeacherPage/SystemSettings";
-import MyLayOut from "../components/Layout/MyLayOut";
 import {
-  ProfileOutlined,
-  DesktopOutlined,
-  FolderOutlined,
-  ControlOutlined,
-  MailOutlined,
-  FolderAddOutlined,
-  SettingOutlined,
+  TopicSubmissionPage,
+  TopicListPage,
+  TopicResultPage,
+  PasswordUpdatePage,
+  TopicDetailPage,
+} from "../pages/TeacherPage";
+import {
+  FileAddOutlined,
+  ScheduleOutlined,
+  FileDoneOutlined,
+  LockOutlined,
 } from "@ant-design/icons";
-import "../index.css";
+import { GenerateRoutes, SetIcon } from "../utils";
 
-const menuItems = [
+const items = [
   {
-    key: "1",
-    label: "课题信息",
-    icon: <ProfileOutlined />,
-    url: "SubjectInfo",
-    element: <SubjectInfo />,
+    id: "1",
+    title: "课题提交",
+    path: "TopicSubmissionPage",
+    url: "/teacher/TopicSubmissionPage",
+    icon: <SetIcon icon={FileAddOutlined} />,
+    element: <TopicSubmissionPage />,
   },
   {
-    key: "2",
-    label: "课题提交",
-    icon: <FolderOutlined />,
-    url: "ProjectSubmit",
-    element: <ProjectSubmit />,
+    id: "2",
+    title: "选课列表",
+    path: "TopicListPage",
+    url: "/teacher/TopicListPage",
+    icon: <SetIcon icon={ScheduleOutlined} />,
+    element: <TopicListPage />,
   },
   {
-    key: "3",
-    label: "选课操作",
-    icon: <ControlOutlined />,
-    url: "CourseSelection",
-    element: <CourseSelection />,
+    id: "3",
+    title: "选课结果",
+    path: "TopicResultPage",
+    url: "/teacher/TopicResultPage",
+    icon: <SetIcon icon={FileDoneOutlined} />,
+    element: <TopicResultPage />,
   },
   {
-    key: "4",
-    label: "选课结果",
-    icon: <MailOutlined />,
-    url: "SelectionResults",
-    element: <SelectionResults />,
+    id: "4",
+    title: "修改密码",
+    path: "PasswordUpdatePage",
+    url: "/teacher/PasswordUpdatePage",
+    icon: <SetIcon icon={LockOutlined} />,
+    element: <PasswordUpdatePage />,
   },
   {
-    key: "5",
-    label: "系统设置",
-    icon: <SettingOutlined />,
-    url: "SystemSettings",
-    element: <SystemSettings />,
+    id: "5",
+    title: "extra",
+    path: "TopicDetailPage/:topic_id",
+    element: <TopicDetailPage />,
   },
 ];
 
 const TeacherRoute = () => {
-  return (
-    <>
-      <MyLayOut menuItems={menuItems} />
-    </>
-  );
+  return <> {GenerateRoutes({ items: items, title: "Teacher" })} </>;
 };
 
 export default TeacherRoute;

@@ -8,6 +8,7 @@ from schemas.topic import StudentGetTopicDetail
 from sqlalchemy.orm import Session
 from schemas.selection import StudentGetSelection
 from schemas.result import ResultBase
+import datetime
 
 
 class CRUDStudent(CRUDBase):
@@ -37,6 +38,7 @@ class CRUDStudent(CRUDBase):
             round=status,
             grade=student_number.grade,
             random=student_number.random,
+            time=datetime.datetime.now()
         )
         choice_numbers = ["choice1_id", "choice2_id", "choice3_id", "choice4_id"]
         for choice in choice_numbers:
@@ -66,9 +68,16 @@ class CRUDStudent(CRUDBase):
     def get_topic(self, db):
         used_topic = db.query(Result.topic_id)
         result = (
-            db.query(Topic.name, Topic.id).filter(not_(Topic.id.in_(used_topic))).all()
+            db.query(Topic.name, Topic.id, Topic.category, Topic.number)
+            .filter(not_(Topic.id.in_(used_topic)))
+            .all()
         )
-        result = [StudentGetTopic(name=topic[0], id=topic[1]) for topic in result]
+        result = [
+            StudentGetTopic(
+                name=topic[0], id=topic[1], category=topic[2], number=topic[3]
+            )
+            for topic in result
+        ]
         return result
 
     def get_topic_detail(self, db: Session, topic_id):
@@ -112,9 +121,14 @@ class CRUDStudent(CRUDBase):
         return name[0]
 
     def get_result(self, db, user_id):
-        result = db.query(Result).filter(Result.user_id == user_id).first()
+        result = db.query(Result.topic_id).filter(Result.user_id == user_id).first()
+        topic = (
+            db.query(Topic.name, Topic.teacher_name, Topic.number)
+            .filter(Topic.id == result.topic_id)
+            .first()
+        )
         result = ResultBase(
-            round=result.round, topic_number=result.topic_number, choice=result.choice
+            number=topic.number, teacher_name=topic.teacher_name, name=topic.name
         )
         return result
 
