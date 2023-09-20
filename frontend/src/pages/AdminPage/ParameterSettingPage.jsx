@@ -49,37 +49,25 @@ const ParmeterSettingPage = () => {
     <div className="flex flex-col w-full h-full items-center ">
       <div
         className="flex flex-col w-[80%] h-[80%] items-start bg-white"
-        style={{ borderRadius: "20px 20px 10px 10px" }}
+        style={{ borderRadius: "20px 20px 0px 0px" }}
       >
         <div
-          className="flex w-[100%] h-[10%] items-center justify-center bg-blue-500 border border-gray-300"
+          className="flex w-[100%] h-[10%] items-center justify-center bg-gradient-to-b from-blue-500 to-blue-800"
           style={{
-            fontSize: "30px",
-            fontWeight: "bold",
+            borderRadius: "20px 20px 0px 0px",
+            fontSize: "20px",
             color: "white",
-            borderRadius: "20px 20px 0 0",
           }}
         >
           请注意，此处设置的截止时间均为该日期00点00分00秒
-        </div>
-        <div
-          className="flex w-[100%] h-[10%] items-center justify-center border border-gray-300"
-          style={{
-            fontSize: "20px",
-            fontWeight: "bold",
-            color: "blue",
-          }}
-        >
-          专业：
-          <Input onChange={handleSetMajor} style={{ width: 300 }} />
         </div>
         <div className="flex w-[100%] h-[20%] border border-gray-300">
           <div
             className="flex w-[50%] h-[100%] items-center justify-center"
             style={{
               fontSize: "20px",
-              fontWeight: "bold",
-              color: "blue",
+              // fontWeight: "bold",
+              color: "black",
             }}
           >
             教师提交题目截止时间：
@@ -95,8 +83,8 @@ const ParmeterSettingPage = () => {
             className="flex w-[50%] h-[100%] items-center justify-center"
             style={{
               fontSize: "20px",
-              fontWeight: "bold",
-              color: "blue",
+              // fontWeight: "bold",
+              color: "black",
             }}
           >
             管理员审核题目截止时间：
@@ -111,11 +99,10 @@ const ParmeterSettingPage = () => {
         </div>
         <div className="flex w-[100%] h-[20%] border border-gray-300">
           <div
-            className="flex w-[33%] h-[100%] items-center justify-center"
+            className="flex w-[50%] h-[100%] items-center justify-center"
             style={{
               fontSize: "20px",
-              fontWeight: "bold",
-              color: "blue",
+              color: "black",
             }}
           >
             学生第一次选题开始时间：
@@ -128,11 +115,10 @@ const ParmeterSettingPage = () => {
             </Space>
           </div>
           <div
-            className="flex w-[33%] h-[100%] items-center justify-center"
+            className="flex w-[50%] h-[100%] items-center justify-center"
             style={{
               fontSize: "20px",
-              fontWeight: "bold",
-              color: "blue",
+              color: "black",
             }}
           >
             学生第一次选题截止时间：
@@ -144,12 +130,24 @@ const ParmeterSettingPage = () => {
               />
             </Space>
           </div>
+        </div>
+        <div className="flex w-[100%] h-[20%] border border-gray-300">
           <div
-            className="flex w-[33%] h-[100%] items-center justify-center"
+            className="flex w-[50%] h-[100%] items-center justify-center"
             style={{
               fontSize: "20px",
-              fontWeight: "bold",
-              color: "blue",
+              color: "black",
+            }}
+          >
+            专业：
+            <Input onChange={handleSetMajor} style={{ width: 300 }} />
+          </div>
+
+          <div
+            className="flex w-[50%] h-[100%] items-center justify-center"
+            style={{
+              fontSize: "20px",
+              color: "black",
             }}
           >
             管理员第一次匹配截止时间：
@@ -162,13 +160,13 @@ const ParmeterSettingPage = () => {
             </Space>
           </div>
         </div>
+
         <div className="flex w-[100%] h-[20%] border border-gray-300">
           <div
             className="flex w-[50%] h-[100%] items-center justify-center"
             style={{
               fontSize: "20px",
-              fontWeight: "bold",
-              color: "blue",
+              color: "black",
             }}
           >
             学生第二次选题截止时间：
@@ -184,8 +182,7 @@ const ParmeterSettingPage = () => {
             className="flex w-[50%] h-[100%] items-center justify-center"
             style={{
               fontSize: "20px",
-              fontWeight: "bold",
-              color: "blue",
+              color: "black",
             }}
           >
             管理员第二次匹配截止时间：
@@ -198,10 +195,7 @@ const ParmeterSettingPage = () => {
             </Space>
           </div>
         </div>
-        <div
-          className="flex w-[100%] h-[20%] items-center justify-center border border-gray-300"
-          style={{ borderRadius: "0 0 10px 10px" }}
-        >
+        <div className="flex w-[100%] h-[20%] items-center justify-center ">
           <button
             onClick={handleTime}
             className="w-[20%] btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"

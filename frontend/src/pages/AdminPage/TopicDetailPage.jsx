@@ -37,27 +37,84 @@ const TopicDetailPage = () => {
   };
 
   return (
-    <div>
-      {/* TODO UI修改 */}
-      <div>ID: {data.id}</div>
-      <div>Number: {data.number}</div>
-      <div>Name: {data.name}</div>
-      <div>Whether Background: {data.whether_background ? "Yes" : "No"}</div>
-      <div>Have Background ID: {data.have_bg_id}</div>
-      <div>Have Background Else: {data.have_bg_else}</div>
-      <div>Category: {data.category}</div>
-      <div>
-        Synopsis: <p dangerouslySetInnerHTML={{ __html: data.synopsis }} />
+    <div className="flex flex-col w-[100%] h-[100%] items-center bg-white-100 ">
+      <div
+        className="flex flex-col w-[80%] h-[90%] items-start bg-white"
+        style={{ borderRadius: "20px 20px 10px 10px" }}
+      >
+        <div
+          className="flex w-[100%] h-[10%] items-center justify-center bg-gradient-to-b from-blue-500 to-blue-800"
+          style={{
+            borderRadius: "20px 20px 0px 0px",
+            fontSize: "20px",
+            color: "white",
+          }}
+        >
+          {data.id}、课题名称: {data.name}
+        </div>
+        <div className="flex w-[100%] h-[10%] items-center   bg-white">
+          <div className="flex w-[20%] h-[100%] items-center  bg-white"></div>
+          <div className="flex w-[30%] h-[100%] items-center  bg-white">
+            课程编号：{data.number}
+          </div>
+          <div className="flex w-[5%] h-[100%] items-center  bg-white"></div>
+          <div className="flex w-[45%] h-[100%] items-center  bg-white">
+            教师姓名：{data.teacher_name}
+          </div>
+        </div>
+        <div className="flex w-[100%] h-[10%] items-center  bg-white">
+          <div className="flex w-[20%] h-[100%] items-center  bg-white"></div>
+          <div className="flex w-[30%] h-[100%] items-center  bg-white">
+            适用专业： {data.major}
+          </div>
+          <div className="flex w-[5%] h-[100%] items-center  bg-white"></div>
+          <div className="flex w-[45%] h-[100%] items-center  bg-white">
+            课题性质：{data.category}
+          </div>
+        </div>
+        <div className="flex w-[100%] h-[10%] items-center  bg-white">
+          <div className="flex w-[20%] h-[100%] items-center  bg-white"></div>
+          <div className="flex w-[30%] h-[100%] items-center  bg-white">
+            年级： {data.grade}
+          </div>
+          <div className="flex w-[5%] h-[100%] items-center  bg-white"></div>
+          <div className="flex w-[45%] h-[100%] items-center  bg-white">
+            是否有项目背景：{data.whether_background ? "Yes" : "No"}
+          </div>
+        </div>
+        <div className="flex w-[100%] h-[10%] items-center justify-center bg-white">
+          <div className="flex w-[20%] h-[100%] items-center  bg-white"></div>
+          <div className="flex w-[30%] h-[100%] items-center  bg-white">
+            项目号：{data.have_bg_id}
+          </div>
+          <div className="flex w-[5%] h-[100%] items-center  bg-white"></div>
+          <div className="flex w-[45%] h-[100%] items-center  bg-white">
+            其他： {data.have_bg_else}
+          </div>
+        </div>
+        <div className="flex w-[100%] h-[25%] items-center  bg-white">
+          <div className="flex w-[10%] h-[100%] items-center  bg-white"></div>
+          <div className="flex w-[85%] h-[100%] items-center  bg-white">
+            简介：
+            <p dangerouslySetInnerHTML={{ __html: data.synopsis }} />
+          </div>
+        </div>
+        <div className="flex w-[100%] h-[15%] items-center  bg-white">
+          <div className="flex w-[10%] h-[100%] items-center  bg-white"></div>
+          <div className="flex w-[90%] h-[100%] items-center  bg-white">
+            备注： <p dangerouslySetInnerHTML={{ __html: data.remark }} />
+          </div>
+        </div>
+        <div className="flex w-[100%] h-[10%] items-center justify-center bg-white">
+          是否通过: {data.whether_pass ? "Yes" : "No"}
+        </div>
       </div>
-      <div>
-        Remark: <p dangerouslySetInnerHTML={{ __html: data.remark }} />
-      </div>
-      <div>User ID: {data.user_id}</div>
-      <div>Teacher Name: {data.teacher_name}</div>
-      <div>Whether Pass: {data.whether_pass ? "Yes" : "No"}</div>
-      <div>Major: {data.major}</div>
-      <div>Grade: {data.grade}</div>
-      <button onClick={handlecommit}>通过</button>
+      <button
+        onClick={handlecommit}
+        className="w-[20%] btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
+      >
+        通过
+      </button>
     </div>
   );
 };

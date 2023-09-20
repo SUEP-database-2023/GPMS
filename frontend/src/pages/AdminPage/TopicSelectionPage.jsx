@@ -31,71 +31,22 @@ const TopicSelectionPage = () => {
     secondassignapi.updateRound({ round: 2 });
   };
   return (
-    <div className="flex w-full h-full items-center justify-center">
+    <div className="flex flex-col w-full h-full items-center ">
       <div
-        className="flex-col w-[80%] h-[80%] bg-white"
-        style={{ borderRadius: "20px 20px 10px 10px" }}
+        className="flex flex-col w-[80%] h-[80%] items-start bg-white"
+        style={{ borderRadius: "20px 20px 0px 0px" }}
       >
         <div
-          className="flex w-[100%] h-[15%] items-center justify-center bg-blue-500 border border-gray-300"
+          className="flex w-[100%] h-[10%] items-center justify-center bg-gradient-to-b from-blue-500 to-blue-800"
           style={{
-            fontSize: "30px",
-            fontWeight: "bold",
+            borderRadius: "20px 20px 0px 0px",
+            fontSize: "20px",
             color: "white",
-            borderRadius: "20px 20px 0 0",
           }}
         >
           管理选课
         </div>
-        <div className="flex-col w-[100%] h-[35%] border border-gray-300">
-          <div
-            className="flex w-[100%] h-[20%] items-center justify-center"
-            style={{ fontSize: "20px", fontWeight: "bold", color: "blue" }}
-          >
-            提前批选课
-          </div>
-          <div className="flex w-[100%] h-[50%]">
-            <div
-              className="flex w-[50%] h-[100%] items-center justify-center"
-              style={{
-                fontSize: "20px",
-                fontWeight: "bold",
-                color: "blue",
-              }}
-            >
-              学号:
-              <Space direction="vertical" size="middle">
-                <Space.Compact>
-                  <Input value={studentID} onChange={handleStudentID} />
-                </Space.Compact>
-              </Space>
-            </div>
-            <div
-              className="flex w-[50%] h-[100%] items-center justify-center"
-              style={{
-                fontSize: "20px",
-                fontWeight: "bold",
-                color: "blue",
-              }}
-            >
-              课号:
-              <Space direction="vertical" size="middle">
-                <Space.Compact>
-                  <Input value={topicID} onChange={handleTopicID} />
-                </Space.Compact>
-              </Space>
-            </div>
-          </div>
-          <div className="flex w-[100%] h-[30%] items-center justify-center">
-            <button
-              onClick={handleForceAssignTopic}
-              className="w-[20%] btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
-            >
-              提交
-            </button>
-          </div>
-        </div>
-        <div className="flex w-[100%] h-[25%] border border-gray-300">
+        <div className="flex w-[100%] h-[25%] ">
           <div className="flex  w-[50%] h-[100%] items-center justify-center">
             <button
               onClick={handleFirstAssignTopic}
@@ -135,10 +86,8 @@ const TopicSelectionPage = () => {
             </Space>
           </div>
         </div>
-        <div
-          className="flex w-[100%] h-[25%] border border-gray-300"
-          style={{ borderRadius: "0 0 10px 10px" }}
-        >
+        <hr color="gray"></hr>
+        <div className="flex w-[100%] h-[25%] ">
           <div
             className="flex w-[50%] h-[100%] items-center justify-center"
             style={{ borderRadius: "0 0 0 10px" }}
@@ -182,6 +131,55 @@ const TopicSelectionPage = () => {
                 </Button>
               </Space>
             </Space>
+          </div>
+        </div>
+        <hr color="gray"></hr>
+        <div className="flex-col w-[100%] h-[40%] ">
+          <div
+            className="flex w-[100%] h-[20%] items-center justify-center"
+            style={{ fontSize: "20px", fontWeight: "bold", color: "black" }}
+          >
+            提前批选课
+          </div>
+          <div className="flex w-[100%] h-[50%]">
+            <div
+              className="flex w-[50%] h-[100%] items-center justify-center"
+              style={{
+                fontSize: "20px",
+                fontWeight: "bold",
+                color: "black",
+              }}
+            >
+              学号:
+              <Space direction="vertical" size="middle">
+                <Space.Compact>
+                  <Input value={studentID} onChange={handleStudentID} />
+                </Space.Compact>
+              </Space>
+            </div>
+            <div
+              className="flex w-[50%] h-[100%] items-center justify-center"
+              style={{
+                fontSize: "20px",
+                fontWeight: "bold",
+                color: "black",
+              }}
+            >
+              课号:
+              <Space direction="vertical" size="middle">
+                <Space.Compact>
+                  <Input value={topicID} onChange={handleTopicID} />
+                </Space.Compact>
+              </Space>
+            </div>
+          </div>
+          <div className="flex w-[100%] h-[30%] items-center justify-center">
+            <button
+              onClick={handleForceAssignTopic}
+              className="w-[20%] btn bg-blue-500 border-blue-500 hover:bg-blue-400 hover:border-blue-400 text-white rounded-full"
+            >
+              提交
+            </button>
           </div>
         </div>
       </div>
