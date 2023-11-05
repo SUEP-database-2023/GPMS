@@ -70,6 +70,7 @@ class CRUDStudent(CRUDBase):
         result = (
             db.query(Topic.name, Topic.id, Topic.category, Topic.number)
             .filter(not_(Topic.id.in_(used_topic)))
+            .filter(Topic.whether_pass == 1)
             .all()
         )
         result = [
