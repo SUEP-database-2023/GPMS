@@ -15,3 +15,9 @@ class GetAllResult(BaseModel):
     topic_number: str
     teacher_name: str
     grade: str
+
+
+class GetSelectionsResult(GetAllResult):
+    Selected: bool
+    round: int
+    choice: int

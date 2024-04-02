@@ -59,7 +59,32 @@ const ParmeterSettingPage = () => {
             color: "white",
           }}
         >
-          请注意，此处设置的截止时间均为该日期00点00分00秒
+          参数设置
+        </div>
+        <div className="flex w-[100%] h-[10%] border border-gray-300">
+          <div
+            className="flex w-[50%] h-[100%] items-center justify-center"
+            style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              color: "blue",
+            }}
+          >
+            ID:
+            <Input onChange={handleID} style={{ width: 100 }} maxLength={1} />
+          </div>
+          <div
+            className="flex w-[50%] h-[100%] items-center justify-center"
+            style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              color: "blue",
+            }}
+          >
+            专业：
+            <Input onChange={handleSetMajor} style={{ width: 300 }} />
+            {/* TODO: UI更改，ID删掉，留专业，专业为下拉框，有信计与应物两个选项，下拉框选信计，则设置状态setMajor("XJ"), setID(1),选应物则设置状态setMajor("YW"), setID(2)*/}
+          </div>
         </div>
         <div className="flex w-[100%] h-[20%] border border-gray-300">
           <div

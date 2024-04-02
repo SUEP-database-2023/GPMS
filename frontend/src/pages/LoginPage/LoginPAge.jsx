@@ -23,6 +23,7 @@ const LoginPage = () => {
       <div className="row-span-1 col-span-1  flex justify-center">
         <LoginFrom />
       </div>
+
       <div className="row-span-2 col-span-2  ">
         <div className="h-full">
           <img src={LoginPicture} className="w-full h-screen" />

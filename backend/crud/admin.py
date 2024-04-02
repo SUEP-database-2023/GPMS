@@ -165,6 +165,8 @@ class CRUDAdmin(CRUDBase):
                 if instert_result:
                     self.insert_result(db, instert_result, id[0], round, choice)
 
+    # TODO: 返回GetSelectionsResult类型的数据
+
     def insert_result(
         self, db: Session, selection: Selection, topic_id: int, round: int, choice: int
     ):

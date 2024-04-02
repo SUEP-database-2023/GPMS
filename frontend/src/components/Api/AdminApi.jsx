@@ -12,6 +12,7 @@ class AdminApi {
       accept: "application/json",
       Authorization: `Bearer ${token}`,
     };
+    this.grade = new Date().getFullYear() + 1;
   }
 
   async updateRound({ round }) {
@@ -118,7 +119,7 @@ class AdminApi {
   }
   async firstAssignTopics() {
     await axios
-      .get(this.apiUrl + `start_matching/2020/1`, {
+      .get(this.apiUrl + `start_matching/${this.grade}/1`, {
         headers: this.no_params_headers,
       })
       .then((response) => {
@@ -130,7 +131,7 @@ class AdminApi {
   }
   async secondAssignTopics() {
     await axios
-      .get(this.apiUrl + `start_matching/2020/2`, {
+      .get(this.apiUrl + `start_matching/${this.grade}/2`, {
         headers: this.no_params_headers,
       })
       .then((response) => {
