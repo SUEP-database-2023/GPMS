@@ -15,9 +15,9 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")  # 用于加�
 
 def create_access_token(id, role, expires_delta=None):
     if expires_delta:  # 如果传入了过期时间，就用传入的过期时间
-        expire = datetime.utcnow() + expires_delta
+        expire = datetime.now() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(ACCESS_TOKEN_EXPIRE_MINUTES)
+        expire = datetime.now() + timedelta(ACCESS_TOKEN_EXPIRE_MINUTES)
 
     to_encode = {
         "exp": expire,

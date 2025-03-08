@@ -213,3 +213,23 @@ TODO
   |管理员第二次匹配截止时间|admin_end_time2|
   |当前提交时间|post_time|
   |适用的专业|status_major|
+
+# 权限
+
+管理员：0
+老师：1
+学生：2
+
+
+
+默认密码：
+password
+$2a$10$SXmatDhnwelK18HXOf4REeKHtym/2B8unZzMQgmoHUpejRRT4l9By
+
+tom
+$2b$12$2WEPSyQaystRrpcU6guMPeUdvyiVi7V3fIGL9UiZ840mlQSXnurdS
+
+jerry
+$2a$10$SXmatDhnwelK18HXOf4REeKHtym/2B8unZzMQgmoHUpejRRT4l9By
+
+eric
